@@ -9,9 +9,9 @@ public class DAO {
     public Connection conecta(){
         try{
             
-            String url = "jdbc:postgresql://localhost:5432/biblioteca";
+            String url = "jdbc:postgresql://localhost:5432/APS03";
             String usuario = "postgres";
-            String senha = "";
+            String senha = "221297";
             
             return DriverManager.getConnection(url, usuario, senha);
             
