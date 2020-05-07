@@ -3,6 +3,7 @@ package view;
 import DAO.UsuarioDAO;
 import biblioteca.Usuario;
 import java.awt.CardLayout;
+import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -401,9 +402,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRbLogin)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jBtPesquisar)
-                            .addComponent(jTxtPesqLogin)))
+                        .addComponent(jTxtPesqLogin))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jRbId)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -411,6 +410,10 @@ public class AreaUsuario extends javax.swing.JFrame {
                             .addComponent(jLabel27)
                             .addComponent(jTxtPesqId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(27, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtPesquisar)
+                .addGap(82, 82, 82))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -512,7 +515,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                                 .addComponent(jTxtAltDelEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addComponent(jLabel14))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 6, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(jPanelGerUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(jPanelGerUsuariosLayout.createSequentialGroup()
                                             .addGroup(jPanelGerUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -528,7 +531,6 @@ public class AreaUsuario extends javax.swing.JFrame {
                                                 .addComponent(jTxtAltDelLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jCbAltDelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(jTxtAltDelSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                    .addGap(18, 18, 18)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -875,9 +877,6 @@ public class AreaUsuario extends javax.swing.JFrame {
         listarTabela();
     }//GEN-LAST:event_jBtAlterarActionPerformed
 
-//GEN-FIRST:event_jBtPesquisarActionPerformed
-//GEN-LAST:event_jBtPesquisarActionPerformed
-
     //Quando clicado sobre um Usuário na tabela, seus dados são inseridos nos jTextField correspondente
     private void jTableUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuariosMouseClicked
         jTxtAltDelId.setText((String) jTableUsuarios.getModel().getValueAt(jTableUsuarios.getSelectedRow(), 0));
@@ -915,6 +914,24 @@ public class AreaUsuario extends javax.swing.JFrame {
         limparCamposCad();
         listarTabela();
     }//GEN-LAST:event_jBtCadastrarActionPerformed
+
+    private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
+        Usuario us = new Usuario();
+        us.setId_usuario(Integer.parseInt(jTxtAltDelId.getText()));
+        us.setNome(jTxtAltDelNome.getText());
+        us.setCpf(jTxtAltDelCpf.getText());
+        us.setEmail(jTxtAltDelEmail.getText());
+        us.setLogin(jTxtAltDelLogin.getText());
+        us.setSenha(jTxtAltDelSenha.getText());
+        us.setCargo(String.valueOf(jCbAltDelCargo.getSelectedItem()));
+        
+        UsuarioDAO usDAO = new UsuarioDAO();
+        usDAO.alterar(us);
+        JOptionPane.showMessageDialog(null, "Usuário alterado!");
+        
+        limparCamposAltDel();
+        listarTabela();
+    }//GEN-LAST:event_jBtPesquisarActionPerformed
 
 
     public static void main(String args[]) {
