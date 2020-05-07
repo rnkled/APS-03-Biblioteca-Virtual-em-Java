@@ -164,15 +164,38 @@ public class AreaUsuario extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jLabel22 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jLabel23 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel28 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jLabel29 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jPanelGerAlugueis = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel31 = new javax.swing.JLabel();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jLabel32 = new javax.swing.JLabel();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel33 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jPanel4 = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jLabel35 = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel36 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableUsuarios1 = new javax.swing.JTable();
+        jPanelGerAlugueis = new javax.swing.JPanel();
+        SideMenu = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabelId = new javax.swing.JLabel();
@@ -295,7 +318,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel21)
                     .addComponent(jPassSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -376,6 +399,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         }
 
         jCbAltDelCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         jLabel27.setText("Realizar pesquisa por:");
 
@@ -606,7 +631,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 .addGroup(jPanelGerUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jBtAlterar)
                     .addComponent(jBtExcluir))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         jPanelFather.add(jPanelGerUsuarios, "TelaUsuarios");
@@ -641,10 +666,6 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel22.setText("Data de Publicação:");
         jPanelGerLivros.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 20));
         jPanelGerLivros.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 87, 270, -1));
-
-        jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel23.setText("Nome");
-        jPanelGerLivros.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 40, 30));
         jPanelGerLivros.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 30, -1));
 
         jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -656,13 +677,129 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel29.setText("Resumo:");
-        jPanelGerLivros.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 80, 100, 30));
+        jPanelGerLivros.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 100, 30));
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jPanelGerLivros.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 110, 340, 220));
+        jPanelGerLivros.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, 320, 150));
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel30.setText("Nome:");
+        jPanelGerLivros.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 60, 30));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jPanelGerLivros.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 120, 150, -1));
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel31.setText("Autor:");
+        jPanelGerLivros.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 110, 40, 40));
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
+        jPanelGerLivros.add(jComboBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 90, 150, -1));
+
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel32.setText("Qualidade:");
+        jPanelGerLivros.add(jLabel32, new org.netbeans.lib.awtextra.AbsoluteConstraints(212, 140, 80, 30));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanelGerLivros.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 146, 70, -1));
+
+        jLabel33.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel33.setText("Categoria:");
+        jPanelGerLivros.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 70, 40));
+
+        jButton2.setText("Cadastrar");
+        jPanelGerLivros.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 80, -1));
+
+        jButton3.setText("Limpar");
+        jPanelGerLivros.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 170, 80, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+
+        jPanelGerLivros.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 170, 105, 150));
+
+        jButton4.setText("Adicionar Capa");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jPanelGerLivros.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 130, 105, -1));
+
+        jLabel23.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel23.setText("Gerenciar Categorias");
+        jPanelGerLivros.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        jPanelGerLivros.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 330, -1));
+
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton5.setText("Cadastrar");
+        jPanel4.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 80, -1));
+
+        jPanelGerLivros.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 330, 200));
+
+        jLabel35.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel35.setText("Cadastrar novo Autor");
+        jPanelGerLivros.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
+        jPanelGerLivros.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 330, -1));
+
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel36.setText("Nome da Categoria:");
+        jPanel5.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 130, 40));
+        jPanel5.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 160, -1));
+
+        jButton6.setText("Limpar");
+        jPanel5.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 80, -1));
+
+        jTableUsuarios1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Qnt.Livros "
+            }
+        ));
+        jTableUsuarios1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableUsuarios1MouseClicked(evt);
+            }
+        });
+        jScrollPane3.setViewportView(jTableUsuarios1);
+
+        jPanel5.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 110));
+
+        jPanelGerLivros.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 330, 200));
 
         jPanelFather.add(jPanelGerLivros, "TelaLivros");
 
@@ -681,46 +818,46 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelFather.add(jPanelGerAlugueis, "TelaAlugueis");
 
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        SideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setText("Dados Pessoais:");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        SideMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         jLabel5.setText("ID:");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
+        SideMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         jLabelId.setText("jLabelId");
-        jPanel2.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
+        SideMenu.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
 
         jLabel2.setText("Nome:");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        SideMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
 
         jLabelNome.setText("jLabelNome");
-        jPanel2.add(jLabelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
+        SideMenu.add(jLabelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
         jLabel7.setText("Login:");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 93, -1, -1));
+        SideMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 93, -1, -1));
 
         jLabelLogin.setText("jLabelLogin");
-        jPanel2.add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
+        SideMenu.add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
 
         jLabel3.setText("CPF:");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
+        SideMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
 
         jLabelCpf.setText("jLabelCpf");
-        jPanel2.add(jLabelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
+        SideMenu.add(jLabelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
 
         jLabel4.setText("E-mail:");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
+        SideMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         jLabelEmail.setText("jLabelEmail");
-        jPanel2.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
+        SideMenu.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
 
         jLabel6.setText("Cargo:");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
+        SideMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
 
         jLabelCargo.setText("jLabelCargo");
-        jPanel2.add(jLabelCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
+        SideMenu.add(jLabelCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
 
         jBtSair.setText("Sair");
         jBtSair.addActionListener(new java.awt.event.ActionListener() {
@@ -728,7 +865,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtSairActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 218, -1));
+        SideMenu.add(jBtSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 218, -1));
 
         jBtGerUsuarios.setText("Gerenciar Usuários");
         jBtGerUsuarios.setFocusable(false);
@@ -737,7 +874,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerUsuariosActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtGerUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 285, 240, 32));
+        SideMenu.add(jBtGerUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 285, 240, 32));
 
         jBtGerClientes.setText("Gerenciar Clientes");
         jBtGerClientes.setFocusable(false);
@@ -746,7 +883,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerClientesActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 335, 240, 32));
+        SideMenu.add(jBtGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 335, 240, 32));
 
         jBtGerLivros.setText("Gerenciar Livros");
         jBtGerLivros.setFocusable(false);
@@ -755,7 +892,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerLivrosActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtGerLivros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 385, 240, 32));
+        SideMenu.add(jBtGerLivros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 385, 240, 32));
 
         jBtGerAlugueis.setText("Gerenciar Aluguéis");
         jBtGerAlugueis.setFocusable(false);
@@ -764,7 +901,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerAlugueisActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtGerAlugueis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 435, 240, 32));
+        SideMenu.add(jBtGerAlugueis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 435, 240, 32));
 
         jBtHome.setText("Home");
         jBtHome.setFocusable(false);
@@ -773,7 +910,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtHomeActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 235, 240, 32));
+        SideMenu.add(jBtHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 235, 240, 32));
 
         jBtLogOut.setText("LogOut");
         jBtLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -781,21 +918,21 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtLogOutActionPerformed(evt);
             }
         });
-        jPanel2.add(jBtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 85, -1));
+        SideMenu.add(jBtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 85, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanelFather, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addComponent(jPanelFather, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -933,6 +1070,26 @@ public class AreaUsuario extends javax.swing.JFrame {
         listarTabela();
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTableUsuarios1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableUsuarios1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableUsuarios1MouseClicked
+
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -967,6 +1124,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel SideMenu;
     private javax.swing.ButtonGroup bGPesquisa;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtCadastrar;
@@ -980,8 +1138,15 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtLogOut;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtSair;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jCbAltDelCargo;
     private javax.swing.JComboBox<String> jCbCargo;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1006,6 +1171,13 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
+    private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -1023,6 +1195,8 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanelFather;
     private javax.swing.JPanel jPanelGerAlugueis;
     private javax.swing.JPanel jPanelGerCliente;
@@ -1034,12 +1208,18 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRbLogin;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTable jTableUsuarios;
+    private javax.swing.JTable jTableUsuarios1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JFormattedTextField jTxtAltDelCpf;
     private javax.swing.JTextField jTxtAltDelEmail;
     private javax.swing.JTextField jTxtAltDelId;
