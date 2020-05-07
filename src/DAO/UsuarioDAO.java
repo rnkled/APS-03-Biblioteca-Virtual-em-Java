@@ -2,6 +2,7 @@ package DAO;
 
 import java.sql.*;
 import biblioteca.Usuario;
+import biblioteca.Livro;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -90,6 +91,34 @@ public class UsuarioDAO {
             
         }
     }
+    
+    public void salvarLivro (Livro livro){
+        
+        String sql = "INSERT INTO tb_livros(nm_livro, data_publi, quantidade, qualidade, resumo, qntd_alugado, id_categoria, id_autor) VALUES(?,?,?,?,?,?,?,?)";
+        
+        try{
+            
+            PreparedStatement stn = conecta.prepareStatement(sql);
+            
+            stn.setString(1, livro.getNome());
+            stn.setString(2, livro.getData().toString());
+            stn.setInt(3, livro.getQuantidade());
+            stn.setString(4, livro.getQualidade());
+            stn.setString(5, livro.getResumo());
+            stn.setInt(6, livro.getAlugados());
+            stn.setInt(7, livro.getCategoria().getId_Categora());
+            stn.setInt(8, livro.getAutor().getId_Autor());
+            
+            stn.execute();
+            stn.close();
+            
+        } catch(SQLException e){
+            
+            throw new RuntimeException(e);
+            
+        }
+    }
+    
 
     //Executa a Validação de Login do Usuário no JFrame Login
     public boolean validarLoginUsuario(String login, String senha){
@@ -123,7 +152,6 @@ public class UsuarioDAO {
     //Valida se o Usuário é Administrador (possui o cargo Administrador)
     public boolean validarAdm(String login){
     boolean adm = false;
-    int admin = 0;
     
     String sql = "SELECT cargo FROM tb_usuarios WHERE login = ?";
     
