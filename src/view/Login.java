@@ -54,7 +54,6 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setAutoRequestFocus(false);
         setBackground(new java.awt.Color(255, 255, 255));
-        setUndecorated(true);
 
         jPanelLogin.setBorder(javax.swing.BorderFactory.createTitledBorder("Área de Login"));
 
