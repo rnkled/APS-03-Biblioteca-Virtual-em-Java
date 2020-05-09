@@ -102,8 +102,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro8 = new javax.swing.JLabel();
         jLabelTitLivro8 = new javax.swing.JLabel();
 
-        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
         setResizable(false);
@@ -115,8 +113,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelGerenciamento.setForeground(new java.awt.Color(255, 255, 255));
         jLabelGerenciamento.setText("Gerenciamento");
         jPanel1.add(jLabelGerenciamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 170, 30));
-
-        jSeparatorGer.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparatorGer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 170, 10));
         jPanel1.add(jTextFieldPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, 170, -1));
 
@@ -124,8 +120,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jLabelPesquisa.setText("Pesquisa");
         jPanel1.add(jLabelPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 170, 30));
-
-        jSeparatorPes.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparatorPes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 170, 10));
 
         jButtonConteudoHistorico.setForeground(new java.awt.Color(90, 95, 98));
@@ -167,8 +161,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelCategoria.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCategoria.setText("Categorias");
         jPanel1.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
-
-        jSeparatorCat.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.add(jSeparatorCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 10));
 
         jButtonPerfil.setForeground(new java.awt.Color(90, 95, 98));
@@ -213,7 +205,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro1.setToolTipText("");
         jLabelLivro1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro1.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro1.setText("O Temor do Sábio");
 
@@ -224,7 +215,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro2.setToolTipText("");
         jLabelLivro2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro2.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro2.setText("O Temor do Sábio");
 
@@ -235,7 +225,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro3.setToolTipText("");
         jLabelLivro3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro3.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro3.setText("O Temor do Sábio");
 
@@ -246,7 +235,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro4.setToolTipText("");
         jLabelLivro4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro4.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro4.setText("O Temor do Sábio");
 
@@ -271,7 +259,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelLivro4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitLivro4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +288,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaInicial.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 500, 170));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Recomendado para Você!");
         jPanelTelaInicial.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 320, 30));
 
@@ -311,7 +298,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaInicial.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 310, 10));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Lançamentos");
         jPanelTelaInicial.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 320, 30));
 
@@ -322,7 +308,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro5.setToolTipText("");
         jLabelLivro5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro5.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro5.setText("O Temor do Sábio");
 
@@ -333,7 +318,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro6.setToolTipText("");
         jLabelLivro6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro6.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro6.setText("O Temor do Sábio");
 
@@ -344,7 +328,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro7.setToolTipText("");
         jLabelLivro7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro7.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro7.setText("O Temor do Sábio");
 
@@ -355,7 +338,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro8.setToolTipText("");
         jLabelLivro8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
 
-        jLabelTitLivro8.setForeground(new java.awt.Color(0, 0, 0));
         jLabelTitLivro8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro8.setText("O Temor do Sábio");
 
@@ -380,7 +362,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelLivro8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabelTitLivro8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(8, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +399,7 @@ public class AreaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -483,14 +465,8 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
     private javax.swing.JLabel jLabelLivro1;
@@ -514,9 +490,6 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanelTelaInicial;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
