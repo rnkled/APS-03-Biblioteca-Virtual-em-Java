@@ -69,6 +69,9 @@ public class Login extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel2MouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jPanel2MousePressed(evt);
+            }
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -217,16 +220,24 @@ public class Login extends javax.swing.JFrame {
         
         //Código para Mover o Frame de Login
     
-    int xx;
-    int yy;
+    int mx;
+    int my;
     
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-       
+      
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
+        int x = evt.getXOnScreen();
+        int y = evt.getYOnScreen();
         
+        this.setLocation(x-mx, y-my);
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
+       mx = evt.getX();
+       my = evt.getY();
+    }//GEN-LAST:event_jPanel2MousePressed
 
     
     public static void main(String args[]) {
