@@ -3,12 +3,14 @@ package view;
 import DAO.UsuarioDAO;
 import biblioteca.Usuario;
 import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
+import java.awt.Image;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AreaUsuario extends javax.swing.JFrame {
+    
+    private Usuario sessao;
     
     public AreaUsuario() {
         initComponents();
@@ -37,26 +39,27 @@ public class AreaUsuario extends javax.swing.JFrame {
     public void setUsLogin(Usuario usuario){
         UsuarioDAO us = new UsuarioDAO();
         us.dadosUsuario(usuario);
-        jLabelId.setText(String.valueOf(usuario.getId_usuario()));
-        jLabelLogin.setText(usuario.getLogin());
-        jLabelNome.setText(usuario.getNome());
-        jLabelCpf.setText(usuario.getCpf());
-        jLabelEmail.setText(usuario.getEmail());
-        jLabelCargo.setText(usuario.getCargo());
+        
+        //Salvo os dados do Usuario na Varia Sessão
+        sessao = usuario;
+        
     }
     
     //Validação de Usuário, se é ou não Administrador (habilita/desabilita Ger. Usuários)
     public void validaAdm(boolean x){
         if(x == false){
-            jBtGerUsuarios.setEnabled(false);
+            jBtGerAnuncios.setEnabled(false);
         } else{
-            jBtGerUsuarios.setEnabled(true);
+            jBtGerAnuncios.setEnabled(true);
         }
     }
     
+    
+    
     //Pega nome do Usuário, e inclui na TelaInicial
     public void bemVindo(){
-        jLabelNomeExib.setText(jLabelNome.getText());
+        jLabelNomeExib.setText(sessao.getNome());
+        jLabelCargo.setText(sessao.getCargo());
     }
     
     //Exibi a tabela da TelaUsuarios
@@ -111,9 +114,20 @@ public class AreaUsuario extends javax.swing.JFrame {
         bGPesquisa = new javax.swing.ButtonGroup();
         jPanelFather = new javax.swing.JPanel();
         jPanelHome = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabel28 = new javax.swing.JLabel();
+        jLabel32 = new javax.swing.JLabel();
+        jLabelCargo = new javax.swing.JLabel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
         jLabelNomeExib = new javax.swing.JLabel();
-        jLabelImgExib = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
         jPanelGerUsuarios = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -158,6 +172,48 @@ public class AreaUsuario extends javax.swing.JFrame {
         jBtAlterar = new javax.swing.JButton();
         jBtExcluir = new javax.swing.JButton();
         jPanelGerCliente = new javax.swing.JPanel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabelNomeGerCliente = new javax.swing.JLabel();
+        jLabelEnderecoGerCliente = new javax.swing.JLabel();
+        jLabel29 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel30 = new javax.swing.JLabel();
+        jLabel31 = new javax.swing.JLabel();
+        jTxtLogin1 = new javax.swing.JTextField();
+        jPassSenha1 = new javax.swing.JPasswordField();
+        jBtCadastrar1 = new javax.swing.JButton();
+        jBtLimpar1 = new javax.swing.JButton();
+        jTxtNomeGerCliente = new javax.swing.JTextField();
+        jTxtEmailGerCliente = new javax.swing.JTextField();
+        jTxtCpfGerCliente = new javax.swing.JFormattedTextField();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        jLabel33 = new javax.swing.JLabel();
+        jLabelNomeAlterarGerClientes = new javax.swing.JLabel();
+        jLabelAltCPFGerClientes = new javax.swing.JLabel();
+        jLabel36 = new javax.swing.JLabel();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabelIdGerClientes = new javax.swing.JLabel();
+        jTxtIdGerClientes = new javax.swing.JTextField();
+        jTxtAltNomeGerClientes = new javax.swing.JTextField();
+        jTxtAltDelCpf1 = new javax.swing.JFormattedTextField();
+        jTxtAltDelLogin1 = new javax.swing.JTextField();
+        jTxtAltDelSenha1 = new javax.swing.JTextField();
+        jTxtAltDelEmail1 = new javax.swing.JTextField();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel41 = new javax.swing.JLabel();
+        jRbIdGerCliente = new javax.swing.JRadioButton();
+        jRbLoginGerCliente = new javax.swing.JRadioButton();
+        jTxtPesqIdGerCliente = new javax.swing.JTextField();
+        jTxtPesqLoginGerCliente = new javax.swing.JTextField();
+        jBtPesquisarGerCliente = new javax.swing.JButton();
+        jBtAlterarGerCliente = new javax.swing.JButton();
+        jBtExcluirGerCliente = new javax.swing.JButton();
+        jLabelCPFGerCliente1 = new javax.swing.JLabel();
+        jTxtAltEnderecoGerCliente = new javax.swing.JTextField();
+        jLabelAltEnderecoGerCliente = new javax.swing.JLabel();
+        jTxtEnderecoGerCliente1 = new javax.swing.JTextField();
         jPanelGerLivros = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -200,76 +256,257 @@ public class AreaUsuario extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableCategoriasLivro = new javax.swing.JTable();
         jButtonAddNovaCatLivro = new javax.swing.JButton();
+        jPanel16 = new javax.swing.JPanel();
         jPanelGerAlugueis = new javax.swing.JPanel();
+        jPanelAnuncios = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabelGerenciarCategorias3 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        jScrollPane10 = new javax.swing.JScrollPane();
+        jTableCategoriasLivro5 = new javax.swing.JTable();
+        jLabel48 = new javax.swing.JLabel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jLabel49 = new javax.swing.JLabel();
+        jLabel50 = new javax.swing.JLabel();
+        jLabel51 = new javax.swing.JLabel();
+        jLabel52 = new javax.swing.JLabel();
+        jScrollPane11 = new javax.swing.JScrollPane();
+        jTableCategoriasLivro6 = new javax.swing.JTable();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel53 = new javax.swing.JLabel();
+        jSeparator10 = new javax.swing.JSeparator();
+        jPanel10 = new javax.swing.JPanel();
+        jLabelGerenciarCategorias4 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jScrollPane12 = new javax.swing.JScrollPane();
+        jTableCategoriasLivro7 = new javax.swing.JTable();
+        jLabel54 = new javax.swing.JLabel();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jLabel55 = new javax.swing.JLabel();
+        jLabel56 = new javax.swing.JLabel();
+        jLabel57 = new javax.swing.JLabel();
+        jLabel58 = new javax.swing.JLabel();
+        jScrollPane13 = new javax.swing.JScrollPane();
+        jTableCategoriasLivro8 = new javax.swing.JTable();
+        jTextField4 = new javax.swing.JTextField();
+        jLabel59 = new javax.swing.JLabel();
+        jLabelGerenciarCategorias5 = new javax.swing.JLabel();
+        jSeparator11 = new javax.swing.JSeparator();
         SideMenu = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabelId = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabelNome = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabelLogin = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabelCpf = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabelEmail = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabelCargo = new javax.swing.JLabel();
-        jBtSair = new javax.swing.JButton();
-        jBtGerUsuarios = new javax.swing.JButton();
+        jBtGerAnuncios = new javax.swing.JButton();
         jBtGerClientes = new javax.swing.JButton();
         jBtGerLivros = new javax.swing.JButton();
         jBtGerAlugueis = new javax.swing.JButton();
         jBtHome = new javax.swing.JButton();
         jBtLogOut = new javax.swing.JButton();
+        jBtGerUsuarios1 = new javax.swing.JButton();
+        jLabelLogo = new javax.swing.JLabel();
+        jLabelCategoria = new javax.swing.JLabel();
+        jSeparatorCat = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(400, 100));
         setResizable(false);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelFather.setBackground(new java.awt.Color(153, 153, 153));
+        jPanelFather.setMaximumSize(new java.awt.Dimension(745, 623));
         jPanelFather.setLayout(new java.awt.CardLayout());
 
-        jPanelHome.setBackground(new java.awt.Color(0, 0, 102));
+        jPanelHome.setBackground(new java.awt.Color(0, 0, 0));
         jPanelHome.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelHome.setMaximumSize(new java.awt.Dimension(745, 623));
+        jPanelHome.setMinimumSize(new java.awt.Dimension(745, 623));
+        jPanelHome.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel11.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel11.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel28.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel28.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel28.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel28.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel28.setText("Este é o Painel de Controle do Funcionário.");
+
+        jLabel32.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel32.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel32.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel32.setText("Você possui um Nivel de Acesso ");
+
+        jLabelCargo.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabelCargo.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCargo.setText("jLabelCargo");
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(jLabel32)
+                .addGap(4, 4, 4)
+                .addComponent(jLabelCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel28)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelCargo)
+                    .addComponent(jLabel32))
+                .addContainerGap(33, Short.MAX_VALUE))
+        );
+
+        jPanelHome.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 280, 380, 100));
+
+        jPanel14.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel14.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel14.setPreferredSize(new java.awt.Dimension(745, 20));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 15, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 598, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(732, 10, 17, 600));
+
+        jPanel5.setBackground(new java.awt.Color(89, 89, 89));
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabelNomeExib.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabelNomeExib.setForeground(new java.awt.Color(255, 0, 0));
+        jLabelNomeExib.setForeground(new java.awt.Color(255, 204, 204));
+        jLabelNomeExib.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNomeExib.setText("jLabelNomeExib");
 
-        jLabelImgExib.setBackground(new java.awt.Color(204, 204, 204));
-
-        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(240, 240, 240));
         jLabel11.setText("Seja Bem-Vindo");
 
-        javax.swing.GroupLayout jPanelHomeLayout = new javax.swing.GroupLayout(jPanelHome);
-        jPanelHome.setLayout(jPanelHomeLayout);
-        jPanelHomeLayout.setHorizontalGroup(
-            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHomeLayout.createSequentialGroup()
-                .addGroup(jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelHomeLayout.createSequentialGroup()
-                        .addGap(337, 337, 337)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanelHomeLayout.createSequentialGroup()
-                        .addGap(300, 300, 300)
-                        .addComponent(jLabelNomeExib))
-                    .addGroup(jPanelHomeLayout.createSequentialGroup()
-                        .addGap(263, 263, 263)
-                        .addComponent(jLabelImgExib, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(263, Short.MAX_VALUE))
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(105, 105, 105)
+                .addComponent(jLabel11)
+                .addContainerGap(115, Short.MAX_VALUE))
+            .addComponent(jLabelNomeExib, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
-        jPanelHomeLayout.setVerticalGroup(
-            jPanelHomeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHomeLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabelImgExib, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(jLabel11)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabelNomeExib)
-                .addContainerGap(497, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
+
+        jPanelHome.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 320, 90));
+
+        jPanel7.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel7.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel7.setPreferredSize(new java.awt.Dimension(745, 20));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 826, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, 480, 830, 20));
+
+        jPanel6.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel6.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel6.setPreferredSize(new java.awt.Dimension(745, 20));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 806, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, 100, 810, 20));
+
+        jPanel13.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel13.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel13.setPreferredSize(new java.awt.Dimension(745, 20));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 816, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 603, 820, 20));
+
+        jPanel12.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel12.setPreferredSize(new java.awt.Dimension(745, 20));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 816, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 16, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 0, 820, 20));
+
+        jPanel8.setBackground(new java.awt.Color(67, 67, 67));
+        jPanel8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 336, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 106, Short.MAX_VALUE)
+        );
+
+        jPanelHome.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 340, 110));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/biblioteca.jpg"))); // NOI18N
+        jLabel23.setText("jLabel23");
+        jPanelHome.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(-50, 0, 830, 760));
 
         jPanelFather.add(jPanelHome, "TelaInicial");
 
@@ -649,23 +886,262 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelFather.add(jPanelGerUsuarios, "TelaUsuarios");
 
         jPanelGerCliente.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelGerCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanelGerClienteLayout = new javax.swing.GroupLayout(jPanelGerCliente);
-        jPanelGerCliente.setLayout(jPanelGerClienteLayout);
-        jPanelGerClienteLayout.setHorizontalGroup(
-            jPanelGerClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+        jLabel22.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
+        jLabel22.setText("Alterar / Deletar Clientes:");
+        jPanelGerCliente.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
+
+        jLabelNomeGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelNomeGerCliente.setText("Nome:");
+        jPanelGerCliente.add(jLabelNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
+
+        jLabelEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente.setText("Endereço:");
+        jPanelGerCliente.add(jLabelEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 70, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel29.setText("E-mail:");
+        jPanelGerCliente.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 113, 40, -1));
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setText("Login:");
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel31.setText("Senha:");
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel31)
+                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTxtLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPassSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
-        jPanelGerClienteLayout.setVerticalGroup(
-            jPanelGerClienteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 623, Short.MAX_VALUE)
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel30)
+                    .addComponent(jTxtLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(jPassSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        jPanelGerCliente.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 260, 130));
+
+        jBtCadastrar1.setText("Cadastrar");
+        jBtCadastrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadastrar1ActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jBtCadastrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, -1));
+
+        jBtLimpar1.setText("Limpar Campos");
+        jBtLimpar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLimpar1ActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jBtLimpar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
+        jPanelGerCliente.add(jTxtNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 383, -1));
+        jPanelGerCliente.add(jTxtEmailGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 243, -1));
+
+        try {
+            jTxtCpfGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTxtCpfGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtCpfGerClienteActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jTxtCpfGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 80, -1));
+
+        jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "CPF", "E-mail", "Login", "Senha", "Cargo"
+            }
+        ));
+        jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableClientesMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableClientes);
+
+        jPanelGerCliente.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 725, 118));
+
+        jLabel33.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
+        jLabel33.setText("Cadastro de Clientes:");
+        jPanelGerCliente.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 22, -1, -1));
+
+        jLabelNomeAlterarGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelNomeAlterarGerClientes.setText("Nome:");
+        jPanelGerCliente.add(jLabelNomeAlterarGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+
+        jLabelAltCPFGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAltCPFGerClientes.setText("CPF: ");
+        jPanelGerCliente.add(jLabelAltCPFGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 483, -1, -1));
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel36.setText("E-mail:");
+        jPanelGerCliente.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 483, -1, -1));
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel37.setText("Login:");
+        jPanelGerCliente.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, -1, -1));
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel38.setText("Senha:");
+        jPanelGerCliente.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+
+        jLabelIdGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelIdGerClientes.setText("Id:");
+        jPanelGerCliente.add(jLabelIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
+
+        jTxtIdGerClientes.setEditable(false);
+        jPanelGerCliente.add(jTxtIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 73, -1));
+        jPanelGerCliente.add(jTxtAltNomeGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 187, -1));
+
+        try {
+            jTxtAltDelCpf1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanelGerCliente.add(jTxtAltDelCpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 70, -1));
+        jPanelGerCliente.add(jTxtAltDelLogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 120, -1));
+
+        jTxtAltDelSenha1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtAltDelSenha1ActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jTxtAltDelSenha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 120, -1));
+        jPanelGerCliente.add(jTxtAltDelEmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 260, -1));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+
+        jLabel41.setText("Realizar pesquisa por:");
+
+        bGPesquisa.add(jRbIdGerCliente);
+        jRbIdGerCliente.setText("CPF");
+
+        bGPesquisa.add(jRbLoginGerCliente);
+        jRbLoginGerCliente.setText("Login");
+
+        jTxtPesqLoginGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtPesqLoginGerClienteActionPerformed(evt);
+            }
+        });
+
+        jBtPesquisarGerCliente.setText("Pesquisar");
+        jBtPesquisarGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarGerClienteActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jRbLoginGerCliente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtPesqLoginGerCliente)
+                        .addGap(42, 42, 42))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jRbIdGerCliente)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel41)
+                                .addGap(41, 75, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(jTxtPesqIdGerCliente)
+                                .addGap(42, 42, 42))))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBtPesquisarGerCliente)
+                .addGap(82, 82, 82))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel41)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRbIdGerCliente)
+                    .addComponent(jTxtPesqIdGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRbLoginGerCliente)
+                    .addComponent(jTxtPesqLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jBtPesquisarGerCliente)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanelGerCliente.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 410, 260, 180));
+
+        jBtAlterarGerCliente.setText("Alterar");
+        jBtAlterarGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlterarGerClienteActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jBtAlterarGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 580, -1, -1));
+
+        jBtExcluirGerCliente.setText("Excluir");
+        jBtExcluirGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtExcluirGerClienteActionPerformed(evt);
+            }
+        });
+        jPanelGerCliente.add(jBtExcluirGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 580, -1, -1));
+
+        jLabelCPFGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelCPFGerCliente1.setText("CPF: ");
+        jPanelGerCliente.add(jLabelCPFGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 113, -1, -1));
+        jPanelGerCliente.add(jTxtAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 380, -1));
+
+        jLabelAltEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAltEnderecoGerCliente.setText("Endereço:");
+        jPanelGerCliente.add(jLabelAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 70, -1));
+        jPanelGerCliente.add(jTxtEnderecoGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 383, -1));
 
         jPanelFather.add(jPanelGerCliente, "TelaClientes");
 
         jPanelGerLivros.setBackground(new java.awt.Color(204, 204, 204));
         jPanelGerLivros.setMaximumSize(new java.awt.Dimension(745, 623));
         jPanelGerLivros.setMinimumSize(new java.awt.Dimension(745, 623));
+        jPanelGerLivros.setPreferredSize(new java.awt.Dimension(745, 623));
         jPanelGerLivros.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel18.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
@@ -742,6 +1218,10 @@ public class AreaUsuario extends javax.swing.JFrame {
         jButtonLimparCamposLivro.setText("Limpar");
         jPanelGerLivros.add(jButtonLimparCamposLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 100, -1));
 
+        jPanelCapaLivro.setBackground(new java.awt.Color(211, 211, 211));
+
+        jLabelImagemCapa.setBackground(new java.awt.Color(188, 188, 188));
+
         javax.swing.GroupLayout jPanelCapaLivroLayout = new javax.swing.GroupLayout(jPanelCapaLivro);
         jPanelCapaLivro.setLayout(jPanelCapaLivroLayout);
         jPanelCapaLivroLayout.setHorizontalGroup(
@@ -785,7 +1265,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonAddNovoAutLivroActionPerformed(evt);
             }
         });
-        jPaneCadastrarCat.add(jButtonAddNovoAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
+        jPaneCadastrarCat.add(jButtonAddNovoAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 140, -1));
 
         jButtonRemoverAutLivro.setText("Remover Selecionado");
         jButtonRemoverAutLivro.addActionListener(new java.awt.event.ActionListener() {
@@ -793,7 +1273,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonRemoverAutLivroActionPerformed(evt);
             }
         });
-        jPaneCadastrarCat.add(jButtonRemoverAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 180, -1));
+        jPaneCadastrarCat.add(jButtonRemoverAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 180, -1));
 
         jTableAutoresLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -810,9 +1290,9 @@ public class AreaUsuario extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(jTableAutoresLivros);
 
-        jPaneCadastrarCat.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 110));
+        jPaneCadastrarCat.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 110));
 
-        jPanelGerLivros.add(jPaneCadastrarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 330, 200));
+        jPanelGerLivros.add(jPaneCadastrarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 340, 200));
 
         jLabelCadastrarAutoresLivro.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
         jLabelCadastrarAutoresLivro.setText("Cadastrar novo Autor");
@@ -848,6 +1328,9 @@ public class AreaUsuario extends javax.swing.JFrame {
             }
         });
         jScrollPane3.setViewportView(jTableCategoriasLivro);
+        if (jTableCategoriasLivro.getColumnModel().getColumnCount() > 0) {
+            jTableCategoriasLivro.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
 
         jPanelCadastrarAut.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 110));
 
@@ -860,6 +1343,19 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelCadastrarAut.add(jButtonAddNovaCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
 
         jPanelGerLivros.add(jPanelCadastrarAut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 330, 200));
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 700, Short.MAX_VALUE)
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 250, Short.MAX_VALUE)
+        );
+
+        jPanelGerLivros.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 700, 250));
 
         jPanelFather.add(jPanelGerLivros, "TelaLivros");
 
@@ -878,63 +1374,200 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelFather.add(jPanelGerAlugueis, "TelaAlugueis");
 
+        jPanelAnuncios.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelAnuncios.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanelAnuncios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelGerenciarCategorias3.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabelGerenciarCategorias3.setText("Defina os Recomendados:");
+        jPanel9.add(jLabelGerenciarCategorias3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel9.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
+
+        jTableCategoriasLivro5.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nome"
+            }
+        ));
+        jTableCategoriasLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasLivro5MouseClicked(evt);
+            }
+        });
+        jScrollPane10.setViewportView(jTableCategoriasLivro5);
+        if (jTableCategoriasLivro5.getColumnModel().getColumnCount() > 0) {
+            jTableCategoriasLivro5.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
+
+        jPanel9.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 240, 150));
+
+        jLabel48.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel48.setText("Pesquisa:");
+        jPanel9.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
+
+        jButton5.setText("Retirar");
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 77, -1));
+
+        jButton6.setText("Adicionar");
+        jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+
+        jLabel49.setText("<<");
+        jPanel9.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, 20));
+
+        jLabel50.setText(">>");
+        jPanel9.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 20));
+
+        jLabel51.setText(">>");
+        jPanel9.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, 20));
+
+        jLabel52.setText("<<");
+        jPanel9.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, 20));
+
+        jTableCategoriasLivro6.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Autor"
+            }
+        ));
+        jTableCategoriasLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasLivro6MouseClicked(evt);
+            }
+        });
+        jScrollPane11.setViewportView(jTableCategoriasLivro6);
+        if (jTableCategoriasLivro6.getColumnModel().getColumnCount() > 0) {
+            jTableCategoriasLivro6.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
+
+        jPanel9.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 270, 120));
+
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 210, -1));
+
+        jLabel53.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel53.setText("Livros Mostrados Atualmente:");
+        jPanel9.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
+        jPanel9.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
+
+        jPanelAnuncios.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 680, 200));
+
+        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelGerenciarCategorias4.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabelGerenciarCategorias4.setText("Defina os Lançamentos:");
+        jPanel10.add(jLabelGerenciarCategorias4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel10.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
+
+        jTableCategoriasLivro7.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null}
+            },
+            new String [] {
+                "ID", "Nome"
+            }
+        ));
+        jTableCategoriasLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasLivro7MouseClicked(evt);
+            }
+        });
+        jScrollPane12.setViewportView(jTableCategoriasLivro7);
+        if (jTableCategoriasLivro7.getColumnModel().getColumnCount() > 0) {
+            jTableCategoriasLivro7.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
+
+        jPanel10.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 240, 150));
+
+        jLabel54.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel54.setText("Pesquisa:");
+        jPanel10.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
+
+        jButton7.setText("Retirar");
+        jPanel10.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 77, -1));
+
+        jButton8.setText("Adicionar");
+        jPanel10.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+
+        jLabel55.setText("<<");
+        jPanel10.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, 20));
+
+        jLabel56.setText(">>");
+        jPanel10.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 20));
+
+        jLabel57.setText(">>");
+        jPanel10.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, 20));
+
+        jLabel58.setText("<<");
+        jPanel10.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, 20));
+
+        jTableCategoriasLivro8.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome", "Autor"
+            }
+        ));
+        jTableCategoriasLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCategoriasLivro8MouseClicked(evt);
+            }
+        });
+        jScrollPane13.setViewportView(jTableCategoriasLivro8);
+        if (jTableCategoriasLivro8.getColumnModel().getColumnCount() > 0) {
+            jTableCategoriasLivro8.getColumnModel().getColumn(0).setPreferredWidth(1);
+        }
+
+        jPanel10.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 270, 120));
+
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField4ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 210, -1));
+
+        jLabel59.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel59.setText("Livros Mostrados Atualmente:");
+        jPanel10.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+
+        jPanelAnuncios.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 680, 200));
+
+        jLabelGerenciarCategorias5.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabelGerenciarCategorias5.setText("Defina quais Livros estarão na Página Inicial do Cliente:");
+        jPanelAnuncios.add(jLabelGerenciarCategorias5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+        jPanelAnuncios.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 570, 10));
+
+        jPanelFather.add(jPanelAnuncios, "TelaAnuncios");
+
+        getContentPane().add(jPanelFather, new org.netbeans.lib.awtextra.AbsoluteConstraints(266, 0, 745, 623));
+
+        SideMenu.setBackground(new java.awt.Color(67, 67, 67));
+        SideMenu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         SideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Dados Pessoais:");
-        SideMenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
-
-        jLabel5.setText("ID:");
-        SideMenu.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jLabelId.setText("jLabelId");
-        SideMenu.add(jLabelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, -1, -1));
-
-        jLabel2.setText("Nome:");
-        SideMenu.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
-
-        jLabelNome.setText("jLabelNome");
-        SideMenu.add(jLabelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
-
-        jLabel7.setText("Login:");
-        SideMenu.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 93, -1, -1));
-
-        jLabelLogin.setText("jLabelLogin");
-        SideMenu.add(jLabelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, -1, -1));
-
-        jLabel3.setText("CPF:");
-        SideMenu.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 120, -1, -1));
-
-        jLabelCpf.setText("jLabelCpf");
-        SideMenu.add(jLabelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 120, -1, -1));
-
-        jLabel4.setText("E-mail:");
-        SideMenu.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
-
-        jLabelEmail.setText("jLabelEmail");
-        SideMenu.add(jLabelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 140, -1, -1));
-
-        jLabel6.setText("Cargo:");
-        SideMenu.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, -1, -1));
-
-        jLabelCargo.setText("jLabelCargo");
-        SideMenu.add(jLabelCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, -1, -1));
-
-        jBtSair.setText("Sair");
-        jBtSair.addActionListener(new java.awt.event.ActionListener() {
+        jBtGerAnuncios.setText("Gerenciar Anúncios");
+        jBtGerAnuncios.setFocusable(false);
+        jBtGerAnuncios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtSairActionPerformed(evt);
+                jBtGerAnunciosActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtSair, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 218, -1));
-
-        jBtGerUsuarios.setText("Gerenciar Usuários");
-        jBtGerUsuarios.setFocusable(false);
-        jBtGerUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtGerUsuariosActionPerformed(evt);
-            }
-        });
-        SideMenu.add(jBtGerUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 285, 240, 32));
+        SideMenu.add(jBtGerAnuncios, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 500, 240, 32));
 
         jBtGerClientes.setText("Gerenciar Clientes");
         jBtGerClientes.setFocusable(false);
@@ -943,7 +1576,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerClientesActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 335, 240, 32));
+        SideMenu.add(jBtGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 240, 32));
 
         jBtGerLivros.setText("Gerenciar Livros");
         jBtGerLivros.setFocusable(false);
@@ -952,7 +1585,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerLivrosActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtGerLivros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 385, 240, 32));
+        SideMenu.add(jBtGerLivros, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 240, 32));
 
         jBtGerAlugueis.setText("Gerenciar Aluguéis");
         jBtGerAlugueis.setFocusable(false);
@@ -961,7 +1594,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtGerAlugueisActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtGerAlugueis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 435, 240, 32));
+        SideMenu.add(jBtGerAlugueis, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 240, 32));
 
         jBtHome.setText("Home");
         jBtHome.setFocusable(false);
@@ -970,7 +1603,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtHomeActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 235, 240, 32));
+        SideMenu.add(jBtHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 240, 32));
 
         jBtLogOut.setText("LogOut");
         jBtLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -978,23 +1611,27 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtLogOutActionPerformed(evt);
             }
         });
-        SideMenu.add(jBtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 520, 85, -1));
+        SideMenu.add(jBtLogOut, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 560, 85, -1));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanelFather, javax.swing.GroupLayout.PREFERRED_SIZE, 745, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(jPanelFather, javax.swing.GroupLayout.PREFERRED_SIZE, 623, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        jBtGerUsuarios1.setText("Gerenciar Usuários");
+        jBtGerUsuarios1.setFocusable(false);
+        jBtGerUsuarios1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtGerUsuarios1ActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jBtGerUsuarios1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 240, 32));
+
+        jLabelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logo.png"))); // NOI18N
+        SideMenu.add(jLabelLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 210, 180));
+
+        jLabelCategoria.setFont(new java.awt.Font("Dialog", 1, 20)); // NOI18N
+        jLabelCategoria.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCategoria.setText("Ferramentas");
+        SideMenu.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 170, 30));
+        SideMenu.add(jSeparatorCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 240, 10));
+
+        getContentPane().add(SideMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 623));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1005,16 +1642,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         cl.show(jPanelFather, "TelaClientes");
     }//GEN-LAST:event_jBtGerClientesActionPerformed
 
-    //Quando clicado no Botão Gerenciar Usuarios, chama a TelaUsuarios
-    private void jBtGerUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGerUsuariosActionPerformed
+    
+    private void jBtGerAnunciosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGerAnunciosActionPerformed
         CardLayout cl = (CardLayout) jPanelFather.getLayout();
-        cl.show(jPanelFather, "TelaUsuarios");
-    }//GEN-LAST:event_jBtGerUsuariosActionPerformed
-
-    //Quando clicado no Botão Sair, o programa é Encerrado
-    private void jBtSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtSairActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jBtSairActionPerformed
+        cl.show(jPanelFather, "TelaAnuncios");
+    }//GEN-LAST:event_jBtGerAnunciosActionPerformed
 
    
     //Quando clicado no Botão Gerenciar Livros, chama a TelaLivros
@@ -1141,11 +1773,21 @@ public class AreaUsuario extends javax.swing.JFrame {
     private void jTextFieldQualidadeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldQualidadeLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldQualidadeLivroActionPerformed
-
+    String capaDir;
     private void jButtonAddCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCapaActionPerformed
-        // TODO add your handling code here:
+        javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();
+        int result = jfc.showOpenDialog(jPanel1);
+        if (result == jfc.APPROVE_OPTION) {
+            capaDir = jfc.getSelectedFile().getAbsolutePath();
+        }
+        
+        javax.swing.ImageIcon imageIcon = new javax.swing.ImageIcon(getClass().getResource(capaDir)); // load the image to a imageIcon
+        Image image = imageIcon.getImage(); // transform it 
+        Image imgEmEscala = image.getScaledInstance(105, 150,  java.awt.Image.SCALE_SMOOTH);
+        /*
+        jLabelImagemCapa.setIcon(new javax.swing.ImageIcon(imgEmEscala)); */
     }//GEN-LAST:event_jButtonAddCapaActionPerformed
-
+        
     private void jTableCategoriasLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivroMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableCategoriasLivroMouseClicked
@@ -1169,6 +1811,72 @@ public class AreaUsuario extends javax.swing.JFrame {
     private void jTableAutoresLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAutoresLivrosMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableAutoresLivrosMouseClicked
+
+    private void jBtCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtCadastrar1ActionPerformed
+
+    private void jBtLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimpar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtLimpar1ActionPerformed
+
+    private void jTxtCpfGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCpfGerClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtCpfGerClienteActionPerformed
+
+    private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableClientesMouseClicked
+
+    private void jBtPesquisarGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarGerClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtPesquisarGerClienteActionPerformed
+
+    private void jBtAlterarGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarGerClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtAlterarGerClienteActionPerformed
+
+    private void jBtExcluirGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirGerClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jBtExcluirGerClienteActionPerformed
+
+    private void jTxtAltDelSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAltDelSenha1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtAltDelSenha1ActionPerformed
+
+    private void jTxtPesqLoginGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPesqLoginGerClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtPesqLoginGerClienteActionPerformed
+    
+    //Quando clicado no Botão Gerenciar Usuarios, chama a TelaUsuarios
+    private void jBtGerUsuarios1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtGerUsuarios1ActionPerformed
+        CardLayout cl = (CardLayout) jPanelFather.getLayout();
+        cl.show(jPanelFather, "TelaUsuarios");
+    }//GEN-LAST:event_jBtGerUsuarios1ActionPerformed
+
+    private void jTableCategoriasLivro5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro5MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCategoriasLivro5MouseClicked
+
+    private void jTableCategoriasLivro6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro6MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCategoriasLivro6MouseClicked
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTableCategoriasLivro7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro7MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCategoriasLivro7MouseClicked
+
+    private void jTableCategoriasLivro8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro8MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCategoriasLivro8MouseClicked
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
 
     public static void main(String args[]) {
@@ -1207,17 +1915,26 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel SideMenu;
     private javax.swing.ButtonGroup bGPesquisa;
     private javax.swing.JButton jBtAlterar;
+    private javax.swing.JButton jBtAlterarGerCliente;
     private javax.swing.JButton jBtCadastrar;
+    private javax.swing.JButton jBtCadastrar1;
     private javax.swing.JButton jBtExcluir;
+    private javax.swing.JButton jBtExcluirGerCliente;
     private javax.swing.JButton jBtGerAlugueis;
+    private javax.swing.JButton jBtGerAnuncios;
     private javax.swing.JButton jBtGerClientes;
     private javax.swing.JButton jBtGerLivros;
-    private javax.swing.JButton jBtGerUsuarios;
+    private javax.swing.JButton jBtGerUsuarios1;
     private javax.swing.JButton jBtHome;
     private javax.swing.JButton jBtLimpar;
+    private javax.swing.JButton jBtLimpar1;
     private javax.swing.JButton jBtLogOut;
     private javax.swing.JButton jBtPesquisar;
-    private javax.swing.JButton jBtSair;
+    private javax.swing.JButton jBtPesquisarGerCliente;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButtonAddCapa;
     private javax.swing.JButton jButtonAddNovaCatLivro;
     private javax.swing.JButton jButtonAddNovoAutLivro;
@@ -1230,7 +1947,6 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxAutorLivro;
     private javax.swing.JComboBox<String> jComboBoxCategoriaLivro;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLivro;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -1241,43 +1957,81 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel28;
+    private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
+    private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel36;
+    private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel48;
+    private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel50;
+    private javax.swing.JLabel jLabel51;
+    private javax.swing.JLabel jLabel52;
+    private javax.swing.JLabel jLabel53;
+    private javax.swing.JLabel jLabel54;
+    private javax.swing.JLabel jLabel55;
+    private javax.swing.JLabel jLabel56;
+    private javax.swing.JLabel jLabel57;
+    private javax.swing.JLabel jLabel58;
+    private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelAltCPFGerClientes;
+    private javax.swing.JLabel jLabelAltEnderecoGerCliente;
     private javax.swing.JLabel jLabelAutorLivro;
+    private javax.swing.JLabel jLabelCPFGerCliente1;
     private javax.swing.JLabel jLabelCadastrarAutoresLivro;
     private javax.swing.JLabel jLabelCargo;
+    private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelCategoriaLivro;
-    private javax.swing.JLabel jLabelCpf;
     private javax.swing.JLabel jLabelDataLivro;
-    private javax.swing.JLabel jLabelEmail;
+    private javax.swing.JLabel jLabelEnderecoGerCliente;
     private javax.swing.JLabel jLabelGerenciarCategorias;
-    private javax.swing.JLabel jLabelId;
+    private javax.swing.JLabel jLabelGerenciarCategorias3;
+    private javax.swing.JLabel jLabelGerenciarCategorias4;
+    private javax.swing.JLabel jLabelGerenciarCategorias5;
+    private javax.swing.JLabel jLabelIdGerClientes;
     private javax.swing.JLabel jLabelImagemCapa;
-    private javax.swing.JLabel jLabelImgExib;
-    private javax.swing.JLabel jLabelLogin;
-    private javax.swing.JLabel jLabelNome;
+    private javax.swing.JLabel jLabelLogo;
+    private javax.swing.JLabel jLabelNomeAlterarGerClientes;
     private javax.swing.JLabel jLabelNomeAutLivro;
     private javax.swing.JLabel jLabelNomeCatLivro;
     private javax.swing.JLabel jLabelNomeExib;
+    private javax.swing.JLabel jLabelNomeGerCliente;
     private javax.swing.JLabel jLabelNomeLivro;
     private javax.swing.JLabel jLabelQualidadeLivro;
     private javax.swing.JLabel jLabelQuantidadeLivro;
     private javax.swing.JLabel jLabelResumoLivro;
     private javax.swing.JPanel jPaneCadastrarCat;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelAnuncios;
     private javax.swing.JPanel jPanelCadastrarAut;
     private javax.swing.JPanel jPanelCapaLivro;
     private javax.swing.JPanel jPanelFather;
@@ -1287,36 +2041,70 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelGerUsuarios;
     private javax.swing.JPanel jPanelHome;
     private javax.swing.JPasswordField jPassSenha;
+    private javax.swing.JPasswordField jPassSenha1;
     private javax.swing.JRadioButton jRbId;
+    private javax.swing.JRadioButton jRbIdGerCliente;
     private javax.swing.JRadioButton jRbLogin;
+    private javax.swing.JRadioButton jRbLoginGerCliente;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane10;
+    private javax.swing.JScrollPane jScrollPane11;
+    private javax.swing.JScrollPane jScrollPane12;
+    private javax.swing.JScrollPane jScrollPane13;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JTable jTableAutoresLivros;
     private javax.swing.JTable jTableCategoriasLivro;
+    private javax.swing.JTable jTableCategoriasLivro5;
+    private javax.swing.JTable jTableCategoriasLivro6;
+    private javax.swing.JTable jTableCategoriasLivro7;
+    private javax.swing.JTable jTableCategoriasLivro8;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextArea jTextAreaResumoLivro;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextFieldNomeAutLivro;
     private javax.swing.JTextField jTextFieldNomeLivro;
     private javax.swing.JTextField jTextFieldNovaCatLivro;
     private javax.swing.JTextField jTextFieldQualidadeLivro;
     private javax.swing.JTextField jTextFieldQuantidadeLivro;
     private javax.swing.JFormattedTextField jTxtAltDelCpf;
+    private javax.swing.JFormattedTextField jTxtAltDelCpf1;
     private javax.swing.JTextField jTxtAltDelEmail;
+    private javax.swing.JTextField jTxtAltDelEmail1;
     private javax.swing.JTextField jTxtAltDelId;
     private javax.swing.JTextField jTxtAltDelLogin;
+    private javax.swing.JTextField jTxtAltDelLogin1;
     private javax.swing.JTextField jTxtAltDelNome;
     private javax.swing.JTextField jTxtAltDelSenha;
+    private javax.swing.JTextField jTxtAltDelSenha1;
+    private javax.swing.JTextField jTxtAltEnderecoGerCliente;
+    private javax.swing.JTextField jTxtAltNomeGerClientes;
     private javax.swing.JFormattedTextField jTxtCpf;
+    private javax.swing.JFormattedTextField jTxtCpfGerCliente;
     private javax.swing.JTextField jTxtEmail;
+    private javax.swing.JTextField jTxtEmailGerCliente;
+    private javax.swing.JTextField jTxtEnderecoGerCliente1;
+    private javax.swing.JTextField jTxtIdGerClientes;
     private javax.swing.JTextField jTxtLogin;
+    private javax.swing.JTextField jTxtLogin1;
     private javax.swing.JTextField jTxtNome;
+    private javax.swing.JTextField jTxtNomeGerCliente;
     private javax.swing.JTextField jTxtPesqId;
+    private javax.swing.JTextField jTxtPesqIdGerCliente;
     private javax.swing.JTextField jTxtPesqLogin;
+    private javax.swing.JTextField jTxtPesqLoginGerCliente;
     // End of variables declaration//GEN-END:variables
 }
