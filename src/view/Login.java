@@ -5,6 +5,7 @@ import DAO.ClienteDAO;
 import DAO.UsuarioDAO;
 import biblioteca.Cliente;
 import biblioteca.Usuario;
+import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.geom.RoundRectangle2D;
 import javax.swing.JOptionPane;
@@ -56,10 +57,9 @@ public class Login extends javax.swing.JFrame {
         setAutoRequestFocus(false);
         setUndecorated(true);
         setResizable(false);
-        setShape(new RoundRectangle2D.Double(0,0, 410, 178, 30,30));
+        setShape(new RoundRectangle2D.Double(0,0, 390, 173, 40,40));
 
-        jPanel2.setBackground(new java.awt.Color(67, 67, 67));
-        jPanel2.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(37, 37, 37));
         jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel2MouseDragged(evt);
@@ -72,7 +72,7 @@ public class Login extends javax.swing.JFrame {
         });
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelLogin.setBackground(new java.awt.Color(67, 67, 67));
+        jPanelLogin.setBackground(new java.awt.Color(37, 37, 37));
         jPanelLogin.setForeground(new java.awt.Color(255, 255, 255));
         jPanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jPanelLogin.add(jTxtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 206, -1));
@@ -106,12 +106,12 @@ public class Login extends javax.swing.JFrame {
         });
         jPanelLogin.add(jButtonEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 92, 80, 30));
 
-        jPanel2.add(jPanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, 360, 130));
+        jPanel2.add(jPanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 24, 360, 130));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Efetue seu Login");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(36, 4, -1, -1));
 
         jPanel1.setOpaque(false);
         jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -127,7 +127,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("X");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
 
-        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 12, 30, -1));
+        jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 30, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -217,18 +217,15 @@ public class Login extends javax.swing.JFrame {
         
         //Código para Mover o Frame de Login
     
-    int xx=0;
-    int yy=0;
+    int xx;
+    int yy;
     
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
-       xx=evt.getX();
-       yy=evt.getY();  
+       
     }//GEN-LAST:event_jPanel2MouseClicked
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
-       int x=evt.getXOnScreen();
-       int y=evt.getYOnScreen();
-       this.setLocation(x-xx, y-yy);
+        
     }//GEN-LAST:event_jPanel2MouseDragged
 
     
