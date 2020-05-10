@@ -7,6 +7,7 @@ package view;
 
 import DAO.ClienteDAO;
 import biblioteca.Cliente;
+import java.awt.CardLayout;
 import java.awt.Image;
 import javax.swing.JOptionPane;
 
@@ -15,6 +16,9 @@ import javax.swing.JOptionPane;
  * @author izael
  */
 public class AreaCliente extends javax.swing.JFrame {
+    
+    String SelCat = "Undefined";
+    int currentPage = 1;
 
     /**
      * Creates new form AreaCliente
@@ -58,7 +62,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator4 = new javax.swing.JSeparator();
-        jPanel1 = new javax.swing.JPanel();
+        SideMenu = new javax.swing.JPanel();
         jLabelGerenciamento = new javax.swing.JLabel();
         jSeparatorGer = new javax.swing.JSeparator();
         jTextFieldPesquisa = new javax.swing.JTextField();
@@ -77,7 +81,7 @@ public class AreaCliente extends javax.swing.JFrame {
         jButtonLivrosAlugados = new javax.swing.JButton();
         jButtonHistorico = new javax.swing.JButton();
         jButtonLogout = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        Screen = new javax.swing.JPanel();
         jPanelTelaInicial = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabelLivro1 = new javax.swing.JLabel();
@@ -101,67 +105,126 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelTitLivro7 = new javax.swing.JLabel();
         jLabelLivro8 = new javax.swing.JLabel();
         jLabelTitLivro8 = new javax.swing.JLabel();
+        jPanelTelaCategoria = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabelLivro9 = new javax.swing.JLabel();
+        jLabelTitLivro9 = new javax.swing.JLabel();
+        jLabelLivro10 = new javax.swing.JLabel();
+        jLabelTitLivro10 = new javax.swing.JLabel();
+        jLabelLivro11 = new javax.swing.JLabel();
+        jLabelTitLivro11 = new javax.swing.JLabel();
+        jLabelLivro12 = new javax.swing.JLabel();
+        jLabelTitLivro12 = new javax.swing.JLabel();
+        jLabelTituloCategoria = new javax.swing.JLabel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jPanel6 = new javax.swing.JPanel();
+        jLabelLivro13 = new javax.swing.JLabel();
+        jLabelTitLivro13 = new javax.swing.JLabel();
+        jLabelLivro14 = new javax.swing.JLabel();
+        jLabelTitLivro14 = new javax.swing.JLabel();
+        jLabelLivro15 = new javax.swing.JLabel();
+        jLabelTitLivro15 = new javax.swing.JLabel();
+        jLabelLivro16 = new javax.swing.JLabel();
+        jLabelTitLivro16 = new javax.swing.JLabel();
+        jButtonProximaPagina = new javax.swing.JButton();
+        jButtonPaginaAnterior = new javax.swing.JButton();
+        jLabelTituloCategoriaTexto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(67, 67, 67));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        SideMenu.setBackground(new java.awt.Color(67, 67, 67));
+        SideMenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelGerenciamento.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelGerenciamento.setForeground(new java.awt.Color(255, 255, 255));
         jLabelGerenciamento.setText("Gerenciamento");
-        jPanel1.add(jLabelGerenciamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 170, 30));
-        jPanel1.add(jSeparatorGer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 170, 10));
-        jPanel1.add(jTextFieldPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, 170, -1));
+        SideMenu.add(jLabelGerenciamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 170, 30));
+        SideMenu.add(jSeparatorGer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 170, 10));
+        SideMenu.add(jTextFieldPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, 170, -1));
 
         jLabelPesquisa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelPesquisa.setForeground(new java.awt.Color(255, 255, 255));
         jLabelPesquisa.setText("Pesquisa");
-        jPanel1.add(jLabelPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 170, 30));
-        jPanel1.add(jSeparatorPes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 170, 10));
+        SideMenu.add(jLabelPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 6, 170, 30));
+        SideMenu.add(jSeparatorPes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 170, 10));
 
         jButtonConteudoHistorico.setForeground(new java.awt.Color(90, 95, 98));
         jButtonConteudoHistorico.setText("Conteudo Histórico");
         jButtonConteudoHistorico.setBorderPainted(false);
-        jPanel1.add(jButtonConteudoHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, 20));
+        jButtonConteudoHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonConteudoHistoricoActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonConteudoHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, 20));
 
         jButtonAventura.setForeground(new java.awt.Color(90, 95, 98));
         jButtonAventura.setText("Aventura");
         jButtonAventura.setBorderPainted(false);
-        jPanel1.add(jButtonAventura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 20));
+        jButtonAventura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAventuraActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonAventura, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, 170, 20));
 
         jButtonSuspense.setForeground(new java.awt.Color(90, 95, 98));
         jButtonSuspense.setText("Suspense");
         jButtonSuspense.setBorderPainted(false);
-        jPanel1.add(jButtonSuspense, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 170, 20));
+        jButtonSuspense.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSuspenseActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonSuspense, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 170, 20));
 
         jButtonTerror.setForeground(new java.awt.Color(90, 95, 98));
         jButtonTerror.setText("Terror");
         jButtonTerror.setBorderPainted(false);
-        jPanel1.add(jButtonTerror, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 170, 20));
+        jButtonTerror.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTerrorActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonTerror, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 170, 20));
 
         jButtonRomance.setForeground(new java.awt.Color(90, 95, 98));
         jButtonRomance.setText("Romance");
         jButtonRomance.setBorderPainted(false);
-        jPanel1.add(jButtonRomance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 170, 20));
+        jButtonRomance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRomanceActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonRomance, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 170, 20));
 
         jButtonEducacional.setForeground(new java.awt.Color(90, 95, 98));
         jButtonEducacional.setText("Educacional");
         jButtonEducacional.setBorderPainted(false);
-        jPanel1.add(jButtonEducacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 170, 20));
+        jButtonEducacional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEducacionalActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonEducacional, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 170, 20));
 
         jButtonComedia.setForeground(new java.awt.Color(90, 95, 98));
         jButtonComedia.setText("Comédia");
         jButtonComedia.setBorderPainted(false);
-        jPanel1.add(jButtonComedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 170, 20));
+        jButtonComedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComediaActionPerformed(evt);
+            }
+        });
+        SideMenu.add(jButtonComedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 170, 20));
 
         jLabelCategoria.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabelCategoria.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCategoria.setText("Categorias");
-        jPanel1.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
-        jPanel1.add(jSeparatorCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 10));
+        SideMenu.add(jLabelCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 170, 30));
+        SideMenu.add(jSeparatorCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 10));
 
         jButtonPerfil.setForeground(new java.awt.Color(90, 95, 98));
         jButtonPerfil.setText("Meu Perfil");
@@ -171,7 +234,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonPerfilActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 170, 20));
+        SideMenu.add(jButtonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 170, 20));
 
         jButtonLivrosAlugados.setForeground(new java.awt.Color(90, 95, 98));
         jButtonLivrosAlugados.setText("Livros Alugados");
@@ -182,18 +245,18 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonLivrosAlugadosActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonLivrosAlugados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 170, 20));
+        SideMenu.add(jButtonLivrosAlugados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 170, 20));
 
         jButtonHistorico.setForeground(new java.awt.Color(90, 95, 98));
         jButtonHistorico.setText("Histórico");
         jButtonHistorico.setBorderPainted(false);
-        jPanel1.add(jButtonHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 170, 20));
+        SideMenu.add(jButtonHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 170, 20));
 
         jButtonLogout.setForeground(new java.awt.Color(90, 95, 98));
         jButtonLogout.setText("Logout");
-        jPanel1.add(jButtonLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 70, 30));
+        SideMenu.add(jButtonLogout, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 70, 30));
 
-        jPanel2.setLayout(new java.awt.CardLayout());
+        Screen.setLayout(new java.awt.CardLayout());
 
         jPanelTelaInicial.setBackground(new java.awt.Color(204, 204, 255));
         jPanelTelaInicial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -390,21 +453,231 @@ public class AreaCliente extends javax.swing.JFrame {
 
         jPanelTelaInicial.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 170));
 
-        jPanel2.add(jPanelTelaInicial, "card2");
+        Screen.add(jPanelTelaInicial, "TelaInicial");
+
+        jPanelTelaCategoria.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelTelaCategoria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelLivro9.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro9.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro9.setToolTipText("");
+        jLabelLivro9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro9.setText("O Temor do Sábio");
+
+        jLabelLivro10.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro10.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro10.setToolTipText("");
+        jLabelLivro10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro10.setText("O Temor do Sábio");
+
+        jLabelLivro11.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro11.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro11.setToolTipText("");
+        jLabelLivro11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro11.setText("O Temor do Sábio");
+
+        jLabelLivro12.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro12.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro12.setToolTipText("");
+        jLabelLivro12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro12.setText("O Temor do Sábio");
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro9, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro10, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro11, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro12, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro12, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro12, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro11, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro11, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro10, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro10, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro9, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro9, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jPanelTelaCategoria.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 500, 170));
+
+        jLabelTituloCategoria.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoria.setText("Undefined");
+        jPanelTelaCategoria.add(jLabelTituloCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 10, 380, 30));
+
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTelaCategoria.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
+
+        jLabelLivro13.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro13.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro13.setToolTipText("");
+        jLabelLivro13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro13.setText("O Temor do Sábio");
+
+        jLabelLivro14.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro14.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro14.setToolTipText("");
+        jLabelLivro14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro14.setText("O Temor do Sábio");
+
+        jLabelLivro15.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro15.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro15.setToolTipText("");
+        jLabelLivro15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro15.setText("O Temor do Sábio");
+
+        jLabelLivro16.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro16.setIcon(new javax.swing.ImageIcon(tempGetImg()));
+        jLabelLivro16.setToolTipText("");
+        jLabelLivro16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+
+        jLabelTitLivro16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro16.setText("O Temor do Sábio");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro13, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro14, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro15, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro16, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro16, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro16, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro15, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro15, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro14, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro14, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro13, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro13, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 170));
+
+        jButtonProximaPagina.setText("Próxima Página");
+        jButtonProximaPagina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximaPaginaActionPerformed(evt);
+            }
+        });
+        jPanelTelaCategoria.add(jButtonProximaPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 414, -1, -1));
+
+        jButtonPaginaAnterior.setText("Página Anterior");
+        jButtonPaginaAnterior.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPaginaAnteriorActionPerformed(evt);
+            }
+        });
+        jPanelTelaCategoria.add(jButtonPaginaAnterior, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 414, -1, -1));
+
+        jLabelTituloCategoriaTexto.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoriaTexto.setText("Livros de ");
+        jPanelTelaCategoria.add(jLabelTituloCategoriaTexto, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        Screen.add(jPanelTelaCategoria, "TelaCategoria");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
+                .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(SideMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -417,6 +690,73 @@ public class AreaCliente extends javax.swing.JFrame {
     private void jButtonLivrosAlugadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLivrosAlugadosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLivrosAlugadosActionPerformed
+
+    private void jButtonPaginaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaginaAnteriorActionPerformed
+        if (this.currentPage > 1){
+            this.currentPage -= 1;
+        }
+    }//GEN-LAST:event_jButtonPaginaAnteriorActionPerformed
+
+    private void jButtonProximaPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximaPaginaActionPerformed
+        this.currentPage += 1;
+    }//GEN-LAST:event_jButtonProximaPaginaActionPerformed
+
+    private void jButtonAventuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAventuraActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Aventura";
+        jLabelTituloCategoria.setText(SelCat);
+        
+    }//GEN-LAST:event_jButtonAventuraActionPerformed
+
+    private void jButtonSuspenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuspenseActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Suspense";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonSuspenseActionPerformed
+
+    private void jButtonTerrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerrorActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Terror";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonTerrorActionPerformed
+
+    private void jButtonRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRomanceActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Romance";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonRomanceActionPerformed
+
+    private void jButtonEducacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEducacionalActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Conteudo Educacional";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonEducacionalActionPerformed
+
+    private void jButtonComediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComediaActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Comédia";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonComediaActionPerformed
+
+    private void jButtonConteudoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConteudoHistoricoActionPerformed
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        this.currentPage = 1;
+        this.SelCat = "Conteudo Histórico";
+        jLabelTituloCategoria.setText(SelCat);
+    }//GEN-LAST:event_jButtonConteudoHistoricoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,6 +794,8 @@ public class AreaCliente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Screen;
+    private javax.swing.JPanel SideMenu;
     private javax.swing.JButton jButtonAventura;
     private javax.swing.JButton jButtonComedia;
     private javax.swing.JButton jButtonConteudoHistorico;
@@ -461,7 +803,9 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonHistorico;
     private javax.swing.JButton jButtonLivrosAlugados;
     private javax.swing.JButton jButtonLogout;
+    private javax.swing.JButton jButtonPaginaAnterior;
     private javax.swing.JButton jButtonPerfil;
+    private javax.swing.JButton jButtonProximaPagina;
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
@@ -470,6 +814,13 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
     private javax.swing.JLabel jLabelLivro1;
+    private javax.swing.JLabel jLabelLivro10;
+    private javax.swing.JLabel jLabelLivro11;
+    private javax.swing.JLabel jLabelLivro12;
+    private javax.swing.JLabel jLabelLivro13;
+    private javax.swing.JLabel jLabelLivro14;
+    private javax.swing.JLabel jLabelLivro15;
+    private javax.swing.JLabel jLabelLivro16;
     private javax.swing.JLabel jLabelLivro2;
     private javax.swing.JLabel jLabelLivro3;
     private javax.swing.JLabel jLabelLivro4;
@@ -477,8 +828,16 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLivro6;
     private javax.swing.JLabel jLabelLivro7;
     private javax.swing.JLabel jLabelLivro8;
+    private javax.swing.JLabel jLabelLivro9;
     private javax.swing.JLabel jLabelPesquisa;
     private javax.swing.JLabel jLabelTitLivro1;
+    private javax.swing.JLabel jLabelTitLivro10;
+    private javax.swing.JLabel jLabelTitLivro11;
+    private javax.swing.JLabel jLabelTitLivro12;
+    private javax.swing.JLabel jLabelTitLivro13;
+    private javax.swing.JLabel jLabelTitLivro14;
+    private javax.swing.JLabel jLabelTitLivro15;
+    private javax.swing.JLabel jLabelTitLivro16;
     private javax.swing.JLabel jLabelTitLivro2;
     private javax.swing.JLabel jLabelTitLivro3;
     private javax.swing.JLabel jLabelTitLivro4;
@@ -486,13 +845,18 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitLivro6;
     private javax.swing.JLabel jLabelTitLivro7;
     private javax.swing.JLabel jLabelTitLivro8;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabelTitLivro9;
+    private javax.swing.JLabel jLabelTituloCategoria;
+    private javax.swing.JLabel jLabelTituloCategoriaTexto;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanelTelaCategoria;
     private javax.swing.JPanel jPanelTelaInicial;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
