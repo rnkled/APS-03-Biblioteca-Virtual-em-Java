@@ -2,6 +2,7 @@ package biblioteca;
 
 public class Cliente {
     
+    private int id_cliente;
     private String nome;
     private String cpf;
     private String endereco;
@@ -11,6 +12,13 @@ public class Cliente {
     private String senha;
     private int qntd_livros_alugados;
 
+    public int getId_cliente() {
+        return id_cliente;
+    }
+
+    public void setId_cliente(int id_cliente) {
+        this.id_cliente = id_cliente;
+    }
     
     public String getNome() {
         return nome;

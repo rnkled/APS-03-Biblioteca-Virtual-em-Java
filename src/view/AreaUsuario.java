@@ -1,7 +1,7 @@
 package view;
 
-import DAO.UsuarioDAO;
-import biblioteca.Usuario;
+import DAO.*;
+import biblioteca.*;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
@@ -17,6 +17,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         setCbCargos();
         setCbAltDelCargos();
         listarTabela();
+        listarTabelaCliente();
     }
     
     //Adiciona as opções de Cargos na ComboBox de Cadastro de Usuários
@@ -81,6 +82,24 @@ public class AreaUsuario extends javax.swing.JFrame {
         }
     }
     
+    public void listarTabelaCliente(){
+        DefaultTableModel valor = (DefaultTableModel) jTableClientes.getModel();
+        
+        valor.getDataVector().removeAllElements();
+        ClienteDAO cltDAO = new ClienteDAO();
+        
+        List<Cliente> clientes = cltDAO.listarTodos();
+        int i = 0;
+        while (clientes.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(clientes.get(i).getId_cliente()), clientes.get(i).getNome(),
+            clientes.get(i).getCpf(), clientes.get(i).getEndereco(), clientes.get(i).getData_nasc(),
+            clientes.get(i).getEmail(), clientes.get(i).getLogin(), clientes.get(i).getSenha()});
+            i++;
+            
+        }
+    }
+    
     //Limpa os campos de Cadastro de Usuários     
     public void limparCamposCad(){
         jTxtNome.setText("");
@@ -100,6 +119,27 @@ public class AreaUsuario extends javax.swing.JFrame {
         jTxtAltDelLogin.setText("");
         jTxtAltDelSenha.setText("");
         jCbAltDelCargo.setSelectedItem("-");
+    }
+    
+    public void limparCamposCadCliente(){
+        jTxtNomeGerCliente.setText("");
+        jTxtCpfGerCliente.setText("");
+        jTxtDataNascGerCliente.setText("");
+        jTxtEmailGerCliente.setText("");
+        jTxtLoginGerCliente.setText("");
+        jPassSenhaGerCliente.setText("");
+        jTxtEnderecoGerCliente.setText("");
+    }
+    
+    public void limparCamposAltClientes(){
+        jTxtAltIdGerClientes.setText("");
+        jTxtAltNomeGerClientes.setText("");
+        jTxtAltCpfGerClientes.setText("");
+        jTxtAltEnderecoGerClientes.setText("");
+        jTxtAltDataNascGerClientes.setText("");
+        jTxtAltEmailGerClientes.setText("");
+        jTxtAltLoginGerClientes.setText("");
+        jTxtAltSenhaGerClientes.setText("");
     }
     
     /**
@@ -179,8 +219,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
-        jTxtLogin1 = new javax.swing.JTextField();
-        jPassSenha1 = new javax.swing.JPasswordField();
+        jTxtLoginGerCliente = new javax.swing.JTextField();
+        jPassSenhaGerCliente = new javax.swing.JPasswordField();
         jBtCadastrar1 = new javax.swing.JButton();
         jBtLimpar1 = new javax.swing.JButton();
         jTxtNomeGerCliente = new javax.swing.JTextField();
@@ -195,12 +235,12 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabelIdGerClientes = new javax.swing.JLabel();
-        jTxtIdGerClientes = new javax.swing.JTextField();
+        jTxtAltIdGerClientes = new javax.swing.JTextField();
         jTxtAltNomeGerClientes = new javax.swing.JTextField();
-        jTxtAltDelCpf1 = new javax.swing.JFormattedTextField();
-        jTxtAltDelLogin1 = new javax.swing.JTextField();
-        jTxtAltDelSenha1 = new javax.swing.JTextField();
-        jTxtAltDelEmail1 = new javax.swing.JTextField();
+        jTxtAltCpfGerClientes = new javax.swing.JFormattedTextField();
+        jTxtAltLoginGerClientes = new javax.swing.JTextField();
+        jTxtAltSenhaGerClientes = new javax.swing.JTextField();
+        jTxtAltEmailGerClientes = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jRbIdGerCliente = new javax.swing.JRadioButton();
@@ -211,9 +251,13 @@ public class AreaUsuario extends javax.swing.JFrame {
         jBtAlterarGerCliente = new javax.swing.JButton();
         jBtExcluirGerCliente = new javax.swing.JButton();
         jLabelCPFGerCliente1 = new javax.swing.JLabel();
-        jTxtAltEnderecoGerCliente = new javax.swing.JTextField();
+        jTxtAltEnderecoGerClientes = new javax.swing.JTextField();
         jLabelAltEnderecoGerCliente = new javax.swing.JLabel();
-        jTxtEnderecoGerCliente1 = new javax.swing.JTextField();
+        jTxtEnderecoGerCliente = new javax.swing.JTextField();
+        jLabelEnderecoGerCliente1 = new javax.swing.JLabel();
+        jTxtDataNascGerCliente = new javax.swing.JFormattedTextField();
+        jLabelEnderecoGerCliente2 = new javax.swing.JLabel();
+        jTxtAltDataNascGerClientes = new javax.swing.JFormattedTextField();
         jPanelGerLivros = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -897,12 +941,12 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerCliente.add(jLabelNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
         jLabelEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelEnderecoGerCliente.setText("Endereço:");
-        jPanelGerCliente.add(jLabelEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 70, -1));
+        jLabelEnderecoGerCliente.setText("Data de Nascimento:");
+        jPanelGerCliente.add(jLabelEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 120, -1));
 
         jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel29.setText("E-mail:");
-        jPanelGerCliente.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 113, 40, -1));
+        jPanelGerCliente.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 40, -1));
 
         jPanel4.setBackground(new java.awt.Color(204, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
@@ -924,8 +968,8 @@ public class AreaUsuario extends javax.swing.JFrame {
                     .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPassSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPassSenhaGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -934,11 +978,11 @@ public class AreaUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jTxtLogin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTxtLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel31)
-                    .addComponent(jPassSenha1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPassSenhaGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -960,7 +1004,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         });
         jPanelGerCliente.add(jBtLimpar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
         jPanelGerCliente.add(jTxtNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 383, -1));
-        jPanelGerCliente.add(jTxtEmailGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 110, 243, -1));
+        jPanelGerCliente.add(jTxtEmailGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 190, -1));
 
         try {
             jTxtCpfGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -976,12 +1020,20 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nome", "CPF", "E-mail", "Login", "Senha", "Cargo"
+                "ID", "Nome", "CPF", "Endereco", "Data", "Email", "Login", "Senha"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTableClientesMouseClicked(evt);
@@ -1005,7 +1057,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel36.setText("E-mail:");
-        jPanelGerCliente.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 483, -1, -1));
+        jPanelGerCliente.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
 
         jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel37.setText("Login:");
@@ -1019,25 +1071,25 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabelIdGerClientes.setText("Id:");
         jPanelGerCliente.add(jLabelIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
 
-        jTxtIdGerClientes.setEditable(false);
-        jPanelGerCliente.add(jTxtIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 73, -1));
+        jTxtAltIdGerClientes.setEditable(false);
+        jPanelGerCliente.add(jTxtAltIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 73, -1));
         jPanelGerCliente.add(jTxtAltNomeGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 187, -1));
 
         try {
-            jTxtAltDelCpf1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            jTxtAltCpfGerClientes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanelGerCliente.add(jTxtAltDelCpf1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 70, -1));
-        jPanelGerCliente.add(jTxtAltDelLogin1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 120, -1));
+        jPanelGerCliente.add(jTxtAltCpfGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 100, -1));
+        jPanelGerCliente.add(jTxtAltLoginGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 120, -1));
 
-        jTxtAltDelSenha1.addActionListener(new java.awt.event.ActionListener() {
+        jTxtAltSenhaGerClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtAltDelSenha1ActionPerformed(evt);
+                jTxtAltSenhaGerClientesActionPerformed(evt);
             }
         });
-        jPanelGerCliente.add(jTxtAltDelSenha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 120, -1));
-        jPanelGerCliente.add(jTxtAltDelEmail1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 260, -1));
+        jPanelGerCliente.add(jTxtAltSenhaGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 120, -1));
+        jPanelGerCliente.add(jTxtAltEmailGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 260, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
@@ -1129,12 +1181,34 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabelCPFGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelCPFGerCliente1.setText("CPF: ");
         jPanelGerCliente.add(jLabelCPFGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 113, -1, -1));
-        jPanelGerCliente.add(jTxtAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 380, -1));
+        jPanelGerCliente.add(jTxtAltEnderecoGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 380, -1));
 
         jLabelAltEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelAltEnderecoGerCliente.setText("Endereço:");
         jPanelGerCliente.add(jLabelAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 70, -1));
-        jPanelGerCliente.add(jTxtEnderecoGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 383, -1));
+        jPanelGerCliente.add(jTxtEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 383, -1));
+
+        jLabelEnderecoGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente1.setText("Endereço:");
+        jPanelGerCliente.add(jLabelEnderecoGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 70, -1));
+
+        try {
+            jTxtDataNascGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanelGerCliente.add(jTxtDataNascGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 150, -1));
+
+        jLabelEnderecoGerCliente2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente2.setText("Data de Nascimento:");
+        jPanelGerCliente.add(jLabelEnderecoGerCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 120, -1));
+
+        try {
+            jTxtAltDataNascGerClientes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanelGerCliente.add(jTxtAltDataNascGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, 130, -1));
 
         jPanelFather.add(jPanelGerCliente, "TelaClientes");
 
@@ -1745,21 +1819,26 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtCadastrarActionPerformed
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
-        Usuario us = new Usuario();
-        us.setId_usuario(Integer.parseInt(jTxtAltDelId.getText()));
-        us.setNome(jTxtAltDelNome.getText());
-        us.setCpf(jTxtAltDelCpf.getText());
-        us.setEmail(jTxtAltDelEmail.getText());
-        us.setLogin(jTxtAltDelLogin.getText());
-        us.setSenha(jTxtAltDelSenha.getText());
-        us.setCargo(String.valueOf(jCbAltDelCargo.getSelectedItem()));
-        
         UsuarioDAO usDAO = new UsuarioDAO();
-        usDAO.alterar(us);
-        JOptionPane.showMessageDialog(null, "Usuário alterado!");
+        List<Usuario> usuarios = null;
         
-        limparCamposAltDel();
-        listarTabela();
+        if(jRbId.isSelected()){
+            usuarios = usDAO.pesquisa(1, jTxtPesqId.getText());
+        } else if(jRbLogin.isSelected()){
+            usuarios = usDAO.pesquisa(2, jTxtPesqLogin.getText());
+        }
+        
+        DefaultTableModel valor = (DefaultTableModel) jTableUsuarios.getModel();
+        valor.getDataVector().removeAllElements();
+
+        int i = 0;
+        while (usuarios.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(usuarios.get(i).getId_usuario()), usuarios.get(i).getNome(),
+            usuarios.get(i).getCpf(), usuarios.get(i).getEmail(), usuarios.get(i).getLogin(), usuarios.get(i).getSenha(),
+            usuarios.get(i).getCargo()});
+            i++;
+        }
     }//GEN-LAST:event_jBtPesquisarActionPerformed
 
     private void jComboBoxAutorLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAutorLivroActionPerformed
@@ -1813,7 +1892,24 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableAutoresLivrosMouseClicked
 
     private void jBtCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrar1ActionPerformed
-        // TODO add your handling code here:
+        Cliente clt = new Cliente();
+        clt.setNome(jTxtNomeGerCliente.getText());
+        clt.setCpf(jTxtCpfGerCliente.getText());
+        clt.setEmail(jTxtEmailGerCliente.getText());
+        clt.setData_nasc(jTxtDataNascGerCliente.getText());
+        clt.setEndereco(jTxtEnderecoGerCliente.getText());
+        clt.setLogin(jTxtLoginGerCliente.getText());
+        clt.setSenha(jPassSenhaGerCliente.getText());
+        clt.setQntd_livros_alugados(0);
+        
+        Usuario us = new Usuario();
+        us.setId_usuario(sessao.getId_usuario());
+        
+        ClienteDAO cltDAO = new ClienteDAO();
+        cltDAO.salvar(clt, us);
+        
+        limparCamposCadCliente();
+        listarTabelaCliente();
     }//GEN-LAST:event_jBtCadastrar1ActionPerformed
 
     private void jBtLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimpar1ActionPerformed
@@ -1825,24 +1921,71 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTxtCpfGerClienteActionPerformed
 
     private void jTableClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableClientesMouseClicked
-        // TODO add your handling code here:
+        jTxtAltIdGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 0));
+        jTxtAltNomeGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 1));
+        jTxtAltCpfGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 2));
+        jTxtAltEnderecoGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 3));
+        jTxtAltDataNascGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 4));
+        jTxtAltEmailGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 5));
+        jTxtAltLoginGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 6));
+        jTxtAltSenhaGerClientes.setText((String) jTableClientes.getModel().getValueAt(jTableClientes.getSelectedRow(), 7));
     }//GEN-LAST:event_jTableClientesMouseClicked
 
     private void jBtPesquisarGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarGerClienteActionPerformed
-        // TODO add your handling code here:
+        ClienteDAO cltDAO = new ClienteDAO();
+        List<Cliente> clientes = null;
+        
+        if(jRbIdGerCliente.isSelected()){
+            clientes = cltDAO.pesquisa(1, jTxtPesqIdGerCliente.getText());
+        } else if(jRbLoginGerCliente.isSelected()){
+            clientes = cltDAO.pesquisa(2, jTxtPesqLoginGerCliente.getText());
+        }
+        
+        DefaultTableModel valor = (DefaultTableModel) jTableClientes.getModel();
+        valor.getDataVector().removeAllElements();
+
+        int i = 0;
+        while (clientes.size() > i){
+            valor.addRow(new Object[]{String.valueOf(clientes.get(i).getId_cliente()), clientes.get(i).getNome(),
+            clientes.get(i).getCpf(), clientes.get(i).getEndereco(), clientes.get(i).getData_nasc(),
+            clientes.get(i).getEmail(), clientes.get(i).getLogin(), clientes.get(i).getSenha()});
+            i++;
+        }
     }//GEN-LAST:event_jBtPesquisarGerClienteActionPerformed
 
     private void jBtAlterarGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarGerClienteActionPerformed
-        // TODO add your handling code here:
+        Cliente clt = new Cliente();
+        clt.setId_cliente(Integer.parseInt(jTxtAltIdGerClientes.getText()));
+        clt.setNome(jTxtAltNomeGerClientes.getText());
+        clt.setCpf(jTxtAltCpfGerClientes.getText());
+        clt.setEmail(jTxtAltEmailGerClientes.getText());
+        clt.setData_nasc(jTxtAltDataNascGerClientes.getText());
+        clt.setEndereco(jTxtAltEnderecoGerClientes.getText());
+        clt.setLogin(jTxtAltLoginGerClientes.getText());
+        clt.setSenha(jTxtAltSenhaGerClientes.getText());
+        
+        ClienteDAO cltDAO = new ClienteDAO();
+        cltDAO.alterar(clt);
+        
+        limparCamposAltClientes();
+        listarTabelaCliente();
+        
     }//GEN-LAST:event_jBtAlterarGerClienteActionPerformed
 
     private void jBtExcluirGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtExcluirGerClienteActionPerformed
-        // TODO add your handling code here:
+        Cliente clt = new Cliente();
+        clt.setId_cliente(Integer.parseInt(jTxtAltIdGerClientes.getText()));
+        
+        ClienteDAO cltDAO = new ClienteDAO();
+        cltDAO.deletar(clt);
+        
+        limparCamposAltClientes();
+        listarTabelaCliente();
     }//GEN-LAST:event_jBtExcluirGerClienteActionPerformed
 
-    private void jTxtAltDelSenha1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAltDelSenha1ActionPerformed
+    private void jTxtAltSenhaGerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAltSenhaGerClientesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtAltDelSenha1ActionPerformed
+    }//GEN-LAST:event_jTxtAltSenhaGerClientesActionPerformed
 
     private void jTxtPesqLoginGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtPesqLoginGerClienteActionPerformed
         // TODO add your handling code here:
@@ -1999,6 +2142,8 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCategoriaLivro;
     private javax.swing.JLabel jLabelDataLivro;
     private javax.swing.JLabel jLabelEnderecoGerCliente;
+    private javax.swing.JLabel jLabelEnderecoGerCliente1;
+    private javax.swing.JLabel jLabelEnderecoGerCliente2;
     private javax.swing.JLabel jLabelGerenciarCategorias;
     private javax.swing.JLabel jLabelGerenciarCategorias3;
     private javax.swing.JLabel jLabelGerenciarCategorias4;
@@ -2041,7 +2186,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelGerUsuarios;
     private javax.swing.JPanel jPanelHome;
     private javax.swing.JPasswordField jPassSenha;
-    private javax.swing.JPasswordField jPassSenha1;
+    private javax.swing.JPasswordField jPassSenhaGerCliente;
     private javax.swing.JRadioButton jRbId;
     private javax.swing.JRadioButton jRbIdGerCliente;
     private javax.swing.JRadioButton jRbLogin;
@@ -2080,26 +2225,28 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNovaCatLivro;
     private javax.swing.JTextField jTextFieldQualidadeLivro;
     private javax.swing.JTextField jTextFieldQuantidadeLivro;
+    private javax.swing.JFormattedTextField jTxtAltCpfGerClientes;
+    private javax.swing.JFormattedTextField jTxtAltDataNascGerClientes;
     private javax.swing.JFormattedTextField jTxtAltDelCpf;
-    private javax.swing.JFormattedTextField jTxtAltDelCpf1;
     private javax.swing.JTextField jTxtAltDelEmail;
-    private javax.swing.JTextField jTxtAltDelEmail1;
     private javax.swing.JTextField jTxtAltDelId;
     private javax.swing.JTextField jTxtAltDelLogin;
-    private javax.swing.JTextField jTxtAltDelLogin1;
     private javax.swing.JTextField jTxtAltDelNome;
     private javax.swing.JTextField jTxtAltDelSenha;
-    private javax.swing.JTextField jTxtAltDelSenha1;
-    private javax.swing.JTextField jTxtAltEnderecoGerCliente;
+    private javax.swing.JTextField jTxtAltEmailGerClientes;
+    private javax.swing.JTextField jTxtAltEnderecoGerClientes;
+    private javax.swing.JTextField jTxtAltIdGerClientes;
+    private javax.swing.JTextField jTxtAltLoginGerClientes;
     private javax.swing.JTextField jTxtAltNomeGerClientes;
+    private javax.swing.JTextField jTxtAltSenhaGerClientes;
     private javax.swing.JFormattedTextField jTxtCpf;
     private javax.swing.JFormattedTextField jTxtCpfGerCliente;
+    private javax.swing.JFormattedTextField jTxtDataNascGerCliente;
     private javax.swing.JTextField jTxtEmail;
     private javax.swing.JTextField jTxtEmailGerCliente;
-    private javax.swing.JTextField jTxtEnderecoGerCliente1;
-    private javax.swing.JTextField jTxtIdGerClientes;
+    private javax.swing.JTextField jTxtEnderecoGerCliente;
     private javax.swing.JTextField jTxtLogin;
-    private javax.swing.JTextField jTxtLogin1;
+    private javax.swing.JTextField jTxtLoginGerCliente;
     private javax.swing.JTextField jTxtNome;
     private javax.swing.JTextField jTxtNomeGerCliente;
     private javax.swing.JTextField jTxtPesqId;
