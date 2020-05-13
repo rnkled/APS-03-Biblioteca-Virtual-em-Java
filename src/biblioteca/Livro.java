@@ -12,17 +12,16 @@ public class Livro {
     private String resumo = "Desconhecido";
     private int quantidade;
     private int alugados;
-    private AutorLivro autor;
-    private CategoriaLivro categoria;
+    private int autorID;
+    private int categoriaID;
     
     public Livro() {
     };
 
-    public Livro(int id_Livro, String nome, int quantidade, AutorLivro autor, CategoriaLivro categoria) {
+    public Livro(int id_Livro, String nome, int quantidade, int autorID, int categoriaID) {
         this.id_Livro = id_Livro;
         this.nome = nome;
-        this.autor = autor;
-        this.categoria = categoria;
+        this.autorID = autorID;
         this.quantidade = quantidade;
     }
     
@@ -56,20 +55,20 @@ public class Livro {
         this.qualidade = qualidade;
     }
 
-    public AutorLivro getAutor() {
-        return autor;
+    public int getAutorID() {
+        return autorID;
     }
 
-    public void setAutor(AutorLivro autor) {
-        this.autor = autor;
+    public void setAutorID(int autor) {
+        this.autorID = autor;
     }
 
-    public CategoriaLivro getCategoria() {
-        return categoria;
+    public int getCategoriaID() {
+        return categoriaID;
     }
 
-    public void setCategoria(CategoriaLivro categoria) {
-        this.categoria = categoria;
+    public void setCategoriaID(int categoria) {
+        this.categoriaID = categoria;
     }
     
     public int getId_Livro() {

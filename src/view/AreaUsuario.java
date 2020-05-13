@@ -1892,11 +1892,43 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRemoverCatLivroActionPerformed
 
     private void jButtonAddNovaCatLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNovaCatLivroActionPerformed
-        // TODO add your handling code here:
+       try{
+           CategoriaLivro categoria = new CategoriaLivro();
+           categoria.setNome(jTextFieldNovaCatLivro.getText());
+           if (categoria.getNome() != null){
+            
+            Usuario us = new Usuario();
+            us.setId_usuario(sessao.getId_usuario());
+        
+            UsuarioDAO userDAO = new UsuarioDAO();
+            userDAO.addCategoria(categoria);
+        
+            jTextFieldNovaCatLivro.setText("");
+           }
+           
+           
+       }catch(Exception e){
+           System.out.println(e);} 
     }//GEN-LAST:event_jButtonAddNovaCatLivroActionPerformed
 
     private void jButtonAddNovoAutLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNovoAutLivroActionPerformed
-        // TODO add your handling code here:
+        try{
+           AutorLivro autor = new AutorLivro();
+           autor.setNome(jTextFieldNomeAutLivro.getText());
+           if (autor.getNome() != null){
+            
+            Usuario us = new Usuario();
+            us.setId_usuario(sessao.getId_usuario());
+        
+            UsuarioDAO userDAO = new UsuarioDAO();
+            userDAO.addAutor(autor);
+        
+            jTextFieldNomeAutLivro.setText("");
+           }
+           
+           
+       }catch(Exception e){
+           System.out.println(e);} 
     }//GEN-LAST:event_jButtonAddNovoAutLivroActionPerformed
 
     private void jButtonRemoverAutLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverAutLivroActionPerformed
@@ -2054,6 +2086,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         livro.setQualidade(jTextFieldQualidadeLivro.getText());
         livro.setAlugados(0);
         livro.setResumo(jTextAreaResumoLivro.getText());
+        livro.setCategoriaID(jComboBoxCategoriaLivro.getItemCount());
+        livro.setAutorID(jComboBoxCategoriaLivro.getItemCount());
         livro.print();
         
         

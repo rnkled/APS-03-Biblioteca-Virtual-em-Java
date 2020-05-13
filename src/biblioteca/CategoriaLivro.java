@@ -9,6 +9,10 @@ public class CategoriaLivro {
     public void conseguirLivros(){
     
     }
+    
+    public CategoriaLivro(){
+    
+    }
 
     public CategoriaLivro(int id_Categoria, String nome) {
         this.id_Categoria = id_Categoria;

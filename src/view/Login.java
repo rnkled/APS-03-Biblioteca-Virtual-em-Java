@@ -198,6 +198,7 @@ public class Login extends javax.swing.JFrame {
                 au.setResizable(false);
                 au.show();
                 au.setLocationRelativeTo(null);
+                this.dispose();
                 
             //Realiza a validação de Cliente
             } else if(clt.validarLoginCliente(jTxtLogin.getText(), jPassSenha.getText()) == true){
@@ -207,6 +208,7 @@ public class Login extends javax.swing.JFrame {
                 ac.setLocationRelativeTo(null);
                 ac.setCltLogin(cliente);
                 ac.bemVindo();
+                this.dispose();
                 
             } else{
                 JOptionPane.showMessageDialog(null, "Usuário/Senha incorreto");

@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
 
 public class AreaCliente extends javax.swing.JFrame {
     
-    String SelCat = "Undefined";
+    String SelCat = null;
     int currentPage = 1;
 
     /**

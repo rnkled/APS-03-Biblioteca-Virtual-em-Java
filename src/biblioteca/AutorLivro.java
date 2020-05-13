@@ -7,6 +7,8 @@ public class AutorLivro {
     private String nome;
 
     
+    public AutorLivro(){}
+    
     public AutorLivro(int id_Autor, String nomeAutor){
         this.id_Autor = id_Autor;
         this.nome = nomeAutor;

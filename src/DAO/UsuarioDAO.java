@@ -3,6 +3,8 @@ package DAO;
 import java.sql.*;
 import biblioteca.Usuario;
 import biblioteca.Livro;
+import biblioteca.CategoriaLivro;
+import biblioteca.AutorLivro;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -106,8 +108,8 @@ public class UsuarioDAO {
             stn.setString(4, livro.getQualidade());
             stn.setString(5, livro.getResumo());
             stn.setInt(6, livro.getAlugados());
-            stn.setInt(7, livro.getCategoria().getId_Categora());
-            stn.setInt(8, livro.getAutor().getId_Autor());
+            stn.setInt(7, livro.getCategoriaID());
+            stn.setInt(8, livro.getAutorID());
             
             stn.execute();
             stn.close();
@@ -118,6 +120,45 @@ public class UsuarioDAO {
             
         }
     }
+    
+    public void addCategoria (CategoriaLivro categoria){
+        
+        String sql = "INSERT INTO tb_categorias(nm_categoria) VALUES(?)";
+        
+        try{
+            
+            PreparedStatement stn = conecta.prepareStatement(sql);
+            
+            stn.setString(1, categoria.getNome());
+            stn.execute();
+            stn.close();
+            
+        } catch(SQLException e){
+            
+            throw new RuntimeException(e);
+            
+        }
+    }
+    
+    public void addAutor (AutorLivro autor){
+        
+        String sql = "INSERT INTO tb_autores(nm_autor) VALUES(?)";
+        
+        try{
+            
+            PreparedStatement stn = conecta.prepareStatement(sql);
+            
+            stn.setString(1, autor.getNome());
+            stn.execute();
+            stn.close();
+            
+        } catch(SQLException e){
+            
+            throw new RuntimeException(e);
+            
+        }
+    }
+    
     
 
     //Executa a Validação de Login do Usuário no JFrame Login
