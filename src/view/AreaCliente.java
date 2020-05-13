@@ -129,6 +129,18 @@ public class AreaCliente extends javax.swing.JFrame {
         jButtonProximaPagina = new javax.swing.JButton();
         jButtonPaginaAnterior = new javax.swing.JButton();
         jLabelTituloCategoriaTexto = new javax.swing.JLabel();
+        jPanelTelaLivro = new javax.swing.JPanel();
+        jLabelTituloCategoria2 = new javax.swing.JLabel();
+        jSeparator6 = new javax.swing.JSeparator();
+        jLabelTituloCategoriaTexto2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jButtonAlugar = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
@@ -665,6 +677,57 @@ public class AreaCliente extends javax.swing.JFrame {
 
         Screen.add(jPanelTelaCategoria, "TelaCategoria");
 
+        jPanelTelaLivro.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelTelaLivro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTituloCategoria2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoria2.setText("Undefined");
+        jPanelTelaLivro.add(jLabelTituloCategoria2, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 10, 380, 30));
+
+        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTelaLivro.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
+
+        jLabelTituloCategoriaTexto2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoriaTexto2.setText("Livros de ");
+        jPanelTelaLivro.add(jLabelTituloCategoriaTexto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 210, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+        );
+
+        jPanelTelaLivro.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 270));
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("RESUMO\n");
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanelTelaLivro.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 300, -1));
+
+        jButtonAlugar.setText("Alugar");
+        jPanelTelaLivro.add(jButtonAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 360, 90, 40));
+
+        jLabel1.setText("Autor:");
+        jPanelTelaLivro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+
+        jLabel4.setText("Prublicado em:");
+        jPanelTelaLivro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
+
+        jLabel5.setText("Editora:");
+        jPanelTelaLivro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
+
+        jLabel6.setText("Gênero:");
+        jPanelTelaLivro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+
+        Screen.add(jPanelTelaLivro, "TelaCategoria");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -672,11 +735,11 @@ public class AreaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, 527, Short.MAX_VALUE))
+                .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, 448, Short.MAX_VALUE)
+            .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(SideMenu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -796,6 +859,7 @@ public class AreaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Screen;
     private javax.swing.JPanel SideMenu;
+    private javax.swing.JButton jButtonAlugar;
     private javax.swing.JButton jButtonAventura;
     private javax.swing.JButton jButtonComedia;
     private javax.swing.JButton jButtonConteudoHistorico;
@@ -809,8 +873,12 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
     private javax.swing.JLabel jLabelLivro1;
@@ -847,20 +915,27 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitLivro8;
     private javax.swing.JLabel jLabelTitLivro9;
     private javax.swing.JLabel jLabelTituloCategoria;
+    private javax.swing.JLabel jLabelTituloCategoria2;
     private javax.swing.JLabel jLabelTituloCategoriaTexto;
+    private javax.swing.JLabel jLabelTituloCategoriaTexto2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanelTelaCategoria;
     private javax.swing.JPanel jPanelTelaInicial;
+    private javax.swing.JPanel jPanelTelaLivro;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
     private javax.swing.JSeparator jSeparatorPes;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldPesquisa;
     // End of variables declaration//GEN-END:variables
 }
