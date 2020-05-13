@@ -7,13 +7,16 @@ public class Livro {
     
     private int id_Livro;
     private String nome;
-    private Date data = new Date();
+    private String data;
     private String qualidade = "Desconhecida";
     private String resumo = "Desconhecido";
     private int quantidade;
     private int alugados;
     private AutorLivro autor;
     private CategoriaLivro categoria;
+    
+    public Livro() {
+    };
 
     public Livro(int id_Livro, String nome, int quantidade, AutorLivro autor, CategoriaLivro categoria) {
         this.id_Livro = id_Livro;
@@ -77,11 +80,11 @@ public class Livro {
         this.id_Livro = id_Livro;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 

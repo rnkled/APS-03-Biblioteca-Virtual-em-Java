@@ -4,6 +4,7 @@ import DAO.*;
 import biblioteca.*;
 import java.awt.CardLayout;
 import java.awt.Image;
+import static java.lang.Integer.parseInt;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -1227,6 +1228,12 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabelDataLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelDataLivro.setText("Data de Publicação:");
         jPanelGerLivros.add(jLabelDataLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 120, 130, 20));
+
+        jTextFieldNomeLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNomeLivroActionPerformed(evt);
+            }
+        });
         jPanelGerLivros.add(jTextFieldNomeLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 87, 270, -1));
         jPanelGerLivros.add(jTextFieldQuantidadeLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 30, -1));
 
@@ -1287,6 +1294,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerLivros.add(jLabelCategoriaLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(426, 90, 67, -1));
 
         jButtonCadastrarLivro.setText("Cadastrar");
+        jButtonCadastrarLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarLivroActionPerformed(evt);
+            }
+        });
         jPanelGerLivros.add(jButtonCadastrarLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 100, -1));
 
         jButtonLimparCamposLivro.setText("Limpar");
@@ -1295,6 +1307,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelCapaLivro.setBackground(new java.awt.Color(211, 211, 211));
 
         jLabelImagemCapa.setBackground(new java.awt.Color(188, 188, 188));
+        jLabelImagemCapa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelImagemCapaMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanelCapaLivroLayout = new javax.swing.GroupLayout(jPanelCapaLivro);
         jPanelCapaLivro.setLayout(jPanelCapaLivroLayout);
@@ -1854,17 +1871,16 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldQualidadeLivroActionPerformed
     String capaDir;
     private void jButtonAddCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCapaActionPerformed
+        try{
         javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();
         int result = jfc.showOpenDialog(jPanel1);
         if (result == jfc.APPROVE_OPTION) {
             capaDir = jfc.getSelectedFile().getAbsolutePath();
+            System.out.println(capaDir);
         }
-        
-        javax.swing.ImageIcon imageIcon = new javax.swing.ImageIcon(getClass().getResource(capaDir)); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image imgEmEscala = image.getScaledInstance(105, 150,  java.awt.Image.SCALE_SMOOTH);
-        /*
-        jLabelImagemCapa.setIcon(new javax.swing.ImageIcon(imgEmEscala)); */
+        }catch(Exception e){
+            System.out.println(e);
+        }
     }//GEN-LAST:event_jButtonAddCapaActionPerformed
         
     private void jTableCategoriasLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivroMouseClicked
@@ -2020,6 +2036,35 @@ public class AreaUsuario extends javax.swing.JFrame {
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jLabelImagemCapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelImagemCapaMouseClicked
+        
+        javax.swing.ImageIcon imageIcon = new javax.swing.ImageIcon(getClass().getResource(capaDir)); // load the image to a imageIcon
+        Image image = imageIcon.getImage();
+        Image imgEmEscala = image.getScaledInstance(105, 150,  java.awt.Image.SCALE_SMOOTH);
+        jLabelImagemCapa.setIcon(new javax.swing.ImageIcon(imgEmEscala));
+    }//GEN-LAST:event_jLabelImagemCapaMouseClicked
+
+    private void jButtonCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarLivroActionPerformed
+        try{
+        Livro livro = new biblioteca.Livro();
+        livro.setNome(jTextFieldNomeLivro.getText());
+        livro.setQuantidade( parseInt(jTextFieldQuantidadeLivro.getText()));
+        livro.setData(jFormattedTextFieldDataLivro.getText());
+        livro.setQualidade(jTextFieldQualidadeLivro.getText());
+        livro.setAlugados(0);
+        livro.setResumo(jTextAreaResumoLivro.getText());
+        livro.print();
+        
+        
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }//GEN-LAST:event_jButtonCadastrarLivroActionPerformed
+
+    private void jTextFieldNomeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNomeLivroActionPerformed
 
 
     public static void main(String args[]) {
