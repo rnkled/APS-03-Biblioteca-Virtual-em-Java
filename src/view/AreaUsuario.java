@@ -5,6 +5,7 @@ import biblioteca.*;
 import java.awt.CardLayout;
 import java.awt.Image;
 import static java.lang.Integer.parseInt;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -19,6 +20,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         setCbAltDelCargos();
         listarTabela();
         listarTabelaCliente();
+        listarTabelaCategorias();
+        listarTabelaAutores();
     }
     
     //Adiciona as opções de Cargos na ComboBox de Cadastro de Usuários
@@ -99,6 +102,45 @@ public class AreaUsuario extends javax.swing.JFrame {
             i++;
             
         }
+    }
+    List<Integer> idsCat = new ArrayList<Integer>();
+    public void listarTabelaCategorias(){
+        DefaultTableModel valor = (DefaultTableModel) jTableCategoriasLivro.getModel();
+        idsCat.clear();
+        valor.getDataVector().removeAllElements();
+        jComboBoxCategoriaLivro.removeAllItems();
+        CategoriaDAO categoriaDAO = new CategoriaDAO();
+        
+        List<CategoriaLivro> categorias = categoriaDAO.listarTodos();
+        int i = 0;
+        while (categorias.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(categorias.get(i).getId_Categoria()), 
+            categorias.get(i).getNome(),});
+            jComboBoxCategoriaLivro.addItem(categorias.get(i).getNome());
+            idsCat.add(categorias.get(i).getId_Categoria());
+            i++;
+        }
+    }
+    List<Integer> idsAut = new ArrayList<Integer>();
+    public void listarTabelaAutores(){
+        DefaultTableModel valor = (DefaultTableModel) jTableAutoresLivros.getModel();
+        idsAut.clear();
+        valor.getDataVector().removeAllElements();
+        jComboBoxAutorLivro.removeAllItems();
+        AutorDAO autorDAO = new AutorDAO();
+        
+        List<AutorLivro> autores = autorDAO.listarTodos();
+        int i = 0;
+        while (autores.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(autores.get(i).getId_Autor()), 
+            autores.get(i).getNome(),});
+            jComboBoxAutorLivro.addItem(autores.get(i).getNome());
+            idsAut.add(autores.get(i).getId_Autor());
+            i++;
+        }
+    
     }
     
     //Limpa os campos de Cadastro de Usuários     
@@ -292,15 +334,21 @@ public class AreaUsuario extends javax.swing.JFrame {
         jButtonRemoverAutLivro = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTableAutoresLivros = new javax.swing.JTable();
+        jButtonAlterarAutLivro = new javax.swing.JButton();
+        jTextFieldSelAutNome = new javax.swing.JTextField();
+        jTextFieldSelAutID = new javax.swing.JTextField();
         jLabelCadastrarAutoresLivro = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jPanelCadastrarAut = new javax.swing.JPanel();
         jLabelNomeCatLivro = new javax.swing.JLabel();
-        jTextFieldNovaCatLivro = new javax.swing.JTextField();
         jButtonRemoverCatLivro = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableCategoriasLivro = new javax.swing.JTable();
         jButtonAddNovaCatLivro = new javax.swing.JButton();
+        jButtonAlterarCatLivro = new javax.swing.JButton();
+        jTextFieldNovaCatLivro = new javax.swing.JTextField();
+        jTextFieldSelCatID = new javax.swing.JTextField();
+        jTextFieldSelCatNome = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
         jPanelGerAlugueis = new javax.swing.JPanel();
         jPanelAnuncios = new javax.swing.JPanel();
@@ -1347,8 +1395,8 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jLabelNomeAutLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNomeAutLivro.setText("Nome:");
-        jPaneCadastrarCat.add(jLabelNomeAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 50, 40));
-        jPaneCadastrarCat.add(jTextFieldNomeAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 110, -1));
+        jPaneCadastrarCat.add(jLabelNomeAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 50, 40));
+        jPaneCadastrarCat.add(jTextFieldNomeAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 120, -1));
 
         jButtonAddNovoAutLivro.setText("Adicionar Novo");
         jButtonAddNovoAutLivro.addActionListener(new java.awt.event.ActionListener() {
@@ -1356,7 +1404,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonAddNovoAutLivroActionPerformed(evt);
             }
         });
-        jPaneCadastrarCat.add(jButtonAddNovoAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 140, -1));
+        jPaneCadastrarCat.add(jButtonAddNovoAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, 140, -1));
 
         jButtonRemoverAutLivro.setText("Remover Selecionado");
         jButtonRemoverAutLivro.addActionListener(new java.awt.event.ActionListener() {
@@ -1364,14 +1412,14 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonRemoverAutLivroActionPerformed(evt);
             }
         });
-        jPaneCadastrarCat.add(jButtonRemoverAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 180, -1));
+        jPaneCadastrarCat.add(jButtonRemoverAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 143, 170, -1));
 
         jTableAutoresLivros.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null}
             },
             new String [] {
-                "ID", "Nome", "Qnt.Livros "
+                "ID", "Nome"
             }
         ));
         jTableAutoresLivros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1383,7 +1431,25 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPaneCadastrarCat.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 340, 110));
 
-        jPanelGerLivros.add(jPaneCadastrarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 340, 200));
+        jButtonAlterarAutLivro.setText("Alterar");
+        jButtonAlterarAutLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarAutLivroActionPerformed(evt);
+            }
+        });
+        jPaneCadastrarCat.add(jButtonAlterarAutLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 143, 140, -1));
+
+        jTextFieldSelAutNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSelAutNomeActionPerformed(evt);
+            }
+        });
+        jPaneCadastrarCat.add(jTextFieldSelAutNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 115, 180, -1));
+
+        jTextFieldSelAutID.setEditable(false);
+        jPaneCadastrarCat.add(jTextFieldSelAutID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, 130, -1));
+
+        jPanelGerLivros.add(jPaneCadastrarCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 390, 340, 220));
 
         jLabelCadastrarAutoresLivro.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
         jLabelCadastrarAutoresLivro.setText("Cadastrar novo Autor");
@@ -1394,8 +1460,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jLabelNomeCatLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabelNomeCatLivro.setText("Nome:");
-        jPanelCadastrarAut.add(jLabelNomeCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 50, 40));
-        jPanelCadastrarAut.add(jTextFieldNovaCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 110, -1));
+        jPanelCadastrarAut.add(jLabelNomeCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 50, 40));
 
         jButtonRemoverCatLivro.setText("Remover Selecionada");
         jButtonRemoverCatLivro.addActionListener(new java.awt.event.ActionListener() {
@@ -1403,14 +1468,14 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonRemoverCatLivroActionPerformed(evt);
             }
         });
-        jPanelCadastrarAut.add(jButtonRemoverCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 180, -1));
+        jPanelCadastrarAut.add(jButtonRemoverCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 143, 160, -1));
 
         jTableCategoriasLivro.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null}
+                {null, null}
             },
             new String [] {
-                "ID", "Nome", "Qnt.Livros "
+                "ID", "Nome"
             }
         ));
         jTableCategoriasLivro.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1431,19 +1496,32 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jButtonAddNovaCatLivroActionPerformed(evt);
             }
         });
-        jPanelCadastrarAut.add(jButtonAddNovaCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
+        jPanelCadastrarAut.add(jButtonAddNovaCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 140, -1));
 
-        jPanelGerLivros.add(jPanelCadastrarAut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 330, 200));
+        jButtonAlterarCatLivro.setText("Alterar");
+        jButtonAlterarCatLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarCatLivroActionPerformed(evt);
+            }
+        });
+        jPanelCadastrarAut.add(jButtonAlterarCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 143, 140, -1));
+        jPanelCadastrarAut.add(jTextFieldNovaCatLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 110, -1));
+
+        jTextFieldSelCatID.setEditable(false);
+        jPanelCadastrarAut.add(jTextFieldSelCatID, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 115, 120, -1));
+        jPanelCadastrarAut.add(jTextFieldSelCatNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 115, 180, -1));
+
+        jPanelGerLivros.add(jPanelCadastrarAut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 330, 220));
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 700, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         jPanelGerLivros.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 700, 250));
@@ -1780,6 +1858,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
     //Alteração de Cadastro de Usuário
     private void jBtAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlterarActionPerformed
+        
         Usuario us = new Usuario();
         us.setId_usuario(Integer.parseInt(jTxtAltDelId.getText()));
         us.setNome(jTxtAltDelNome.getText());
@@ -1884,11 +1963,24 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonAddCapaActionPerformed
         
     private void jTableCategoriasLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivroMouseClicked
-        // TODO add your handling code here:
+        jTextFieldSelCatID.setText((String) jTableCategoriasLivro.getModel().getValueAt(jTableCategoriasLivro.getSelectedRow(), 0));
+        jTextFieldSelCatNome.setText((String) jTableCategoriasLivro.getModel().getValueAt(jTableCategoriasLivro.getSelectedRow(), 1));
     }//GEN-LAST:event_jTableCategoriasLivroMouseClicked
 
     private void jButtonRemoverCatLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverCatLivroActionPerformed
-        // TODO add your handling code here:
+        CategoriaLivro categoria = new CategoriaLivro();
+        categoria.setNome(jTextFieldSelCatNome.getText());
+        categoria.setId_Categoria(parseInt(jTextFieldSelCatID.getText()));
+        if (categoria.getNome() != null){
+
+         CategoriaDAO categoriaDAO = new CategoriaDAO();
+         categoriaDAO.deletar(categoria);
+
+         JOptionPane.showMessageDialog(null, "Categoria "+categoria.getNome()+" Deletada!");
+         jTextFieldSelCatNome.setText("");
+         jTextFieldSelCatID.setText("");
+         listarTabelaCategorias();
+        }
     }//GEN-LAST:event_jButtonRemoverCatLivroActionPerformed
 
     private void jButtonAddNovaCatLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNovaCatLivroActionPerformed
@@ -1896,19 +1988,22 @@ public class AreaUsuario extends javax.swing.JFrame {
            CategoriaLivro categoria = new CategoriaLivro();
            categoria.setNome(jTextFieldNovaCatLivro.getText());
            if (categoria.getNome() != null){
+                
+            CategoriaDAO categoriaDAO = new CategoriaDAO();
+            categoriaDAO.salvar(categoria);
             
-            Usuario us = new Usuario();
-            us.setId_usuario(sessao.getId_usuario());
-        
-            UsuarioDAO userDAO = new UsuarioDAO();
-            userDAO.addCategoria(categoria);
-        
+            JOptionPane.showMessageDialog(null, "Categoria "+categoria.getNome()+" cadastrada!");
             jTextFieldNovaCatLivro.setText("");
+            listarTabelaCategorias();
+           }else {
+               JOptionPane.showMessageDialog(null, "Valor Inválido!");
+           
            }
            
            
        }catch(Exception e){
-           System.out.println(e);} 
+           JOptionPane.showMessageDialog(null, e);
+       } 
     }//GEN-LAST:event_jButtonAddNovaCatLivroActionPerformed
 
     private void jButtonAddNovoAutLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddNovoAutLivroActionPerformed
@@ -1916,27 +2011,42 @@ public class AreaUsuario extends javax.swing.JFrame {
            AutorLivro autor = new AutorLivro();
            autor.setNome(jTextFieldNomeAutLivro.getText());
            if (autor.getNome() != null){
+        
+            AutorDAO autorDAO = new AutorDAO();
+            autorDAO.salvar(autor);
             
-            Usuario us = new Usuario();
-            us.setId_usuario(sessao.getId_usuario());
-        
-            UsuarioDAO userDAO = new UsuarioDAO();
-            userDAO.addAutor(autor);
-        
+            JOptionPane.showMessageDialog(null, "Autor "+autor.getNome()+" cadastrado!");
+            this.listarTabelaAutores();
             jTextFieldNomeAutLivro.setText("");
+           } else {
+               JOptionPane.showMessageDialog(null, "Valor Inválido!");
+           
            }
            
            
        }catch(Exception e){
-           System.out.println(e);} 
+           JOptionPane.showMessageDialog(null, e);} 
     }//GEN-LAST:event_jButtonAddNovoAutLivroActionPerformed
 
     private void jButtonRemoverAutLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRemoverAutLivroActionPerformed
-        // TODO add your handling code here:
+        AutorLivro autor = new AutorLivro();
+        autor.setNome(jTextFieldSelAutNome.getText());
+        autor.setId_Autor(parseInt(jTextFieldSelAutID.getText()));
+        if (autor.getNome() != null){
+
+         AutorDAO autorDAO = new AutorDAO();
+         autorDAO.deletar(autor);
+
+         JOptionPane.showMessageDialog(null, "Autor "+autor.getNome()+" Deletado!");
+         jTextFieldSelAutNome.setText("");
+         jTextFieldSelAutID.setText("");
+         listarTabelaAutores();
+        }
     }//GEN-LAST:event_jButtonRemoverAutLivroActionPerformed
 
     private void jTableAutoresLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAutoresLivrosMouseClicked
-        // TODO add your handling code here:
+        jTextFieldSelAutID.setText((String) jTableAutoresLivros.getModel().getValueAt(jTableAutoresLivros.getSelectedRow(), 0));
+        jTextFieldSelAutNome.setText((String) jTableAutoresLivros.getModel().getValueAt(jTableAutoresLivros.getSelectedRow(), 1));
     }//GEN-LAST:event_jTableAutoresLivrosMouseClicked
 
     private void jBtCadastrar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrar1ActionPerformed
@@ -2086,19 +2196,65 @@ public class AreaUsuario extends javax.swing.JFrame {
         livro.setQualidade(jTextFieldQualidadeLivro.getText());
         livro.setAlugados(0);
         livro.setResumo(jTextAreaResumoLivro.getText());
-        livro.setCategoriaID(jComboBoxCategoriaLivro.getItemCount());
-        livro.setAutorID(jComboBoxCategoriaLivro.getItemCount());
-        livro.print();
+
+        
+        livro.setCategoriaID(idsCat.get(jComboBoxCategoriaLivro.getSelectedIndex()));
+        livro.setAutorID(idsAut.get(jComboBoxAutorLivro.getSelectedIndex()));
+        
+        LivroDAO livroDAO = new LivroDAO();
+        livroDAO.salvar(livro);
+        
+        JOptionPane.showMessageDialog(null, "Livro "+livro.getNome()+" Cadastrado!");
+        
         
         
         }catch(Exception e){
-            System.out.println(e);
+            JOptionPane.showMessageDialog(null, e+"AreaUsuario");
         }
     }//GEN-LAST:event_jButtonCadastrarLivroActionPerformed
 
     private void jTextFieldNomeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNomeLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldNomeLivroActionPerformed
+    
+
+    private void jButtonAlterarCatLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarCatLivroActionPerformed
+        
+        CategoriaLivro categoria = new CategoriaLivro();
+        categoria.setNome(jTextFieldSelCatNome.getText());
+        categoria.setId_Categoria(parseInt(jTextFieldSelCatID.getText()));
+        if (categoria.getNome() != null){
+
+         CategoriaDAO categoriaDAO = new CategoriaDAO();
+         categoriaDAO.alterar(categoria);
+
+         JOptionPane.showMessageDialog(null, "Categoria "+categoria.getNome()+" Alterada!");
+         jTextFieldSelCatNome.setText("");
+         jTextFieldSelCatID.setText("");
+         listarTabelaCategorias();
+        }
+    }//GEN-LAST:event_jButtonAlterarCatLivroActionPerformed
+
+    private void jButtonAlterarAutLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarAutLivroActionPerformed
+        AutorLivro autor = new AutorLivro();
+        autor.setNome(jTextFieldSelAutNome.getText());
+        autor.setId_Autor(parseInt(jTextFieldSelAutID.getText()));
+        if (autor.getNome() != null){
+
+         AutorDAO autorDAO = new AutorDAO();
+         autorDAO.alterar(autor);
+
+         JOptionPane.showMessageDialog(null, "Categoria "+autor.getNome()+" Alterada!");
+         jTextFieldSelAutNome.setText("");
+         jTextFieldSelAutID.setText("");
+         listarTabelaAutores();
+        }   
+    
+    }//GEN-LAST:event_jButtonAlterarAutLivroActionPerformed
+
+    private void jTextFieldSelAutNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSelAutNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldSelAutNomeActionPerformed
 
 
     public static void main(String args[]) {
@@ -2160,6 +2316,8 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAddCapa;
     private javax.swing.JButton jButtonAddNovaCatLivro;
     private javax.swing.JButton jButtonAddNovoAutLivro;
+    private javax.swing.JButton jButtonAlterarAutLivro;
+    private javax.swing.JButton jButtonAlterarCatLivro;
     private javax.swing.JButton jButtonCadastrarLivro;
     private javax.swing.JButton jButtonLimparCamposLivro;
     private javax.swing.JButton jButtonRemoverAutLivro;
@@ -2304,6 +2462,10 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldNovaCatLivro;
     private javax.swing.JTextField jTextFieldQualidadeLivro;
     private javax.swing.JTextField jTextFieldQuantidadeLivro;
+    private javax.swing.JTextField jTextFieldSelAutID;
+    private javax.swing.JTextField jTextFieldSelAutNome;
+    private javax.swing.JTextField jTextFieldSelCatID;
+    private javax.swing.JTextField jTextFieldSelCatNome;
     private javax.swing.JFormattedTextField jTxtAltCpfGerClientes;
     private javax.swing.JFormattedTextField jTxtAltDataNascGerClientes;
     private javax.swing.JFormattedTextField jTxtAltDelCpf;

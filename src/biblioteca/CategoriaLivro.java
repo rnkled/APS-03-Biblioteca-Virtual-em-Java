@@ -20,11 +20,11 @@ public class CategoriaLivro {
     }
 
     
-    public int getId_Categora() {
+    public int getId_Categoria() {
         return id_Categoria;
     }
 
-    public void setId_Categora(int id_Categora) {
+    public void setId_Categoria(int id_Categoria) {
         this.id_Categoria = id_Categoria;
     }
 
