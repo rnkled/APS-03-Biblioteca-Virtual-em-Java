@@ -75,7 +75,7 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelCategoria = new javax.swing.JLabel();
         jSeparatorCat = new javax.swing.JSeparator();
         jButtonPerfil = new javax.swing.JButton();
-        jButtonLivrosAlugados = new javax.swing.JButton();
+        jButtonCarrinho = new javax.swing.JButton();
         jButtonHistorico = new javax.swing.JButton();
         jButtonLogout = new javax.swing.JButton();
         jButtonAventura = new javax.swing.JButton();
@@ -139,7 +139,29 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jButtonAlugar1 = new javax.swing.JButton();
+        jButtonAdcCarrinho = new javax.swing.JButton();
+        jPanelTelaPerfil = new javax.swing.JPanel();
+        jLabelTituloCategoria4 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jLabelTituloCategoriaTexto4 = new javax.swing.JLabel();
+        jPanel9 = new javax.swing.JPanel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jPanel10 = new javax.swing.JPanel();
+        jButtonRetornar3 = new javax.swing.JButton();
+        jPanelTelaCarrinho = new javax.swing.JPanel();
+        jLabelTituloCategoria3 = new javax.swing.JLabel();
+        jSeparator7 = new javax.swing.JSeparator();
+        jLabelTituloCategoriaTexto3 = new javax.swing.JLabel();
+        jButtonRetornar2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton3 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
@@ -247,16 +269,16 @@ public class AreaCliente extends javax.swing.JFrame {
         });
         SideMenu.add(jButtonPerfil, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 170, 20));
 
-        jButtonLivrosAlugados.setForeground(new java.awt.Color(90, 95, 98));
-        jButtonLivrosAlugados.setText("Livros Alugados");
-        jButtonLivrosAlugados.setActionCommand("");
-        jButtonLivrosAlugados.setBorderPainted(false);
-        jButtonLivrosAlugados.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCarrinho.setForeground(new java.awt.Color(90, 95, 98));
+        jButtonCarrinho.setText("Carrinho");
+        jButtonCarrinho.setActionCommand("");
+        jButtonCarrinho.setBorderPainted(false);
+        jButtonCarrinho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonLivrosAlugadosActionPerformed(evt);
+                jButtonCarrinhoActionPerformed(evt);
             }
         });
-        SideMenu.add(jButtonLivrosAlugados, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 170, 20));
+        SideMenu.add(jButtonCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 170, 20));
 
         jButtonHistorico.setForeground(new java.awt.Color(90, 95, 98));
         jButtonHistorico.setText("Histórico");
@@ -891,7 +913,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonRetornarActionPerformed(evt);
             }
         });
-        jPanelTelaLivro.add(jButtonRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 90, 40));
+        jPanelTelaLivro.add(jButtonRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 90, 40));
 
         jLabel1.setText("Autor:");
         jPanelTelaLivro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
@@ -905,10 +927,130 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabel6.setText("Gênero:");
         jPanelTelaLivro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
 
-        jButtonAlugar1.setText("Alugar");
-        jPanelTelaLivro.add(jButtonAlugar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 280, 90, 40));
+        jButtonAdcCarrinho.setText("Adicionar ao Carrinho");
+        jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 140, 40));
 
         Screen.add(jPanelTelaLivro, "TelaLivro");
+
+        jPanelTelaPerfil.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelTelaPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTituloCategoria4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoria4.setText("Undefined");
+        jPanelTelaPerfil.add(jLabelTituloCategoria4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 380, 30));
+
+        jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTelaPerfil.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
+
+        jLabelTituloCategoriaTexto4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoriaTexto4.setText("Perfil de");
+        jPanelTelaPerfil.add(jLabelTituloCategoriaTexto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
+        jPanelTelaPerfil.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 120));
+
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel17.setText("Nome:");
+        jPanelTelaPerfil.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel18.setText("Endereço:");
+        jPanelTelaPerfil.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setText("Data de Nascimento:");
+        jPanelTelaPerfil.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
+
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel20.setText("Email:");
+        jPanelTelaPerfil.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel21.setText("Alugados rescentemente:");
+        jPanelTelaPerfil.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
+
+        jLabel22.setText("Lugar do icone");
+        jPanelTelaPerfil.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 520, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 110, Short.MAX_VALUE)
+        );
+
+        jPanelTelaPerfil.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 520, 110));
+
+        jButtonRetornar3.setText("Voltar");
+        jButtonRetornar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRetornar3ActionPerformed(evt);
+            }
+        });
+        jPanelTelaPerfil.add(jButtonRetornar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 90, 40));
+
+        Screen.add(jPanelTelaPerfil, "TelaPerfil");
+
+        jPanelTelaCarrinho.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelTelaCarrinho.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelTituloCategoria3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoria3.setText("Undefined");
+        jPanelTelaCarrinho.add(jLabelTituloCategoria3, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 380, 30));
+
+        jSeparator7.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTelaCarrinho.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
+
+        jLabelTituloCategoriaTexto3.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoriaTexto3.setText("Carrinho de");
+        jPanelTelaCarrinho.add(jLabelTituloCategoriaTexto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        jButtonRetornar2.setText("Voltar");
+        jButtonRetornar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonRetornar2ActionPerformed(evt);
+            }
+        });
+        jPanelTelaCarrinho.add(jButtonRetornar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 40));
+
+        jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        jLabel7.setText("Livros no carrinho");
+        jPanelTelaCarrinho.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 570, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 190, Short.MAX_VALUE)
+        );
+
+        jPanelTelaCarrinho.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 570, 190));
+
+        jButton3.setText("Excluir Item");
+        jPanelTelaCarrinho.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, 40));
+
+        jButton1.setText("Alugar");
+        jPanelTelaCarrinho.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 90, 40));
+
+        Screen.add(jPanelTelaCarrinho, "TelaCarrinho");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -929,12 +1071,16 @@ public class AreaCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPerfilActionPerformed
-        // TODO add your handling code here:
+       CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaPerfil");
     }//GEN-LAST:event_jButtonPerfilActionPerformed
 
-    private void jButtonLivrosAlugadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLivrosAlugadosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonLivrosAlugadosActionPerformed
+    private void jButtonCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarrinhoActionPerformed
+        {
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCarrinho");
+        }
+    }//GEN-LAST:event_jButtonCarrinhoActionPerformed
 
     private void jButtonPaginaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaginaAnteriorActionPerformed
         if (this.currentPage > 1){
@@ -1041,6 +1187,24 @@ public class AreaCliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_jButtonLogoutActionPerformed
 
+    private void jButtonRetornar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornar2ActionPerformed
+       if (SelCat != null){
+        
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaCategoria");
+        } else {
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaInicial");
+        }
+    }//GEN-LAST:event_jButtonRetornar2ActionPerformed
+
+    private void jButtonRetornar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornar3ActionPerformed
+        {
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaInicial");
+        }
+    }//GEN-LAST:event_jButtonRetornar3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1079,28 +1243,39 @@ public class AreaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Screen;
     private javax.swing.JPanel SideMenu;
-    private javax.swing.JButton jButtonAlugar1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonAdcCarrinho;
     private javax.swing.JButton jButtonAventura;
+    private javax.swing.JButton jButtonCarrinho;
     private javax.swing.JButton jButtonComedia;
     private javax.swing.JButton jButtonConteudoHistorico;
     private javax.swing.JButton jButtonEducacional;
     private javax.swing.JButton jButtonHistorico;
     private javax.swing.JButton jButtonHome;
-    private javax.swing.JButton jButtonLivrosAlugados;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonPaginaAnterior;
     private javax.swing.JButton jButtonPerfil;
     private javax.swing.JButton jButtonProximaPagina;
     private javax.swing.JButton jButtonRetornar;
+    private javax.swing.JButton jButtonRetornar2;
+    private javax.swing.JButton jButtonRetornar3;
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
     private javax.swing.JLabel jLabelLivro1;
@@ -1138,22 +1313,33 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitLivro9;
     private javax.swing.JLabel jLabelTituloCategoria;
     private javax.swing.JLabel jLabelTituloCategoria2;
+    private javax.swing.JLabel jLabelTituloCategoria3;
+    private javax.swing.JLabel jLabelTituloCategoria4;
     private javax.swing.JLabel jLabelTituloCategoriaTexto;
     private javax.swing.JLabel jLabelTituloCategoriaTexto2;
+    private javax.swing.JLabel jLabelTituloCategoriaTexto3;
+    private javax.swing.JLabel jLabelTituloCategoriaTexto4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelTelaCarrinho;
     private javax.swing.JPanel jPanelTelaCategoria;
     private javax.swing.JPanel jPanelTelaInicial;
     private javax.swing.JPanel jPanelTelaLivro;
+    private javax.swing.JPanel jPanelTelaPerfil;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
     private javax.swing.JSeparator jSeparatorPes;
