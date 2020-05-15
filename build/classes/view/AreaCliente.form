@@ -1175,7 +1175,12 @@
             </Container>
             <Component class="javax.swing.JButton" name="jButtonProximaPagina">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Pr&#xf3;xima P&#xe1;gina"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/icons8-chevron-right-30.png"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor em Forma de M&#xe3;o"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonProximaPaginaActionPerformed"/>
@@ -1188,7 +1193,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButtonPaginaAnterior">
               <Properties>
-                <Property name="text" type="java.lang.String" value="P&#xe1;gina Anterior"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/icons/icons8-chevron-esquerda-30.png"/>
+                </Property>
+                <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+                  <Color id="Cursor em Forma de M&#xe3;o"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPaginaAnteriorActionPerformed"/>
