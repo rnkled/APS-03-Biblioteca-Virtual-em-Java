@@ -6,7 +6,6 @@
 package DAO;
 
 import biblioteca.AutorLivro;
-import biblioteca.CategoriaLivro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -117,7 +116,42 @@ public class AutorDAO {
             
             throw new RuntimeException(e);
             
+        }}
+        
+    public AutorLivro pesquisaPorID(int id){
+        
+        String where;
+        where = "WHERE id_autor = ? ORDER BY id_autor";
+        
+        
+        String sql = "SELECT * FROM tb_autores "+where;
+        ResultSet rs;
+        AutorLivro autor = new AutorLivro();
+        
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setInt(1, id);
+            
+            rs = stmt.executeQuery();
+            
+            while(rs.next()){
+            
+            autor.setId_Autor(rs.getInt("id_autor"));
+            autor.setNome(rs.getString("nm_autor"));
+            }
+            rs.close();
+            stmt.close();
+            
+            return autor;
+            
+        } catch(SQLException e){
+            System.out.println(e);
         }
-    
+        
+        return autor;
     }
+    
+    
 }

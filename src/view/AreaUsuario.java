@@ -2,17 +2,23 @@ package view;
 
 import DAO.*;
 import biblioteca.*;
+import CustomClass.*;
 import java.awt.CardLayout;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AreaUsuario extends javax.swing.JFrame {
     
     private Usuario sessao;
+    private BufferedImage selectedImage;
+    List<Integer> idsAut = new ArrayList<Integer>();
     
     public AreaUsuario() {
         initComponents();
@@ -22,6 +28,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         listarTabelaCliente();
         listarTabelaCategorias();
         listarTabelaAutores();
+        listarTabelaRecomendados();
+        listarTabelaLancamentos();
     }
     
     //Adiciona as opções de Cargos na ComboBox de Cadastro de Usuários
@@ -122,7 +130,7 @@ public class AreaUsuario extends javax.swing.JFrame {
             i++;
         }
     }
-    List<Integer> idsAut = new ArrayList<Integer>();
+    
     public void listarTabelaAutores(){
         DefaultTableModel valor = (DefaultTableModel) jTableAutoresLivros.getModel();
         idsAut.clear();
@@ -141,6 +149,38 @@ public class AreaUsuario extends javax.swing.JFrame {
             i++;
         }
     
+    }
+    
+    public void listarTabelaRecomendados(){
+        
+        DefaultTableModel valor = (DefaultTableModel) jTableRecomendados.getModel();
+        valor.getDataVector().removeAllElements();
+        LivroDAO livroDAO = new LivroDAO();
+        
+        List<Livro> livros = livroDAO.getRecomendados();
+        int i = 0;
+        while (livros.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), 
+            livros.get(i).getNome(),});
+            i++;
+        }
+    }
+    
+    public void listarTabelaLancamentos(){
+        
+        DefaultTableModel valor = (DefaultTableModel) jTableLancamentos.getModel();
+        valor.getDataVector().removeAllElements();
+        LivroDAO livroDAO = new LivroDAO();
+        
+        List<Livro> livros = livroDAO.getLancamentos();
+        int i = 0;
+        while (livros.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), 
+            livros.get(i).getNome(),});
+            i++;
+        }
     }
     
     //Limpa os campos de Cadastro de Usuários     
@@ -356,7 +396,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabelGerenciarCategorias3 = new javax.swing.JLabel();
         jSeparator9 = new javax.swing.JSeparator();
         jScrollPane10 = new javax.swing.JScrollPane();
-        jTableCategoriasLivro5 = new javax.swing.JTable();
+        jTableRecomendados = new javax.swing.JTable();
         jLabel48 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
@@ -365,15 +405,16 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel51 = new javax.swing.JLabel();
         jLabel52 = new javax.swing.JLabel();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTableCategoriasLivro6 = new javax.swing.JTable();
-        jTextField3 = new javax.swing.JTextField();
+        jTablePesquisaReco = new javax.swing.JTable();
+        jTextFieldPesquisaReco = new javax.swing.JTextField();
         jLabel53 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
+        jButtonPesquisaReco = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabelGerenciarCategorias4 = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jScrollPane12 = new javax.swing.JScrollPane();
-        jTableCategoriasLivro7 = new javax.swing.JTable();
+        jTableLancamentos = new javax.swing.JTable();
         jLabel54 = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -382,9 +423,10 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel57 = new javax.swing.JLabel();
         jLabel58 = new javax.swing.JLabel();
         jScrollPane13 = new javax.swing.JScrollPane();
-        jTableCategoriasLivro8 = new javax.swing.JTable();
-        jTextField4 = new javax.swing.JTextField();
+        jTablePesquisaLanca = new javax.swing.JTable();
+        jTextFieldPesquisaLanca = new javax.swing.JTextField();
         jLabel59 = new javax.swing.JLabel();
+        jButtonPesquisarLanca = new javax.swing.JButton();
         jLabelGerenciarCategorias5 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
         SideMenu = new javax.swing.JPanel();
@@ -897,7 +939,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                                                 .addComponent(jBtExcluir)
                                                 .addGap(34, 34, 34)))
                                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 14, Short.MAX_VALUE))
+                        .addGap(0, 69, Short.MAX_VALUE))
                     .addGroup(jPanelGerUsuariosLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -973,7 +1015,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                         .addGroup(jPanelGerUsuariosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jBtAlterar)
                             .addComponent(jBtExcluir))))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(208, Short.MAX_VALUE))
         );
 
         jPanelFather.add(jPanelGerUsuarios, "TelaUsuarios");
@@ -1350,6 +1392,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerLivros.add(jButtonCadastrarLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 100, -1));
 
         jButtonLimparCamposLivro.setText("Limpar");
+        jButtonLimparCamposLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLimparCamposLivroActionPerformed(evt);
+            }
+        });
         jPanelGerLivros.add(jButtonLimparCamposLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 170, 100, -1));
 
         jPanelCapaLivro.setBackground(new java.awt.Color(211, 211, 211));
@@ -1534,11 +1581,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerAlugueis.setLayout(jPanelGerAlugueisLayout);
         jPanelGerAlugueisLayout.setHorizontalGroup(
             jPanelGerAlugueisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 745, Short.MAX_VALUE)
+            .addGap(0, 800, Short.MAX_VALUE)
         );
         jPanelGerAlugueisLayout.setVerticalGroup(
             jPanelGerAlugueisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 623, Short.MAX_VALUE)
+            .addGap(0, 760, Short.MAX_VALUE)
         );
 
         jPanelFather.add(jPanelGerAlugueis, "TelaAlugueis");
@@ -1556,7 +1603,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanel9.add(jLabelGerenciarCategorias3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         jPanel9.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
 
-        jTableCategoriasLivro5.setModel(new javax.swing.table.DefaultTableModel(
+        jTableRecomendados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null}
             },
@@ -1564,14 +1611,14 @@ public class AreaUsuario extends javax.swing.JFrame {
                 "ID", "Nome"
             }
         ));
-        jTableCategoriasLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableRecomendados.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCategoriasLivro5MouseClicked(evt);
+                jTableRecomendadosMouseClicked(evt);
             }
         });
-        jScrollPane10.setViewportView(jTableCategoriasLivro5);
-        if (jTableCategoriasLivro5.getColumnModel().getColumnCount() > 0) {
-            jTableCategoriasLivro5.getColumnModel().getColumn(0).setPreferredWidth(1);
+        jScrollPane10.setViewportView(jTableRecomendados);
+        if (jTableRecomendados.getColumnModel().getColumnCount() > 0) {
+            jTableRecomendados.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
 
         jPanel9.add(jScrollPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 240, 150));
@@ -1581,24 +1628,34 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanel9.add(jLabel48, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
 
         jButton5.setText("Retirar");
-        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 77, -1));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 77, -1));
 
         jButton6.setText("Adicionar");
-        jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
 
         jLabel49.setText("<<");
-        jPanel9.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, 20));
+        jPanel9.add(jLabel49, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, 20));
 
         jLabel50.setText(">>");
-        jPanel9.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 20));
+        jPanel9.add(jLabel50, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 20));
 
         jLabel51.setText(">>");
-        jPanel9.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, 20));
+        jPanel9.add(jLabel51, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, 20));
 
         jLabel52.setText("<<");
-        jPanel9.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, 20));
+        jPanel9.add(jLabel52, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, 20));
 
-        jTableCategoriasLivro6.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePesquisaReco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null}
             },
@@ -1606,29 +1663,37 @@ public class AreaUsuario extends javax.swing.JFrame {
                 "ID", "Nome", "Autor"
             }
         ));
-        jTableCategoriasLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTablePesquisaReco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCategoriasLivro6MouseClicked(evt);
+                jTablePesquisaRecoMouseClicked(evt);
             }
         });
-        jScrollPane11.setViewportView(jTableCategoriasLivro6);
-        if (jTableCategoriasLivro6.getColumnModel().getColumnCount() > 0) {
-            jTableCategoriasLivro6.getColumnModel().getColumn(0).setPreferredWidth(1);
+        jScrollPane11.setViewportView(jTablePesquisaReco);
+        if (jTablePesquisaReco.getColumnModel().getColumnCount() > 0) {
+            jTablePesquisaReco.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
 
         jPanel9.add(jScrollPane11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 270, 120));
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPesquisaReco.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTextFieldPesquisaRecoActionPerformed(evt);
             }
         });
-        jPanel9.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 210, -1));
+        jPanel9.add(jTextFieldPesquisaReco, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 41, 120, -1));
 
         jLabel53.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel53.setText("Livros Mostrados Atualmente:");
         jPanel9.add(jLabel53, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 10, -1, -1));
         jPanel9.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
+
+        jButtonPesquisaReco.setText("Pesquisar");
+        jButtonPesquisaReco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisaRecoActionPerformed(evt);
+            }
+        });
+        jPanel9.add(jButtonPesquisaReco, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 90, -1));
 
         jPanelAnuncios.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 680, 200));
 
@@ -1641,7 +1706,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanel10.add(jLabelGerenciarCategorias4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
         jPanel10.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, 10));
 
-        jTableCategoriasLivro7.setModel(new javax.swing.table.DefaultTableModel(
+        jTableLancamentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null}
             },
@@ -1649,14 +1714,14 @@ public class AreaUsuario extends javax.swing.JFrame {
                 "ID", "Nome"
             }
         ));
-        jTableCategoriasLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTableLancamentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCategoriasLivro7MouseClicked(evt);
+                jTableLancamentosMouseClicked(evt);
             }
         });
-        jScrollPane12.setViewportView(jTableCategoriasLivro7);
-        if (jTableCategoriasLivro7.getColumnModel().getColumnCount() > 0) {
-            jTableCategoriasLivro7.getColumnModel().getColumn(0).setPreferredWidth(1);
+        jScrollPane12.setViewportView(jTableLancamentos);
+        if (jTableLancamentos.getColumnModel().getColumnCount() > 0) {
+            jTableLancamentos.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
 
         jPanel10.add(jScrollPane12, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 240, 150));
@@ -1666,24 +1731,34 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanel10.add(jLabel54, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, 20));
 
         jButton7.setText("Retirar");
-        jPanel10.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 140, 77, -1));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 160, 77, -1));
 
         jButton8.setText("Adicionar");
-        jPanel10.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, -1, -1));
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, -1, -1));
 
         jLabel55.setText("<<");
-        jPanel10.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, 20));
+        jPanel10.add(jLabel55, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, 20));
 
         jLabel56.setText(">>");
-        jPanel10.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 20));
+        jPanel10.add(jLabel56, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 20));
 
         jLabel57.setText(">>");
-        jPanel10.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 70, -1, 20));
+        jPanel10.add(jLabel57, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, -1, 20));
 
         jLabel58.setText("<<");
-        jPanel10.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 140, -1, 20));
+        jPanel10.add(jLabel58, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 160, -1, 20));
 
-        jTableCategoriasLivro8.setModel(new javax.swing.table.DefaultTableModel(
+        jTablePesquisaLanca.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null}
             },
@@ -1691,28 +1766,36 @@ public class AreaUsuario extends javax.swing.JFrame {
                 "ID", "Nome", "Autor"
             }
         ));
-        jTableCategoriasLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
+        jTablePesquisaLanca.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableCategoriasLivro8MouseClicked(evt);
+                jTablePesquisaLancaMouseClicked(evt);
             }
         });
-        jScrollPane13.setViewportView(jTableCategoriasLivro8);
-        if (jTableCategoriasLivro8.getColumnModel().getColumnCount() > 0) {
-            jTableCategoriasLivro8.getColumnModel().getColumn(0).setPreferredWidth(1);
+        jScrollPane13.setViewportView(jTablePesquisaLanca);
+        if (jTablePesquisaLanca.getColumnModel().getColumnCount() > 0) {
+            jTablePesquisaLanca.getColumnModel().getColumn(0).setPreferredWidth(1);
         }
 
         jPanel10.add(jScrollPane13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 270, 120));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldPesquisaLanca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jTextFieldPesquisaLancaActionPerformed(evt);
             }
         });
-        jPanel10.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 210, -1));
+        jPanel10.add(jTextFieldPesquisaLanca, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 41, 120, -1));
 
         jLabel59.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel59.setText("Livros Mostrados Atualmente:");
         jPanel10.add(jLabel59, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, -1, -1));
+
+        jButtonPesquisarLanca.setText("Pesquisar");
+        jButtonPesquisarLanca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPesquisarLancaActionPerformed(evt);
+            }
+        });
+        jPanel10.add(jButtonPesquisarLanca, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 40, 90, -1));
 
         jPanelAnuncios.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, 680, 200));
 
@@ -1898,6 +1981,11 @@ public class AreaUsuario extends javax.swing.JFrame {
 
     //Cadastro de Usuário
     private void jBtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarActionPerformed
+        if(jTxtNome.getText().isBlank() || jTxtCpf.getText().isBlank() || jTxtLogin.getText().isEmpty() || jPassSenha.getText().isBlank())
+        {
+            JOptionPane.showMessageDialog(null, "Campos faltando, Você precisa preencher os Campos essenciais!");
+        }
+        else{
         Usuario us = new Usuario();
         us.setNome(jTxtNome.getText());
         us.setCpf(jTxtCpf.getText());
@@ -1912,6 +2000,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         limparCamposCad();
         listarTabela();
+        }
     }//GEN-LAST:event_jBtCadastrarActionPerformed
 
     private void jBtPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesquisarActionPerformed
@@ -1950,16 +2039,31 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldQualidadeLivroActionPerformed
     String capaDir;
     private void jButtonAddCapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddCapaActionPerformed
-        try{
-        javax.swing.JFileChooser jfc = new javax.swing.JFileChooser();
-        int result = jfc.showOpenDialog(jPanel1);
-        if (result == jfc.APPROVE_OPTION) {
-            capaDir = jfc.getSelectedFile().getAbsolutePath();
-            System.out.println(capaDir);
+        
+        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
+        int res = fc.showOpenDialog(null);
+
+        if (res == fc.APPROVE_OPTION) {
+            File arquivo = fc.getSelectedFile();
+
+            try {
+                BufferedImage imagemBanco = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 210, 260);
+                BufferedImage imagemPreview = ManipularImagem.setImagemDimensao(arquivo.getAbsolutePath(), 160, 160);
+
+                jLabelImagemCapa.setIcon(new ImageIcon(imagemPreview));
+                this.selectedImage = imagemBanco;
+
+            } catch (Exception ex) {
+               JOptionPane.showMessageDialog(null, "Erro: "+ex);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Voce nao selecionou nenhum arquivo.");
+            jLabelImagemCapa.setIcon(null);
+            this.selectedImage = null;
         }
-        }catch(Exception e){
-            System.out.println(e);
-        }
+
+        
     }//GEN-LAST:event_jButtonAddCapaActionPerformed
         
     private void jTableCategoriasLivroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivroMouseClicked
@@ -2155,29 +2259,29 @@ public class AreaUsuario extends javax.swing.JFrame {
         cl.show(jPanelFather, "TelaUsuarios");
     }//GEN-LAST:event_jBtGerUsuarios1ActionPerformed
 
-    private void jTableCategoriasLivro5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro5MouseClicked
+    private void jTableRecomendadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableRecomendadosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCategoriasLivro5MouseClicked
+    }//GEN-LAST:event_jTableRecomendadosMouseClicked
 
-    private void jTableCategoriasLivro6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro6MouseClicked
+    private void jTablePesquisaRecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePesquisaRecoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCategoriasLivro6MouseClicked
+    }//GEN-LAST:event_jTablePesquisaRecoMouseClicked
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextFieldPesquisaRecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaRecoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldPesquisaRecoActionPerformed
 
-    private void jTableCategoriasLivro7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro7MouseClicked
+    private void jTableLancamentosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLancamentosMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCategoriasLivro7MouseClicked
+    }//GEN-LAST:event_jTableLancamentosMouseClicked
 
-    private void jTableCategoriasLivro8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCategoriasLivro8MouseClicked
+    private void jTablePesquisaLancaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePesquisaLancaMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCategoriasLivro8MouseClicked
+    }//GEN-LAST:event_jTablePesquisaLancaMouseClicked
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextFieldPesquisaLancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaLancaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jTextFieldPesquisaLancaActionPerformed
 
     private void jLabelImagemCapaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelImagemCapaMouseClicked
         
@@ -2188,6 +2292,13 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelImagemCapaMouseClicked
 
     private void jButtonCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarLivroActionPerformed
+        
+        if(jTextFieldNomeLivro.getText().isBlank() || jTextFieldQuantidadeLivro.getText().isBlank()
+                || this.selectedImage == null){
+            
+            JOptionPane.showMessageDialog(null, "Negado! Faltam Campos Essenciais a Serem Preenchidos!");
+        
+        }else{
         try{
         Livro livro = new biblioteca.Livro();
         livro.setNome(jTextFieldNomeLivro.getText());
@@ -2196,8 +2307,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         livro.setQualidade(jTextFieldQualidadeLivro.getText());
         livro.setAlugados(0);
         livro.setResumo(jTextAreaResumoLivro.getText());
-
         
+        livro.setCapa(ManipularImagem.getImgBytes(this.selectedImage));
         livro.setCategoriaID(idsCat.get(jComboBoxCategoriaLivro.getSelectedIndex()));
         livro.setAutorID(idsAut.get(jComboBoxAutorLivro.getSelectedIndex()));
         
@@ -2210,6 +2321,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e+"AreaUsuario");
+        }
         }
     }//GEN-LAST:event_jButtonCadastrarLivroActionPerformed
 
@@ -2256,6 +2368,123 @@ public class AreaUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSelAutNomeActionPerformed
 
+    private void jButtonLimparCamposLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLimparCamposLivroActionPerformed
+
+    private void jButtonPesquisaRecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaRecoActionPerformed
+        if(jTextFieldPesquisaReco.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, "Você Precisa Escrever o Nome do Livro para a Pesquisa!");
+        }else{
+            
+            LivroDAO livroDAO = new LivroDAO();
+            List<Livro> livros = livroDAO.pesquisaPorNome(jTextFieldPesquisaReco.getText());
+            
+            if (livros.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Sua Pesquisa não obteve Resultados. "
+                        + "tente escrever de outra forma.");
+            } else {
+        
+        DefaultTableModel valor = (DefaultTableModel) jTablePesquisaReco.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        int i = 0;
+        while (livros.size() > i){
+            
+            AutorDAO autorDAO = new AutorDAO();
+            AutorLivro autor = autorDAO.pesquisaPorID(livros.get(i).getAutorID());
+            valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), livros.get(i).getNome(), autor.getNome()});
+            i++;
+        }
+            }
+        }
+    }//GEN-LAST:event_jButtonPesquisaRecoActionPerformed
+
+    private void jButtonPesquisarLancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarLancaActionPerformed
+        if(jTextFieldPesquisaLanca.getText().isBlank()){
+            JOptionPane.showMessageDialog(null, "Você Precisa Escrever o Nome do Livro para a Pesquisa!");
+        }else{
+            
+            LivroDAO livroDAO = new LivroDAO();
+            List<Livro> livros = livroDAO.pesquisaPorNome(jTextFieldPesquisaLanca.getText());
+            
+            if (livros.isEmpty()){
+                JOptionPane.showMessageDialog(null, "Sua Pesquisa não obteve Resultados. "
+                        + "tente escrever de outra forma.");
+            } else {
+        
+        DefaultTableModel valor = (DefaultTableModel) jTablePesquisaLanca.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        int i = 0;
+        while (livros.size() > i){
+            
+            AutorDAO autorDAO = new AutorDAO();
+            AutorLivro autor = autorDAO.pesquisaPorID(livros.get(i).getAutorID());
+            valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), livros.get(i).getNome(), autor.getNome()});
+            i++;
+        }
+            }
+        }
+    }//GEN-LAST:event_jButtonPesquisarLancaActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        if(jTableLancamentos.getRowCount() >= 4){
+            JOptionPane.showMessageDialog(null, "Você já selecionou 4 Livros, caso deseje trocar, "
+                    + "Remova algum!");
+        
+        }else{
+            String livroID = (String) jTablePesquisaLanca.getModel().getValueAt(jTablePesquisaLanca.getSelectedRow(), 0);
+            LivroDAO livroDAO = new LivroDAO();
+            
+            Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
+            
+            livroDAO.salvarLancamento(livro);
+            listarTabelaLancamentos();
+            
+        }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        if(jTableRecomendados.getRowCount() >= 4){
+            JOptionPane.showMessageDialog(null, "Você já selecionou 4 Livros, caso deseje trocar, "
+                    + "Remova algum!");
+        
+        }else{
+            String livroID = (String) jTablePesquisaReco.getModel().getValueAt(jTablePesquisaReco.getSelectedRow(), 0);
+            LivroDAO livroDAO = new LivroDAO();
+            
+            Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
+            
+            livroDAO.salvarRecomendado(livro);
+            listarTabelaRecomendados();}
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        if(jTableLancamentos.getSelectedRow()+1>0){
+        String livroID = (String) jTableLancamentos.getModel().getValueAt(jTableLancamentos.getSelectedRow(), 0);
+        LivroDAO livroDAO = new LivroDAO();
+        Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
+            
+        livroDAO.removerLancamento(livro);
+        listarTabelaLancamentos();
+        } else {
+        JOptionPane.showMessageDialog(null, "Ocorreu um Erro! Selecione um Livro para fazer isso!");
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        if(jTableLancamentos.getSelectedRow()+1>0){
+        String livroID = (String) jTableRecomendados.getModel().getValueAt(jTableRecomendados.getSelectedRow(), 0);
+        LivroDAO livroDAO = new LivroDAO();
+        Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
+            
+        livroDAO.removerRecomendado(livro);
+        listarTabelaRecomendados();
+        } else {
+        JOptionPane.showMessageDialog(null, "Ocorreu um Erro! Selecione um Livro para fazer isso!");}
+    }//GEN-LAST:event_jButton5ActionPerformed
+    
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2320,6 +2549,8 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAlterarCatLivro;
     private javax.swing.JButton jButtonCadastrarLivro;
     private javax.swing.JButton jButtonLimparCamposLivro;
+    private javax.swing.JButton jButtonPesquisaReco;
+    private javax.swing.JButton jButtonPesquisarLanca;
     private javax.swing.JButton jButtonRemoverAutLivro;
     private javax.swing.JButton jButtonRemoverCatLivro;
     private javax.swing.JComboBox<String> jCbAltDelCargo;
@@ -2448,18 +2679,18 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JTable jTableAutoresLivros;
     private javax.swing.JTable jTableCategoriasLivro;
-    private javax.swing.JTable jTableCategoriasLivro5;
-    private javax.swing.JTable jTableCategoriasLivro6;
-    private javax.swing.JTable jTableCategoriasLivro7;
-    private javax.swing.JTable jTableCategoriasLivro8;
     private javax.swing.JTable jTableClientes;
+    private javax.swing.JTable jTableLancamentos;
+    private javax.swing.JTable jTablePesquisaLanca;
+    private javax.swing.JTable jTablePesquisaReco;
+    private javax.swing.JTable jTableRecomendados;
     private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextArea jTextAreaResumoLivro;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextFieldNomeAutLivro;
     private javax.swing.JTextField jTextFieldNomeLivro;
     private javax.swing.JTextField jTextFieldNovaCatLivro;
+    private javax.swing.JTextField jTextFieldPesquisaLanca;
+    private javax.swing.JTextField jTextFieldPesquisaReco;
     private javax.swing.JTextField jTextFieldQualidadeLivro;
     private javax.swing.JTextField jTextFieldQuantidadeLivro;
     private javax.swing.JTextField jTextFieldSelAutID;
