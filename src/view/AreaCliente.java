@@ -5,7 +5,7 @@
  */
 package view;
 
-import CustomClass.ManipularImagem;
+import CustomClass.ManipularLabels;
 import DAO.ClienteDAO;
 import DAO.LivroDAO;
 import biblioteca.Cliente;
@@ -15,49 +15,102 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JLabel;
 
 
 public class AreaCliente extends javax.swing.JFrame {
     
     String SelCat = null;
-    int currentPage = 1;
+    int currentPage = 0;
 
     /**
      * Creates new form AreaCliente
      */
     public AreaCliente() {
         initComponents();
-        jButtonProximaPagina.setContentAreaFilled(false);
-        jButtonPaginaAnterior.setContentAreaFilled(false);
-        getRecomendados();
+        setListas();
+        setLancamentos();
+        setRecomendados();
     }
     
-    List<Livro> recomendados = new ArrayList<Livro>();
+    LivroDAO livro = new LivroDAO();
+    List<JLabel> recomendados = new ArrayList<JLabel>();
+    List<JLabel> titrecomendados = new ArrayList<JLabel>();
     
-    private void getRecomendados(){
+    List<JLabel> lancamentos = new ArrayList<JLabel>();
+    List<JLabel> titlancamentos = new ArrayList<JLabel>();
+    
+    List<JLabel> categorias = new ArrayList<JLabel>();
+    List<JLabel> titcategorias = new ArrayList<JLabel>();
+    
+    private void setRecomendados(){
+        List<Livro> livros = new ArrayList<Livro>();
+        livros = livro.getRecomendados();
+        ManipularLabels.setLabels(livros, recomendados, titrecomendados);
+    }
+    
+    private void setLancamentos(){
+        List<Livro> livros = new ArrayList<Livro>();
+        livros = livro.getLancamentos();
+        ManipularLabels.setLabels(livros, lancamentos, titlancamentos);
+    }
+    
+    private void setListas(){
+        //Capas
+        this.lancamentos.add(jLabelLivro1);
+        this.lancamentos.add(jLabelLivro2);
+        this.lancamentos.add(jLabelLivro3);
+        this.lancamentos.add(jLabelLivro4);
         
-        LivroDAO livroDAO = new LivroDAO();
-        recomendados = livroDAO.getRecomendados();
+        this.recomendados.add(jLabelLivro5);
+        this.recomendados.add(jLabelLivro6);
+        this.recomendados.add(jLabelLivro7);
+        this.recomendados.add(jLabelLivro8);
         
-        ManipularImagem.exibirImagemLabel(recomendados.get(0).getCapa(), jLabelLivro5, 105, 150);
-        jLabelTitLivro5.setText(recomendados.get(0).getNome());
-         ManipularImagem.exibirImagemLabel(recomendados.get(1).getCapa(), jLabelLivro6, 105, 150);
-         jLabelTitLivro6.setText(recomendados.get(1).getNome());
-          ManipularImagem.exibirImagemLabel(recomendados.get(2).getCapa(), jLabelLivro7, 105, 150);
-          jLabelTitLivro7.setText(recomendados.get(2).getNome());
-           ManipularImagem.exibirImagemLabel(recomendados.get(3).getCapa(), jLabelLivro8, 105, 150);
-           jLabelTitLivro8.setText(recomendados.get(3).getNome());
+        this.categorias.add(jLabelLivro9);
+        this.categorias.add(jLabelLivro10);
+        this.categorias.add(jLabelLivro11);
+        this.categorias.add(jLabelLivro12);
+        this.categorias.add(jLabelLivro13);
+        this.categorias.add(jLabelLivro14);
+        this.categorias.add(jLabelLivro15);
+        this.categorias.add(jLabelLivro16);
         
+        //Titulos
+        this.titlancamentos.add(jLabelTitLivro1);
+        this.titlancamentos.add(jLabelTitLivro2);
+        this.titlancamentos.add(jLabelTitLivro3);
+        this.titlancamentos.add(jLabelTitLivro4);
+        
+        this.titrecomendados.add(jLabelTitLivro5);
+        this.titrecomendados.add(jLabelTitLivro6);
+        this.titrecomendados.add(jLabelTitLivro7);
+        this.titrecomendados.add(jLabelTitLivro8);
+        
+        this.titcategorias.add(jLabelTitLivro9);
+        this.titcategorias.add(jLabelTitLivro10);
+        this.titcategorias.add(jLabelTitLivro11);
+        this.titcategorias.add(jLabelTitLivro12);
+        this.titcategorias.add(jLabelTitLivro13);
+        this.titcategorias.add(jLabelTitLivro14);
+        this.titcategorias.add(jLabelTitLivro15);
+        this.titcategorias.add(jLabelTitLivro16);
+    
     
     }
     
     
-    public Image tempGetImg(){
+    public void popularCategoria(){
         
-        javax.swing.ImageIcon imageIcon = new javax.swing.ImageIcon(getClass().getResource("/icons/temor.jpg")); // load the image to a imageIcon
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(105, 150,  java.awt.Image.SCALE_SMOOTH);
-        return newimg;
+        for (int i=0; i<categorias.size(); i++){
+            categorias.get(i).setIcon(null);
+            titcategorias.get(i).setText(null);
+        }
+        
+        List<Livro> livros = new ArrayList<Livro>();
+        livros = livro.pesquisaPorCategoria(SelCat);
+        
+        ManipularLabels.setLabelsPorPage(livros, categorias, titcategorias, currentPage);
         
     }
     
@@ -218,7 +271,7 @@ public class AreaCliente extends javax.swing.JFrame {
         SideMenu.add(jSeparatorPes, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 35, 170, 10));
 
         jButtonConteudoHistorico.setForeground(new java.awt.Color(90, 95, 98));
-        jButtonConteudoHistorico.setText("Conteudo Histórico");
+        jButtonConteudoHistorico.setText("Fantasia");
         jButtonConteudoHistorico.setBorderPainted(false);
         jButtonConteudoHistorico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -351,7 +404,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro1.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro1.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro1.setToolTipText("");
         jLabelLivro1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -361,7 +413,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro1.setText("O Temor do Sábio");
         jLabelTitLivro1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -371,7 +422,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro2.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro2.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro2.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro2.setToolTipText("");
         jLabelLivro2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -381,7 +431,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro2.setText("O Temor do Sábio");
         jLabelTitLivro2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -391,7 +440,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro3.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro3.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro3.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro3.setToolTipText("");
         jLabelLivro3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -401,7 +449,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro3.setText("O Temor do Sábio");
         jLabelTitLivro3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -411,7 +458,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro4.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro4.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro4.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro4.setToolTipText("");
         jLabelLivro4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -421,7 +467,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro4.setText("O Temor do Sábio");
         jLabelTitLivro4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -494,7 +539,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro5.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro5.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro5.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro5.setToolTipText("");
         jLabelLivro5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -504,7 +548,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro5.setText("O Temor do Sábio");
         jLabelTitLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -514,7 +557,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro6.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro6.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro6.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro6.setToolTipText("");
         jLabelLivro6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -524,7 +566,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro6.setText("O Temor do Sábio");
         jLabelTitLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -534,7 +575,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro7.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro7.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro7.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro7.setToolTipText("");
         jLabelLivro7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -544,7 +584,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro7.setText("O Temor do Sábio");
         jLabelTitLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -554,7 +593,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro8.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro8.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro8.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro8.setToolTipText("");
         jLabelLivro8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -564,7 +602,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro8.setText("O Temor do Sábio");
         jLabelTitLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro3MouseClicked(evt);
@@ -628,7 +665,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro9.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro9.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro9.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro9.setToolTipText("");
         jLabelLivro9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro9.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -638,7 +674,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro9.setText("O Temor do Sábio");
         jLabelTitLivro9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -648,7 +683,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro10.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro10.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro10.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro10.setToolTipText("");
         jLabelLivro10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro10.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -658,7 +692,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro10.setText("O Temor do Sábio");
         jLabelTitLivro10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -668,7 +701,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro11.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro11.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro11.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro11.setToolTipText("");
         jLabelLivro11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro11.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -678,7 +710,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro11.setText("O Temor do Sábio");
         jLabelTitLivro11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -688,7 +719,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro12.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro12.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro12.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro12.setToolTipText("");
         jLabelLivro12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro12.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -698,7 +728,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro12.setText("O Temor do Sábio");
         jLabelTitLivro12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -752,19 +781,18 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTelaCategoria.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 240, 500, 170));
+        jPanelTelaCategoria.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 59, 500, 170));
 
         jLabelTituloCategoria.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabelTituloCategoria.setText("Undefined");
         jPanelTelaCategoria.add(jLabelTituloCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(124, 10, 380, 30));
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanelTelaCategoria.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
+        jPanelTelaCategoria.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 360, 10));
 
         jLabelLivro13.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro13.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro13.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro13.setToolTipText("");
         jLabelLivro13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro13.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -774,7 +802,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro13.setText("O Temor do Sábio");
         jLabelTitLivro13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -784,7 +811,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro14.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro14.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro14.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro14.setToolTipText("");
         jLabelLivro14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro14.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -794,7 +820,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro14.setText("O Temor do Sábio");
         jLabelTitLivro14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -804,7 +829,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro15.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro15.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro15.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro15.setToolTipText("");
         jLabelLivro15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro15.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -814,7 +838,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro15.setText("O Temor do Sábio");
         jLabelTitLivro15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -824,7 +847,6 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro16.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro16.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelLivro16.setIcon(new javax.swing.ImageIcon(tempGetImg()));
         jLabelLivro16.setToolTipText("");
         jLabelLivro16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro16.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -834,7 +856,6 @@ public class AreaCliente extends javax.swing.JFrame {
         });
 
         jLabelTitLivro16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabelTitLivro16.setText("O Temor do Sábio");
         jLabelTitLivro16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabelTitLivro16MouseClicked(evt);
@@ -888,7 +909,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, 500, 170));
+        jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 500, 170));
 
         jButtonProximaPagina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-right-30.png"))); // NOI18N
         jButtonProximaPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1203,7 +1224,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaInicial");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = null;
         jLabelTituloCategoria.setText("Undefined");
         
@@ -1212,49 +1233,55 @@ public class AreaCliente extends javax.swing.JFrame {
     private void jButtonSuspenseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSuspenseActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Suspense";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonSuspenseActionPerformed
 
     private void jButtonTerrorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTerrorActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Terror";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonTerrorActionPerformed
 
     private void jButtonRomanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRomanceActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Romance";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonRomanceActionPerformed
 
     private void jButtonEducacionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEducacionalActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Conteudo Educacional";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonEducacionalActionPerformed
 
     private void jButtonComediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComediaActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Comédia";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonComediaActionPerformed
 
     private void jButtonConteudoHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConteudoHistoricoActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
-        this.SelCat = "Conteudo Histórico";
+        this.currentPage = 0;
+        this.SelCat = "Fantasia";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
     }//GEN-LAST:event_jButtonConteudoHistoricoActionPerformed
 
     private void jLabelTitLivro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro3MouseClicked
@@ -1266,9 +1293,11 @@ public class AreaCliente extends javax.swing.JFrame {
     private void jButtonAventuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAventuraActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        this.currentPage = 1;
+        this.currentPage = 0;
         this.SelCat = "Aventura";
         jLabelTituloCategoria.setText(SelCat);
+        popularCategoria();
+        
     }//GEN-LAST:event_jButtonAventuraActionPerformed
 
     private void jLabelTitLivro16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro16MouseClicked
