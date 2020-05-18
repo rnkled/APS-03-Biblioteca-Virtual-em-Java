@@ -2050,7 +2050,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
     //Cadastro de Usuário
     private void jBtCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtCadastrarActionPerformed
-        if(jTxtNome.getText().isBlank() || jTxtCpf.getText().isBlank() || jTxtLogin.getText().isEmpty() || jPassSenha.getText().isBlank())
+        if(jTxtNome.getText().isEmpty() || jTxtCpf.getText().isEmpty() || jTxtLogin.getText().isEmpty() || jPassSenha.getText().isEmpty())
         {
             JOptionPane.showMessageDialog(null, "Campos faltando, Você precisa preencher os Campos essenciais!");
         }
@@ -2363,7 +2363,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
     private void jButtonCadastrarLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarLivroActionPerformed
         
-        if(jTextFieldNomeLivro.getText().isBlank() || jTextFieldQuantidadeLivro.getText().isBlank()
+        if(jTextFieldNomeLivro.getText().isEmpty() || jTextFieldQuantidadeLivro.getText().isEmpty()
                 || this.selectedImage == null){
             
             JOptionPane.showMessageDialog(null, "Negado! Faltam Campos Essenciais a Serem Preenchidos!");
@@ -2458,7 +2458,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonLimparCamposLivroActionPerformed
 
     private void jButtonPesquisaRecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaRecoActionPerformed
-        if(jTextFieldPesquisaReco.getText().isBlank()){
+        if(jTextFieldPesquisaReco.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Você Precisa Escrever o Nome do Livro para a Pesquisa!");
         }else{
             
@@ -2486,7 +2486,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonPesquisaRecoActionPerformed
 
     private void jButtonPesquisarLancaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarLancaActionPerformed
-        if(jTextFieldPesquisaLanca.getText().isBlank()){
+        if(jTextFieldPesquisaLanca.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Você Precisa Escrever o Nome do Livro para a Pesquisa!");
         }else{
             

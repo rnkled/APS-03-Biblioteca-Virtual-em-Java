@@ -378,7 +378,7 @@ public class listarLivro extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         
-        if(jTextFieldPesquisa.getText().isBlank()) {
+        if(jTextFieldPesquisa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Você precisa Digitar algo para Pesquisar!");   
         } else {
             
@@ -432,7 +432,7 @@ public class listarLivro extends javax.swing.JFrame {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
             
-        if(jTextFieldNomeLivro.getText().isBlank() || jTextFieldQuantidadeLivro.getText().isBlank()
+        if(jTextFieldNomeLivro.getText().isEmpty() || jTextFieldQuantidadeLivro.getText().isEmpty()
             ){
             
             JOptionPane.showMessageDialog(null, "Negado! Faltam Campos Essenciais a Serem Preenchidos!");
@@ -483,7 +483,7 @@ public class listarLivro extends javax.swing.JFrame {
     private void jTextFieldPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaKeyPressed
             if(evt.getKeyCode()== KeyEvent.VK_ENTER){
                 
-                       if(jTextFieldPesquisa.getText().isBlank()) {
+                       if(jTextFieldPesquisa.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Você precisa Digitar algo para Pesquisar!");   
         } else {
             
