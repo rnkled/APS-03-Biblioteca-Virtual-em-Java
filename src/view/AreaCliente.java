@@ -164,6 +164,12 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jPanelHistórico = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jComboFiltroPedidos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
@@ -285,6 +291,11 @@ public class AreaCliente extends javax.swing.JFrame {
         jButtonHistorico.setForeground(new java.awt.Color(90, 95, 98));
         jButtonHistorico.setText("Histórico");
         jButtonHistorico.setBorderPainted(false);
+        jButtonHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonHistoricoActionPerformed(evt);
+            }
+        });
         SideMenu.add(jButtonHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 170, 20));
 
         jButtonLogout.setForeground(new java.awt.Color(90, 95, 98));
@@ -1056,6 +1067,68 @@ public class AreaCliente extends javax.swing.JFrame {
 
         Screen.add(jPanelTelaCarrinho, "TelaCarrinho");
 
+        jPanelHistórico.setBackground(new java.awt.Color(204, 204, 255));
+
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel8.setText("Meus Pedidos");
+
+        jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 183, Short.MAX_VALUE)
+        );
+
+        jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel9.setText("Filtrar por:");
+
+        jComboFiltroPedidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aprovados", "Em Análise", "Recusados" }));
+
+        javax.swing.GroupLayout jPanelHistóricoLayout = new javax.swing.GroupLayout(jPanelHistórico);
+        jPanelHistórico.setLayout(jPanelHistóricoLayout);
+        jPanelHistóricoLayout.setHorizontalGroup(
+            jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanelHistóricoLayout.createSequentialGroup()
+                        .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 190, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addComponent(jLabel9)
+                .addGap(18, 18, 18)
+                .addComponent(jComboFiltroPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanelHistóricoLayout.setVerticalGroup(
+            jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(jComboFiltroPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(116, Short.MAX_VALUE))
+        );
+
+        Screen.add(jPanelHistórico, "TelaHistorico");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1209,6 +1282,12 @@ public class AreaCliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonRetornar3ActionPerformed
 
+    private void jButtonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistoricoActionPerformed
+        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaHistorico");
+    }//GEN-LAST:event_jButtonHistoricoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1267,6 +1346,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
+    private javax.swing.JComboBox<String> jComboFiltroPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1280,6 +1360,8 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
     private javax.swing.JLabel jLabelLivro1;
@@ -1330,7 +1412,9 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanelHistórico;
     private javax.swing.JPanel jPanelTelaCarrinho;
     private javax.swing.JPanel jPanelTelaCategoria;
     private javax.swing.JPanel jPanelTelaInicial;
@@ -1341,6 +1425,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;

@@ -6,7 +6,12 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import static java.util.Spliterators.iterator;
+import static java.util.Spliterators.iterator;
+import java.util.Vector;
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -1319,6 +1324,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerLivros.add(jLabelAutorLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 120, 40, -1));
 
         jComboBoxCategoriaLivro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCategoriaLivro.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                jComboBoxCategoriaLivroComponentAdded(evt);
+            }
+        });
         jComboBoxCategoriaLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCategoriaLivroActionPerformed(evt);
@@ -1943,6 +1953,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
     private void jComboBoxCategoriaLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaLivroActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBoxCategoriaLivroActionPerformed
 
     private void jTextFieldQualidadeLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldQualidadeLivroActionPerformed
@@ -2255,6 +2266,19 @@ public class AreaUsuario extends javax.swing.JFrame {
     private void jTextFieldSelAutNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSelAutNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSelAutNomeActionPerformed
+
+    private void jComboBoxCategoriaLivroComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaLivroComponentAdded
+        // TODO add your handling code here:
+        jComboBoxCategoriaLivro.removeAllItems();
+        CategoriaDAO cDAO = new CategoriaDAO();
+        List<CategoriaLivro> categorias;
+        categorias = cDAO.listarCategorias();
+        Iterator i = categorias.iterator();
+        while(i.hasNext()){
+            jComboBoxCategoriaLivro.addItem(String.valueOf(i.next()));
+            
+        }
+    }//GEN-LAST:event_jComboBoxCategoriaLivroComponentAdded
 
 
     public static void main(String args[]) {

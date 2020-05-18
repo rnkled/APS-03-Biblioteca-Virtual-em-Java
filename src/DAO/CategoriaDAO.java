@@ -122,4 +122,38 @@ private Connection conecta;
     
     }
     
+    public List<CategoriaLivro> listarCategorias(){
+        String sql = "SELECT nm_categoria FROM tb_categorias ORDER BY nm_categoria";
+        ResultSet rs;
+        List<CategoriaLivro> categorias = new ArrayList<CategoriaLivro>();
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+            
+                CategoriaLivro categoria = new CategoriaLivro();
+                
+                categoria.setNome(rs.getString("nm_categoria"));
+                categorias.add(categoria);
+                
+            }
+            rs.close();
+            stmt.close();
+            return categorias;
+        
+            
+        } catch(SQLException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return categorias;
+    }
+    
+    
+ 
+    
 }
