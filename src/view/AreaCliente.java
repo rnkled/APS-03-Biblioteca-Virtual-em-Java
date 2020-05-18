@@ -865,7 +865,7 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 170));
 
         jButtonProximaPagina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-right-30.png"))); // NOI18N
-        jButtonProximaPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonProximaPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonProximaPagina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonProximaPaginaActionPerformed(evt);
@@ -874,7 +874,7 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaCategoria.add(jButtonProximaPagina, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 414, -1, -1));
 
         jButtonPaginaAnterior.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-esquerda-30.png"))); // NOI18N
-        jButtonPaginaAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButtonPaginaAnterior.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButtonPaginaAnterior.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonPaginaAnteriorActionPerformed(evt);

@@ -1,5 +1,5 @@
 package biblioteca;
-import java.util.Date;
+
 
 
 
@@ -14,7 +14,8 @@ public class Livro {
     private int alugados;
     private int autorID;
     private int categoriaID;
-    
+    private byte[] capa;
+
     public Livro() {
     };
 
@@ -109,6 +110,15 @@ public class Livro {
 
     public void setAlugados(int alugados) {
         this.alugados = alugados;
+    }
+    
+    
+    public byte[] getCapa() {
+        return capa;
+    }
+
+    public void setCapa(byte[] capa) {
+        this.capa = capa;
     }
     
     
