@@ -5,10 +5,15 @@
  */
 package view;
 
+import CustomClass.ManipularImagem;
 import DAO.ClienteDAO;
+import DAO.LivroDAO;
 import biblioteca.Cliente;
+import biblioteca.Livro;
 import java.awt.CardLayout;
 import java.awt.Image;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 
@@ -24,7 +29,28 @@ public class AreaCliente extends javax.swing.JFrame {
         initComponents();
         jButtonProximaPagina.setContentAreaFilled(false);
         jButtonPaginaAnterior.setContentAreaFilled(false);
+        getRecomendados();
     }
+    
+    List<Livro> recomendados = new ArrayList<Livro>();
+    
+    private void getRecomendados(){
+        
+        LivroDAO livroDAO = new LivroDAO();
+        recomendados = livroDAO.getRecomendados();
+        
+        ManipularImagem.exibirImagemLabel(recomendados.get(0).getCapa(), jLabelLivro5, 105, 150);
+        jLabelTitLivro5.setText(recomendados.get(0).getNome());
+         ManipularImagem.exibirImagemLabel(recomendados.get(1).getCapa(), jLabelLivro6, 105, 150);
+         jLabelTitLivro6.setText(recomendados.get(1).getNome());
+          ManipularImagem.exibirImagemLabel(recomendados.get(2).getCapa(), jLabelLivro7, 105, 150);
+          jLabelTitLivro7.setText(recomendados.get(2).getNome());
+           ManipularImagem.exibirImagemLabel(recomendados.get(3).getCapa(), jLabelLivro8, 105, 150);
+           jLabelTitLivro8.setText(recomendados.get(3).getNome());
+        
+    
+    }
+    
     
     public Image tempGetImg(){
         
@@ -552,8 +578,8 @@ public class AreaCliente extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTitLivro5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
+                    .addComponent(jLabelLivro5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabelLivro6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -726,7 +752,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTelaCategoria.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 500, 170));
+        jPanelTelaCategoria.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 240, 500, 170));
 
         jLabelTituloCategoria.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabelTituloCategoria.setText("Undefined");
@@ -862,7 +888,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 170));
+        jPanelTelaCategoria.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 60, 500, 170));
 
         jButtonProximaPagina.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-right-30.png"))); // NOI18N
         jButtonProximaPagina.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -1040,30 +1066,35 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonRetornar2ActionPerformed(evt);
             }
         });
-        jPanelTelaCarrinho.add(jButtonRetornar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 350, 90, 40));
+        jPanelTelaCarrinho.add(jButtonRetornar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 90, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setText("Livros no carrinho");
-        jPanelTelaCarrinho.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, -1));
+        jPanelTelaCarrinho.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 570, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 190, Short.MAX_VALUE)
         );
 
-        jPanelTelaCarrinho.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 570, 190));
+        jPanelTelaCarrinho.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 500, 190));
 
         jButton3.setText("Excluir Item");
-        jPanelTelaCarrinho.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, 40));
+        jPanelTelaCarrinho.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, -1, 40));
 
         jButton1.setText("Alugar");
-        jPanelTelaCarrinho.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 90, 40));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanelTelaCarrinho.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 90, 40));
 
         Screen.add(jPanelTelaCarrinho, "TelaCarrinho");
 
@@ -1102,7 +1133,7 @@ public class AreaCliente extends javax.swing.JFrame {
                         .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 190, Short.MAX_VALUE)))
+                        .addGap(0, 99, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanelHistóricoLayout.createSequentialGroup()
                 .addGap(54, 54, 54)
@@ -1136,7 +1167,7 @@ public class AreaCliente extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(SideMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Screen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(Screen, javax.swing.GroupLayout.PREFERRED_SIZE, 519, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1287,6 +1318,10 @@ public class AreaCliente extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaHistorico");
     }//GEN-LAST:event_jButtonHistoricoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -8,8 +8,10 @@ public class Livro {
     private int id_Livro;
     private String nome;
     private String data;
-    private String qualidade = "Desconhecida";
-    private String resumo = "Desconhecido";
+    private String qualidade;
+    private String resumo;
+    private String OPT_nm_autor;
+    private String OPT_nm_categoria;
     private int quantidade;
     private int alugados;
     private int autorID;
@@ -120,6 +122,24 @@ public class Livro {
     public void setCapa(byte[] capa) {
         this.capa = capa;
     }
+
+    public String getOPT_nm_autor() {
+        return OPT_nm_autor;
+    }
+
+    public void setOPT_nm_autor(String pesquisa_nm_autor) {
+        this.OPT_nm_autor = pesquisa_nm_autor;
+    }
+
+    public String getOPT_nm_categoria() {
+        return OPT_nm_categoria;
+    }
+
+    public void setOPT_nm_categoria(String pesquisa_nm_categoria) {
+        this.OPT_nm_categoria = pesquisa_nm_categoria;
+    }
+    
+    
     
     
 }

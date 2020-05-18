@@ -127,6 +127,32 @@ public class ManipularImagem {
             label.setIcon(null);
             
         }
+       
+}
+    public static void exibirImagemLabel(byte[] minhaimagem, javax.swing.JLabel label, int largura, int altura)
+{
+        //primeiro verifica se tem a imagem
+        //se tem convert para inputstream que é o formato reconhecido pelo ImageIO
+       
+        if(minhaimagem!=null)
+        {
+            InputStream input = new ByteArrayInputStream(minhaimagem);
+            try {
+                BufferedImage imagem = ImageIO.read(input);
+                label.setIcon(new ImageIcon(imagem.getScaledInstance(largura, altura, imagem.SCALE_SMOOTH)));
+            } catch (IOException ex) {
+                System.out.println(ex);
+            }
+            
+        
+        }
+        else
+        {
+            label.setIcon(null);
+            
+        }
+        
+   
 
 }
 }

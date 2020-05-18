@@ -11,14 +11,7 @@ import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-<<<<<<< HEAD
-import static java.util.Spliterators.iterator;
-import static java.util.Spliterators.iterator;
-import java.util.Vector;
-import javax.swing.JComboBox;
-=======
 import javax.swing.ImageIcon;
->>>>>>> d2aad36fda5c92544f14169a5e48680f77287a68
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -173,6 +166,21 @@ public class AreaUsuario extends javax.swing.JFrame {
             livros.get(i).getNome(),});
             i++;
         }
+            
+        DefaultTableModel valortabela2 = (DefaultTableModel) jTablePesquisaReco.getModel();
+        valortabela2.getDataVector().removeAllElements();
+        
+        List<Livro> livrostabela2 = new ArrayList<Livro>();
+        
+        livrostabela2 = livroDAO.getTodos();
+        
+        int j = 0;
+        while (livrostabela2.size() > j){
+            valortabela2.addRow(new Object[]{String.valueOf(livrostabela2.get(j).getId_Livro()), 
+            livrostabela2.get(j).getNome()});
+            j++;
+        }
+        
     }
     
     public void listarTabelaLancamentos(){
@@ -188,6 +196,20 @@ public class AreaUsuario extends javax.swing.JFrame {
             valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), 
             livros.get(i).getNome(),});
             i++;
+        }
+        
+        DefaultTableModel valortabela2 = (DefaultTableModel) jTablePesquisaLanca.getModel();
+        valortabela2.getDataVector().removeAllElements();
+        
+        List<Livro> livrostabela2 = new ArrayList<Livro>();
+        
+        livrostabela2 = livroDAO.getTodos();
+        
+        int j = 0;
+        while (livrostabela2.size() > j){
+            valortabela2.addRow(new Object[]{String.valueOf(livrostabela2.get(j).getId_Livro()), 
+            livrostabela2.get(j).getNome()});
+            j++;
         }
     }
     
@@ -398,6 +420,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jTextFieldSelCatID = new javax.swing.JTextField();
         jTextFieldSelCatNome = new javax.swing.JTextField();
         jPanel16 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanelGerAlugueis = new javax.swing.JPanel();
         jPanelAnuncios = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -1573,15 +1600,44 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelGerLivros.add(jPanelCadastrarAut, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 330, 220));
 
+        jPanel15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Controle de Livros");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel15.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 150, -1));
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("pressionando o botão Abaixo:");
+        jPanel15.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, 200, 20));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Para Visualizar, Alterar ou Remover");
+        jPanel15.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 2, 200, 20));
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Os livros, acesse o Menu de livros ");
+        jPanel15.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, 200, 20));
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(471, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
+                .addContainerGap(128, Short.MAX_VALUE)
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jPanelGerLivros.add(jPanel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 700, 250));
@@ -2370,7 +2426,7 @@ public class AreaUsuario extends javax.swing.JFrame {
          AutorDAO autorDAO = new AutorDAO();
          autorDAO.alterar(autor);
 
-         JOptionPane.showMessageDialog(null, "Categoria "+autor.getNome()+" Alterada!");
+         JOptionPane.showMessageDialog(null, "Autor "+autor.getNome()+" Alterado!");
          jTextFieldSelAutNome.setText("");
          jTextFieldSelAutID.setText("");
          listarTabelaAutores();
@@ -2382,7 +2438,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSelAutNomeActionPerformed
 
-<<<<<<< HEAD
+
     private void jComboBoxCategoriaLivroComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaLivroComponentAdded
         // TODO add your handling code here:
         jComboBoxCategoriaLivro.removeAllItems();
@@ -2396,7 +2452,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxCategoriaLivroComponentAdded
 
-=======
+
     private void jButtonLimparCamposLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposLivroActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonLimparCamposLivroActionPerformed
@@ -2490,7 +2546,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        if(jTableLancamentos.getSelectedRow()+1>0){
+        if(jTableLancamentos.getSelectedRow() > -1){
         String livroID = (String) jTableLancamentos.getModel().getValueAt(jTableLancamentos.getSelectedRow(), 0);
         LivroDAO livroDAO = new LivroDAO();
         Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
@@ -2503,7 +2559,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if(jTableLancamentos.getSelectedRow()+1>0){
+        if(jTableRecomendados.getSelectedRow() > -1){
         String livroID = (String) jTableRecomendados.getModel().getValueAt(jTableRecomendados.getSelectedRow(), 0);
         LivroDAO livroDAO = new LivroDAO();
         Livro livro = livroDAO.pesquisaPorID(parseInt(livroID));
@@ -2513,8 +2569,12 @@ public class AreaUsuario extends javax.swing.JFrame {
         } else {
         JOptionPane.showMessageDialog(null, "Ocorreu um Erro! Selecione um Livro para fazer isso!");}
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        listarLivro ll = new listarLivro();
+        ll.show();
+    }//GEN-LAST:event_jButton1ActionPerformed
     
->>>>>>> d2aad36fda5c92544f14169a5e48680f77287a68
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -2568,6 +2628,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtLogOut;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtPesquisarGerCliente;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -2588,6 +2649,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBoxAutorLivro;
     private javax.swing.JComboBox<String> jComboBoxCategoriaLivro;
     private javax.swing.JFormattedTextField jFormattedTextFieldDataLivro;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2598,6 +2660,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
@@ -2608,6 +2671,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
@@ -2665,6 +2729,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
