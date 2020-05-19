@@ -42,13 +42,12 @@ public class ManipularLabels {
         
         int count = quantLivros;
         
-        System.out.println(quantLabel+" "+quantLivros+" "+modPagina);
         
-        if (quantLivros<quantLabel){
+        if (quantLivros<quantLabel-1){
             modPagina = 0;
         }
         
-        if(quantLivros > quantLabel){
+        if(quantLivros > quantLabel-1){
             if(quantLivros > quantLabel*(page+1)){
                 count = quantLabel;
             } 
@@ -59,7 +58,7 @@ public class ManipularLabels {
         for(int i=0; i<count; i++){
             ManipularImagem.exibirImagemLabel(livros.get(i+modPagina).getCapa(), labels.get(i), labels.get(i).getWidth(), labels.get(i).getHeight());
             titulos.get(i).setText(livros.get(i+modPagina).getNome());
-            System.out.println("+1");
+
             
         }
         }

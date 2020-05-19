@@ -2454,7 +2454,14 @@ public class AreaUsuario extends javax.swing.JFrame {
 
 
     private void jButtonLimparCamposLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLimparCamposLivroActionPerformed
-        // TODO add your handling code here:
+        jTextFieldNomeLivro.setText(null);
+        jTextFieldQuantidadeLivro.setText(null);
+        jFormattedTextFieldDataLivro.setText(null);
+        jTextFieldQualidadeLivro.setText(null);
+        jTextAreaResumoLivro.setText(null);
+        jLabelImagemCapa.setIcon(null);
+        selectedImage = null;
+        
     }//GEN-LAST:event_jButtonLimparCamposLivroActionPerformed
 
     private void jButtonPesquisaRecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisaRecoActionPerformed

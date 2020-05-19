@@ -5,6 +5,7 @@
  */
 package view;
 
+import CustomClass.ManipularImagem;
 import CustomClass.ManipularLabels;
 import DAO.ClienteDAO;
 import DAO.LivroDAO;
@@ -12,6 +13,7 @@ import biblioteca.Cliente;
 import biblioteca.Livro;
 import java.awt.CardLayout;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -21,6 +23,7 @@ import javax.swing.JLabel;
 public class AreaCliente extends javax.swing.JFrame {
     
     String SelCat = null;
+    String PesquisaTexto = null;
     int currentPage = 0;
 
     /**
@@ -42,6 +45,9 @@ public class AreaCliente extends javax.swing.JFrame {
     
     List<JLabel> categorias = new ArrayList<JLabel>();
     List<JLabel> titcategorias = new ArrayList<JLabel>();
+    
+    List<JLabel> pesquisa = new ArrayList<JLabel>();
+    List<JLabel> titpesquisa = new ArrayList<JLabel>();
     
     private void setRecomendados(){
         List<Livro> livros = new ArrayList<Livro>();
@@ -76,6 +82,16 @@ public class AreaCliente extends javax.swing.JFrame {
         this.categorias.add(jLabelLivro15);
         this.categorias.add(jLabelLivro16);
         
+        this.pesquisa.add(jLabelLivro17);
+        this.pesquisa.add(jLabelLivro18);
+        this.pesquisa.add(jLabelLivro19);
+        this.pesquisa.add(jLabelLivro20);
+        this.pesquisa.add(jLabelLivro21);
+        this.pesquisa.add(jLabelLivro22);
+        this.pesquisa.add(jLabelLivro23);
+        this.pesquisa.add(jLabelLivro24);
+        
+        
         //Titulos
         this.titlancamentos.add(jLabelTitLivro1);
         this.titlancamentos.add(jLabelTitLivro2);
@@ -95,6 +111,15 @@ public class AreaCliente extends javax.swing.JFrame {
         this.titcategorias.add(jLabelTitLivro14);
         this.titcategorias.add(jLabelTitLivro15);
         this.titcategorias.add(jLabelTitLivro16);
+        
+        this.titpesquisa.add(jLabelTitLivro17);
+        this.titpesquisa.add(jLabelTitLivro18);
+        this.titpesquisa.add(jLabelTitLivro19);
+        this.titpesquisa.add(jLabelTitLivro20);
+        this.titpesquisa.add(jLabelTitLivro21);
+        this.titpesquisa.add(jLabelTitLivro22);
+        this.titpesquisa.add(jLabelTitLivro23);
+        this.titpesquisa.add(jLabelTitLivro24);
     
     
     }
@@ -112,6 +137,24 @@ public class AreaCliente extends javax.swing.JFrame {
         
         ManipularLabels.setLabelsPorPage(livros, categorias, titcategorias, currentPage);
         
+    }
+    
+    public void popularPesquisa(){
+        
+        for (int i=0; i<pesquisa.size(); i++){
+            pesquisa.get(i).setIcon(null);
+            titpesquisa.get(i).setText(null);
+        }
+        
+        
+        List<Livro> livros = new ArrayList<Livro>();
+        livros = livro.pesquisaPorNome(this.PesquisaTexto);
+        
+        ManipularLabels.setLabelsPorPage(livros, pesquisa, titpesquisa, currentPage);
+        
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaPesquisa");
+    
     }
     
     public void setCltLogin(Cliente cliente){
@@ -209,10 +252,9 @@ public class AreaCliente extends javax.swing.JFrame {
         jButtonPaginaAnterior = new javax.swing.JButton();
         jLabelTituloCategoriaTexto = new javax.swing.JLabel();
         jPanelTelaLivro = new javax.swing.JPanel();
-        jLabelTituloCategoria2 = new javax.swing.JLabel();
+        jLabelTituloLivro = new javax.swing.JLabel();
         jSeparator6 = new javax.swing.JSeparator();
         jLabelTituloCategoriaTexto2 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jButtonRetornar = new javax.swing.JButton();
@@ -221,6 +263,17 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jButtonAdcCarrinho = new javax.swing.JButton();
+        jLabelLAutor = new javax.swing.JLabel();
+        jLabelLData = new javax.swing.JLabel();
+        jLabelLId = new javax.swing.JLabel();
+        jLabelLCat = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabellNome = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabelLDisponiveis = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         jPanelTelaPerfil = new javax.swing.JPanel();
         jLabelTituloCategoria4 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
@@ -249,6 +302,30 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jComboFiltroPedidos = new javax.swing.JComboBox<>();
+        jPanelTelaPesquisa = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jLabelLivro17 = new javax.swing.JLabel();
+        jLabelTitLivro17 = new javax.swing.JLabel();
+        jLabelLivro18 = new javax.swing.JLabel();
+        jLabelTitLivro18 = new javax.swing.JLabel();
+        jLabelLivro19 = new javax.swing.JLabel();
+        jLabelTitLivro19 = new javax.swing.JLabel();
+        jLabelLivro20 = new javax.swing.JLabel();
+        jLabelTitLivro20 = new javax.swing.JLabel();
+        jLabelTituloCategoria1 = new javax.swing.JLabel();
+        jSeparator9 = new javax.swing.JSeparator();
+        jPanel12 = new javax.swing.JPanel();
+        jLabelLivro21 = new javax.swing.JLabel();
+        jLabelTitLivro21 = new javax.swing.JLabel();
+        jLabelLivro22 = new javax.swing.JLabel();
+        jLabelTitLivro22 = new javax.swing.JLabel();
+        jLabelLivro23 = new javax.swing.JLabel();
+        jLabelTitLivro23 = new javax.swing.JLabel();
+        jLabelLivro24 = new javax.swing.JLabel();
+        jLabelTitLivro24 = new javax.swing.JLabel();
+        jButtonProximaPagina1 = new javax.swing.JButton();
+        jButtonPaginaAnterior1 = new javax.swing.JButton();
+        jLabelTituloCategoriaTexto1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
@@ -262,6 +339,12 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelGerenciamento.setText("Gerenciamento");
         SideMenu.add(jLabelGerenciamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 283, 170, 30));
         SideMenu.add(jSeparatorGer, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 170, 10));
+
+        jTextFieldPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldPesquisaKeyPressed(evt);
+            }
+        });
         SideMenu.add(jTextFieldPesquisa, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 42, 170, -1));
 
         jLabelPesquisa.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -408,14 +491,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro1MouseClicked(evt);
             }
         });
 
         jLabelTitLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro1MouseClicked(evt);
             }
         });
 
@@ -426,14 +509,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro2MouseClicked(evt);
             }
         });
 
         jLabelTitLivro2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro2MouseClicked(evt);
             }
         });
 
@@ -444,14 +527,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro3MouseClicked(evt);
             }
         });
 
         jLabelTitLivro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro3MouseClicked(evt);
             }
         });
 
@@ -462,14 +545,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro4MouseClicked(evt);
             }
         });
 
         jLabelTitLivro4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro4MouseClicked(evt);
             }
         });
 
@@ -543,14 +626,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro5MouseClicked(evt);
             }
         });
 
         jLabelTitLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro5MouseClicked(evt);
             }
         });
 
@@ -561,14 +644,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro6.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro6MouseClicked(evt);
             }
         });
 
         jLabelTitLivro6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro6MouseClicked(evt);
             }
         });
 
@@ -579,14 +662,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro7.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro7MouseClicked(evt);
             }
         });
 
         jLabelTitLivro7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro7MouseClicked(evt);
             }
         });
 
@@ -597,14 +680,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro8.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro8MouseClicked(evt);
             }
         });
 
         jLabelTitLivro8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro3MouseClicked(evt);
+                jLabelLivro8MouseClicked(evt);
             }
         });
 
@@ -669,14 +752,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro9.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro9MouseClicked(evt);
             }
         });
 
         jLabelTitLivro9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro9MouseClicked(evt);
             }
         });
 
@@ -687,14 +770,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro10.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro10MouseClicked(evt);
             }
         });
 
         jLabelTitLivro10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro10MouseClicked(evt);
             }
         });
 
@@ -705,14 +788,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro11.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro11MouseClicked(evt);
             }
         });
 
         jLabelTitLivro11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro11MouseClicked(evt);
             }
         });
 
@@ -723,14 +806,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro12.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro12MouseClicked(evt);
             }
         });
 
         jLabelTitLivro12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro12MouseClicked(evt);
             }
         });
 
@@ -797,14 +880,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro13.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro13MouseClicked(evt);
             }
         });
 
         jLabelTitLivro13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro13MouseClicked(evt);
             }
         });
 
@@ -815,14 +898,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro14.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro14MouseClicked(evt);
             }
         });
 
         jLabelTitLivro14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro14MouseClicked(evt);
             }
         });
 
@@ -833,14 +916,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro15.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro15MouseClicked(evt);
             }
         });
 
         jLabelTitLivro15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro15MouseCli(evt);
             }
         });
 
@@ -851,14 +934,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabelLivro16.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jLabelLivro16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro16MouseClicked(evt);
             }
         });
 
         jLabelTitLivro16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabelTitLivro16MouseClicked(evt);
+                jLabelLivro16MouseClicked(evt);
             }
         });
 
@@ -938,30 +1021,17 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaLivro.setBackground(new java.awt.Color(204, 204, 255));
         jPanelTelaLivro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelTituloCategoria2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabelTituloCategoria2.setText("Undefined");
-        jPanelTelaLivro.add(jLabelTituloCategoria2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 380, 30));
+        jLabelTituloLivro.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloLivro.setText("Undefined");
+        jPanelTelaLivro.add(jLabelTituloLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 10, 500, 30));
 
         jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
         jPanelTelaLivro.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
 
         jLabelTituloCategoriaTexto2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabelTituloCategoriaTexto2.setText("Informações sobre");
         jPanelTelaLivro.add(jLabelTituloCategoriaTexto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 210, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 270, Short.MAX_VALUE)
-        );
-
-        jPanelTelaLivro.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 210, 270));
-
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("RESUMO\n");
@@ -975,22 +1045,73 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonRetornarActionPerformed(evt);
             }
         });
-        jPanelTelaLivro.add(jButtonRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 280, 90, 40));
+        jPanelTelaLivro.add(jButtonRetornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 280, 90, 40));
 
         jLabel1.setText("Autor:");
-        jPanelTelaLivro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+        jPanelTelaLivro.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, -1, -1));
 
         jLabel4.setText("Prublicado em:");
-        jPanelTelaLivro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
+        jPanelTelaLivro.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, -1, -1));
 
-        jLabel5.setText("Editora:");
-        jPanelTelaLivro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
+        jLabel5.setText("Genero:");
+        jPanelTelaLivro.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 140, -1, -1));
 
-        jLabel6.setText("Gênero:");
-        jPanelTelaLivro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, -1, -1));
+        jLabel6.setText("ID:");
+        jPanelTelaLivro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
 
         jButtonAdcCarrinho.setText("Adicionar ao Carrinho");
-        jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 280, 140, 40));
+        jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 140, 40));
+
+        jLabelLAutor.setText("jLabel10");
+        jPanelTelaLivro.add(jLabelLAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 120, -1));
+
+        jLabelLData.setText("jLabel11");
+        jPanelTelaLivro.add(jLabelLData, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, 130, -1));
+
+        jLabelLId.setText("jLabel12");
+        jPanelTelaLivro.add(jLabelLId, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 170, -1));
+
+        jLabelLCat.setText("jLabel13");
+        jPanelTelaLivro.add(jLabelLCat, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, 120, -1));
+
+        jLabel14.setText("Nome:");
+        jPanelTelaLivro.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 50, -1, -1));
+
+        jLabellNome.setText("jLabel15");
+        jPanelTelaLivro.add(jLabellNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 120, -1));
+
+        jLabel16.setText("Disponiveis:");
+        jPanelTelaLivro.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 200, -1, -1));
+
+        jLabelLDisponiveis.setText("jLabel23");
+        jPanelTelaLivro.add(jLabelLDisponiveis, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 200, 140, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanelTelaLivro.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        jPanelTelaLivro.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+        jPanelTelaLivro.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 210, 270));
 
         Screen.add(jPanelTelaLivro, "TelaLivro");
 
@@ -1181,6 +1302,277 @@ public class AreaCliente extends javax.swing.JFrame {
 
         Screen.add(jPanelHistórico, "TelaHistorico");
 
+        jPanelTelaPesquisa.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelTelaPesquisa.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelLivro17.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro17.setToolTipText("");
+        jLabelLivro17.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro17MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabelLivro18.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro18.setToolTipText("");
+        jLabelLivro18.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro18MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro18.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelTitLivro18MouseClicked(evt);
+            }
+        });
+
+        jLabelLivro19.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro19.setToolTipText("");
+        jLabelLivro19.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro19MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro19.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro19MouseClicked(evt);
+            }
+        });
+
+        jLabelLivro20.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro20.setToolTipText("");
+        jLabelLivro20.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro20MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro20.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro20MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro17, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro18, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro19, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro20, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro20, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro20, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro19, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro19, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro18, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro18, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro17, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro17, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jPanelTelaPesquisa.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 59, 500, 170));
+
+        jLabelTituloCategoria1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoria1.setText("Undefined");
+        jPanelTelaPesquisa.add(jLabelTituloCategoria1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 10, 330, 30));
+
+        jSeparator9.setForeground(new java.awt.Color(255, 255, 255));
+        jPanelTelaPesquisa.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 360, 10));
+
+        jLabelLivro21.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro21.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro21.setToolTipText("");
+        jLabelLivro21.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro21MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro21.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro21MouseClicked(evt);
+            }
+        });
+
+        jLabelLivro22.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro22.setToolTipText("");
+        jLabelLivro22.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro22MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro22.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro22MouseClicked(evt);
+            }
+        });
+
+        jLabelLivro23.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro23.setToolTipText("");
+        jLabelLivro23.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro23MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro23MouseClicked(evt);
+            }
+        });
+
+        jLabelLivro24.setBackground(new java.awt.Color(255, 255, 255));
+        jLabelLivro24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelLivro24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelLivro24.setToolTipText("");
+        jLabelLivro24.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        jLabelLivro24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro24MouseClicked(evt);
+            }
+        });
+
+        jLabelTitLivro24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTitLivro24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelLivro24MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro21, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro22, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro22, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro23, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelLivro24, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabelTitLivro24, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro24, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro24, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro23, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro23, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro22, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro22, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel12Layout.createSequentialGroup()
+                        .addComponent(jLabelLivro21, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabelTitLivro21, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+
+        jPanelTelaPesquisa.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 500, 170));
+
+        jButtonProximaPagina1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-right-30.png"))); // NOI18N
+        jButtonProximaPagina1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonProximaPagina1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonProximaPagina1ActionPerformed(evt);
+            }
+        });
+        jPanelTelaPesquisa.add(jButtonProximaPagina1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 414, -1, -1));
+
+        jButtonPaginaAnterior1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-chevron-esquerda-30.png"))); // NOI18N
+        jButtonPaginaAnterior1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButtonPaginaAnterior1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPaginaAnterior1ActionPerformed(evt);
+            }
+        });
+        jPanelTelaPesquisa.add(jButtonPaginaAnterior1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 414, -1, -1));
+
+        jLabelTituloCategoriaTexto1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabelTituloCategoriaTexto1.setText("Resultado de: ");
+        jPanelTelaPesquisa.add(jLabelTituloCategoriaTexto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+
+        Screen.add(jPanelTelaPesquisa, "TelaPesquisa");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1212,13 +1604,16 @@ public class AreaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCarrinhoActionPerformed
 
     private void jButtonPaginaAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaginaAnteriorActionPerformed
-        if (this.currentPage > 1){
+        if (this.currentPage > 0){
             this.currentPage -= 1;
+            popularCategoria();
         }
     }//GEN-LAST:event_jButtonPaginaAnteriorActionPerformed
 
     private void jButtonProximaPaginaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximaPaginaActionPerformed
+        if (jLabelTitLivro16.getText() != null){
         this.currentPage += 1;
+        popularCategoria();}
     }//GEN-LAST:event_jButtonProximaPaginaActionPerformed
 
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
@@ -1261,7 +1656,7 @@ public class AreaCliente extends javax.swing.JFrame {
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
         this.currentPage = 0;
-        this.SelCat = "Conteudo Educacional";
+        this.SelCat = "Educacional";
         jLabelTituloCategoria.setText(SelCat);
         popularCategoria();
     }//GEN-LAST:event_jButtonEducacionalActionPerformed
@@ -1284,12 +1679,6 @@ public class AreaCliente extends javax.swing.JFrame {
         popularCategoria();
     }//GEN-LAST:event_jButtonConteudoHistoricoActionPerformed
 
-    private void jLabelTitLivro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro3MouseClicked
-        CardLayout cl = (CardLayout) Screen.getLayout();
-        cl.show(Screen, "TelaLivro");
-        
-    }//GEN-LAST:event_jLabelTitLivro3MouseClicked
-
     private void jButtonAventuraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAventuraActionPerformed
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
@@ -1300,21 +1689,25 @@ public class AreaCliente extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonAventuraActionPerformed
 
-    private void jLabelTitLivro16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro16MouseClicked
-        CardLayout cl = (CardLayout) Screen.getLayout();
-        cl.show(Screen, "TelaLivro");
-    }//GEN-LAST:event_jLabelTitLivro16MouseClicked
-
     private void jButtonRetornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRetornarActionPerformed
         
         if (SelCat != null){
         
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCategoria");
-        } else {
+        }
+        
+        if (PesquisaTexto != null){
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaPesquisa");    
+        } else{
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaInicial");
         }
+        
+        
+        
+        
     }//GEN-LAST:event_jButtonRetornarActionPerformed
 
     private void jButtonLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLogoutActionPerformed
@@ -1352,6 +1745,175 @@ public class AreaCliente extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jLabelLivro9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro9MouseClicked
+        String nome = jLabelTitLivro9.getText();
+        setLivro(nome);
+        
+    }//GEN-LAST:event_jLabelLivro9MouseClicked
+
+    private void jLabelLivro10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro10MouseClicked
+        String nome = jLabelTitLivro10.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro10MouseClicked
+
+    private void jLabelLivro11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro11MouseClicked
+        String nome = jLabelTitLivro11.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro11MouseClicked
+
+    private void jLabelLivro12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro12MouseClicked
+        String nome = jLabelTitLivro12.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro12MouseClicked
+
+    private void jLabelLivro13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro13MouseClicked
+        String nome = jLabelTitLivro13.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro13MouseClicked
+
+    private void jLabelLivro14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro14MouseClicked
+        String nome = jLabelTitLivro14.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro14MouseClicked
+
+    private void jLabelLivro15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro15MouseClicked
+        String nome = jLabelTitLivro15.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro15MouseClicked
+
+    private void jLabelLivro16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro16MouseClicked
+        String nome = jLabelTitLivro16.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro16MouseClicked
+
+    private void jLabelLivro15MouseCli(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro15MouseCli
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelLivro15MouseCli
+
+    private void jLabelLivro5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro5MouseClicked
+        String nome = jLabelTitLivro5.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro5MouseClicked
+
+    private void jLabelLivro6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro6MouseClicked
+        String nome = jLabelTitLivro6.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro6MouseClicked
+
+    private void jLabelLivro7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro7MouseClicked
+        String nome = jLabelTitLivro7.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro7MouseClicked
+
+    private void jLabelLivro8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro8MouseClicked
+        String nome = jLabelTitLivro8.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro8MouseClicked
+
+    private void jLabelLivro2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro2MouseClicked
+        String nome = jLabelTitLivro2.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro2MouseClicked
+
+    private void jLabelLivro3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro3MouseClicked
+        String nome = jLabelTitLivro3.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro3MouseClicked
+
+    private void jLabelLivro4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro4MouseClicked
+        String nome = jLabelTitLivro4.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro4MouseClicked
+
+    private void jLabelLivro1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro1MouseClicked
+        String nome = jLabelTitLivro1.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro1MouseClicked
+
+    private void jLabelLivro17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro17MouseClicked
+        String nome = jLabelTitLivro17.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro17MouseClicked
+
+    private void jLabelLivro18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro18MouseClicked
+        String nome = jLabelTitLivro18.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro18MouseClicked
+
+    private void jLabelLivro19MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro19MouseClicked
+        String nome = jLabelTitLivro19.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro19MouseClicked
+
+    private void jLabelLivro20MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro20MouseClicked
+        String nome = jLabelTitLivro20.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro20MouseClicked
+
+    private void jLabelLivro21MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro21MouseClicked
+        String nome = jLabelTitLivro21.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro21MouseClicked
+
+    private void jLabelLivro22MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro22MouseClicked
+        String nome = jLabelTitLivro22.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro22MouseClicked
+
+    private void jLabelLivro23MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro23MouseClicked
+        String nome = jLabelTitLivro23.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro23MouseClicked
+
+    private void jLabelLivro24MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro24MouseClicked
+        String nome = jLabelTitLivro24.getText();
+        setLivro(nome);
+    }//GEN-LAST:event_jLabelLivro24MouseClicked
+
+    private void jButtonProximaPagina1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonProximaPagina1ActionPerformed
+         if (jLabelTitLivro24.getText() != null){
+        this.currentPage += 1;
+        popularPesquisa();}
+    }//GEN-LAST:event_jButtonProximaPagina1ActionPerformed
+
+    private void jButtonPaginaAnterior1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPaginaAnterior1ActionPerformed
+        if (this.currentPage > 0){
+            this.currentPage -= 1;
+            popularPesquisa();
+        }
+    }//GEN-LAST:event_jButtonPaginaAnterior1ActionPerformed
+
+    private void jTextFieldPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPesquisaKeyPressed
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER){
+            
+            this.PesquisaTexto = jTextFieldPesquisa.getText();
+            this.SelCat = null;
+            this.currentPage = 0;
+            this.popularPesquisa();
+        
+        }
+    }//GEN-LAST:event_jTextFieldPesquisaKeyPressed
+
+    private void jLabelTitLivro18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro18MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jLabelTitLivro18MouseClicked
+
+    private void setLivro(String nome){
+        Livro livro = this.livro.pesquisaPorNome(nome).get(0);
+        jLabelTituloLivro.setText(livro.getNome());
+        ManipularImagem.exibirImagemLabel(livro.getCapa(), jLabel10);
+        jTextArea1.setText(livro.getResumo());
+        jLabellNome.setText(livro.getNome());
+        jLabelLAutor.setText(livro.getOPT_nm_autor());
+        jLabelLData.setText(livro.getData());
+        jLabelLCat.setText(livro.getOPT_nm_categoria());
+        jLabelLId.setText(String.valueOf(livro.getId_Livro()));
+        jLabelLDisponiveis.setText(String.valueOf(livro.getQuantidade()-livro.getAlugados()));
+
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaLivro");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -1402,8 +1964,10 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonLogout;
     private javax.swing.JButton jButtonPaginaAnterior;
+    private javax.swing.JButton jButtonPaginaAnterior1;
     private javax.swing.JButton jButtonPerfil;
     private javax.swing.JButton jButtonProximaPagina;
+    private javax.swing.JButton jButtonProximaPagina1;
     private javax.swing.JButton jButtonRetornar;
     private javax.swing.JButton jButtonRetornar2;
     private javax.swing.JButton jButtonRetornar3;
@@ -1412,6 +1976,9 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonTerror;
     private javax.swing.JComboBox<String> jComboFiltroPedidos;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
@@ -1428,6 +1995,11 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCategoria;
     private javax.swing.JLabel jLabelGerenciamento;
+    private javax.swing.JLabel jLabelLAutor;
+    private javax.swing.JLabel jLabelLCat;
+    private javax.swing.JLabel jLabelLData;
+    private javax.swing.JLabel jLabelLDisponiveis;
+    private javax.swing.JLabel jLabelLId;
     private javax.swing.JLabel jLabelLivro1;
     private javax.swing.JLabel jLabelLivro10;
     private javax.swing.JLabel jLabelLivro11;
@@ -1436,7 +2008,15 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelLivro14;
     private javax.swing.JLabel jLabelLivro15;
     private javax.swing.JLabel jLabelLivro16;
+    private javax.swing.JLabel jLabelLivro17;
+    private javax.swing.JLabel jLabelLivro18;
+    private javax.swing.JLabel jLabelLivro19;
     private javax.swing.JLabel jLabelLivro2;
+    private javax.swing.JLabel jLabelLivro20;
+    private javax.swing.JLabel jLabelLivro21;
+    private javax.swing.JLabel jLabelLivro22;
+    private javax.swing.JLabel jLabelLivro23;
+    private javax.swing.JLabel jLabelLivro24;
     private javax.swing.JLabel jLabelLivro3;
     private javax.swing.JLabel jLabelLivro4;
     private javax.swing.JLabel jLabelLivro5;
@@ -1453,7 +2033,15 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitLivro14;
     private javax.swing.JLabel jLabelTitLivro15;
     private javax.swing.JLabel jLabelTitLivro16;
+    private javax.swing.JLabel jLabelTitLivro17;
+    private javax.swing.JLabel jLabelTitLivro18;
+    private javax.swing.JLabel jLabelTitLivro19;
     private javax.swing.JLabel jLabelTitLivro2;
+    private javax.swing.JLabel jLabelTitLivro20;
+    private javax.swing.JLabel jLabelTitLivro21;
+    private javax.swing.JLabel jLabelTitLivro22;
+    private javax.swing.JLabel jLabelTitLivro23;
+    private javax.swing.JLabel jLabelTitLivro24;
     private javax.swing.JLabel jLabelTitLivro3;
     private javax.swing.JLabel jLabelTitLivro4;
     private javax.swing.JLabel jLabelTitLivro5;
@@ -1462,20 +2050,26 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTitLivro8;
     private javax.swing.JLabel jLabelTitLivro9;
     private javax.swing.JLabel jLabelTituloCategoria;
-    private javax.swing.JLabel jLabelTituloCategoria2;
+    private javax.swing.JLabel jLabelTituloCategoria1;
     private javax.swing.JLabel jLabelTituloCategoria3;
     private javax.swing.JLabel jLabelTituloCategoria4;
     private javax.swing.JLabel jLabelTituloCategoriaTexto;
+    private javax.swing.JLabel jLabelTituloCategoriaTexto1;
     private javax.swing.JLabel jLabelTituloCategoriaTexto2;
     private javax.swing.JLabel jLabelTituloCategoriaTexto3;
     private javax.swing.JLabel jLabelTituloCategoriaTexto4;
+    private javax.swing.JLabel jLabelTituloLivro;
+    private javax.swing.JLabel jLabellNome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelHistórico;
@@ -1484,6 +2078,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTelaInicial;
     private javax.swing.JPanel jPanelTelaLivro;
     private javax.swing.JPanel jPanelTelaPerfil;
+    private javax.swing.JPanel jPanelTelaPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
@@ -1493,6 +2088,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
+    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
     private javax.swing.JSeparator jSeparatorPes;
