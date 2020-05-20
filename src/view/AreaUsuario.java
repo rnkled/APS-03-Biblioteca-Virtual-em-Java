@@ -8,8 +8,10 @@ import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import static java.lang.Integer.parseInt;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Date;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -20,6 +22,11 @@ public class AreaUsuario extends javax.swing.JFrame {
     private Usuario sessao;
     private BufferedImage selectedImage;
     List<Integer> idsAut = new ArrayList<Integer>();
+    private Cliente cltSessao;
+    private Livro livSessao;
+    private int id_selec;
+    private String clt_selec;
+    private String liv_selec;
     
     public AreaUsuario() {
         initComponents();
@@ -31,6 +38,9 @@ public class AreaUsuario extends javax.swing.JFrame {
         listarTabelaAutores();
         listarTabelaRecomendados();
         listarTabelaLancamentos();
+        listarTabelaAlugClt();
+        listarTabelaAlugLivro();
+        listarTabelaPedidos();
     }
     
     //Adiciona as opções de Cargos na ComboBox de Cadastro de Usuários
@@ -112,6 +122,58 @@ public class AreaUsuario extends javax.swing.JFrame {
             
         }
     }
+    
+    public void listarTabelaAlugClt(){
+        DefaultTableModel valor = (DefaultTableModel) jTableAlugClt.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        ClienteDAO cltDAO = new ClienteDAO();
+        List<Cliente> clientes = cltDAO.listarCltAluguel();
+        
+        int i = 0;
+        while (clientes.size() > i){
+        
+            valor.addRow(new Object[]{String.valueOf(clientes.get(i).getId_cliente()), clientes.get(i).getNome(),
+                         String.valueOf(clientes.get(i).getQntd_livros_alugados())});
+            i++;
+        }
+    }
+    
+    public void listarTabelaAlugLivro(){
+        DefaultTableModel valor = (DefaultTableModel) jTableAlugLivros.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        LivroDAO livDAO = new LivroDAO();
+        List<Livro> livros = livDAO.listarLivrosAlug();
+        
+        int i = 0;
+        while(livros.size() > i){
+            valor.addRow(new Object[]{String.valueOf(livros.get(i).getId_Livro()), livros.get(i).getNome(), String.valueOf(livros.get(i).getQuantidade())});
+            i++;
+        }
+    }
+    
+    public void listarTabelaPedidos(){
+        DefaultTableModel valor = (DefaultTableModel) jTablePedidos.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        AluguelDAO algDAO = new AluguelDAO();
+        List<Aluguel> algPendentes = algDAO.alugueisPendentes();
+        
+        int i = 0;
+        while(algPendentes.size() > i){
+            valor.addRow(new Object[]{String.valueOf(algPendentes.get(i).getId()),
+                         algPendentes.get(i).getClienteAlugou().getNome(),
+                         algPendentes.get(i).getClienteAlugou().getCpf(),
+                         algPendentes.get(i).getClienteAlugou().getQntd_livros_alugados(),
+                         algPendentes.get(i).getLivroAlugou().getNome(),
+                         algPendentes.get(i).getLivroAlugou().getQuantidade(),
+                         algPendentes.get(i).getStatus()});
+            i++;
+        }
+    }
+    
+    
     List<Integer> idsCat = new ArrayList<Integer>();
     public void listarTabelaCategorias(){
         DefaultTableModel valor = (DefaultTableModel) jTableCategoriasLivro.getModel();
@@ -152,6 +214,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     
     }
     
+
     public void listarTabelaRecomendados(){
         
         DefaultTableModel valor = (DefaultTableModel) jTableRecomendados.getModel();
@@ -210,7 +273,12 @@ public class AreaUsuario extends javax.swing.JFrame {
             valortabela2.addRow(new Object[]{String.valueOf(livrostabela2.get(j).getId_Livro()), 
             livrostabela2.get(j).getNome()});
             j++;
-        }
+        }}
+        
+    public String getDataAtual(){
+        Date data = new Date(System.currentTimeMillis());
+        SimpleDateFormat formData = new SimpleDateFormat("dd/MM/yyyy");
+        return String.valueOf(formData.format(data));
     }
     
     //Limpa os campos de Cadastro de Usuários     
@@ -283,38 +351,44 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jPanelGerUsuarios = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableUsuarios = new javax.swing.JTable();
+        jLabel13 = new javax.swing.JLabel();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        jPanel17 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        jTxtNome = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
+        jTxtCpf = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
+        jTxtEmail = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        jCbCargo = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jTxtLogin = new javax.swing.JTextField();
         jPassSenha = new javax.swing.JPasswordField();
-        jLabel19 = new javax.swing.JLabel();
         jBtCadastrar = new javax.swing.JButton();
         jBtLimpar = new javax.swing.JButton();
-        jTxtNome = new javax.swing.JTextField();
-        jTxtEmail = new javax.swing.JTextField();
-        jTxtCpf = new javax.swing.JFormattedTextField();
-        jCbCargo = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTableUsuarios = new javax.swing.JTable();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        jLabel26 = new javax.swing.JLabel();
+        jPanel18 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jTxtAltDelId = new javax.swing.JTextField();
         jTxtAltDelNome = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
         jTxtAltDelCpf = new javax.swing.JFormattedTextField();
-        jTxtAltDelLogin = new javax.swing.JTextField();
-        jTxtAltDelSenha = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jTxtAltDelEmail = new javax.swing.JTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jTxtAltDelLogin = new javax.swing.JTextField();
+        jLabel25 = new javax.swing.JLabel();
+        jTxtAltDelSenha = new javax.swing.JTextField();
+        jLabel26 = new javax.swing.JLabel();
         jCbAltDelCargo = new javax.swing.JComboBox<>();
+        jBtAlterar = new javax.swing.JButton();
+        jBtExcluir = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel27 = new javax.swing.JLabel();
         jRbId = new javax.swing.JRadioButton();
@@ -322,38 +396,50 @@ public class AreaUsuario extends javax.swing.JFrame {
         jTxtPesqId = new javax.swing.JTextField();
         jTxtPesqLogin = new javax.swing.JTextField();
         jBtPesquisar = new javax.swing.JButton();
-        jBtAlterar = new javax.swing.JButton();
-        jBtExcluir = new javax.swing.JButton();
         jPanelGerCliente = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        jLabel33 = new javax.swing.JLabel();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator12 = new javax.swing.JSeparator();
+        jPanel19 = new javax.swing.JPanel();
         jLabelNomeGerCliente = new javax.swing.JLabel();
-        jLabelEnderecoGerCliente = new javax.swing.JLabel();
+        jTxtNomeGerCliente = new javax.swing.JTextField();
+        jLabelCPFGerCliente1 = new javax.swing.JLabel();
+        jTxtCpfGerCliente = new javax.swing.JFormattedTextField();
+        jLabelEnderecoGerCliente1 = new javax.swing.JLabel();
+        jTxtEnderecoGerCliente = new javax.swing.JTextField();
+        jTxtDataNascGerCliente = new javax.swing.JFormattedTextField();
+        jLabelEnderecoGerCliente2 = new javax.swing.JLabel();
+        jTxtEmailGerCliente = new javax.swing.JTextField();
         jLabel29 = new javax.swing.JLabel();
+        jBtCadastrar1 = new javax.swing.JButton();
+        jBtLimpar1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
         jTxtLoginGerCliente = new javax.swing.JTextField();
         jPassSenhaGerCliente = new javax.swing.JPasswordField();
-        jBtCadastrar1 = new javax.swing.JButton();
-        jBtLimpar1 = new javax.swing.JButton();
-        jTxtNomeGerCliente = new javax.swing.JTextField();
-        jTxtEmailGerCliente = new javax.swing.JTextField();
-        jTxtCpfGerCliente = new javax.swing.JFormattedTextField();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        jTableClientes = new javax.swing.JTable();
-        jLabel33 = new javax.swing.JLabel();
-        jLabelNomeAlterarGerClientes = new javax.swing.JLabel();
-        jLabelAltCPFGerClientes = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        jLabel37 = new javax.swing.JLabel();
-        jLabel38 = new javax.swing.JLabel();
+        jPanel20 = new javax.swing.JPanel();
         jLabelIdGerClientes = new javax.swing.JLabel();
+        jLabelNomeAlterarGerClientes = new javax.swing.JLabel();
         jTxtAltIdGerClientes = new javax.swing.JTextField();
         jTxtAltNomeGerClientes = new javax.swing.JTextField();
+        jLabelAltCPFGerClientes = new javax.swing.JLabel();
         jTxtAltCpfGerClientes = new javax.swing.JFormattedTextField();
-        jTxtAltLoginGerClientes = new javax.swing.JTextField();
-        jTxtAltSenhaGerClientes = new javax.swing.JTextField();
+        jLabelAltEnderecoGerCliente = new javax.swing.JLabel();
+        jTxtAltEnderecoGerClientes = new javax.swing.JTextField();
+        jLabel36 = new javax.swing.JLabel();
         jTxtAltEmailGerClientes = new javax.swing.JTextField();
+        jTxtAltLoginGerClientes = new javax.swing.JTextField();
+        jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
+        jLabelEnderecoGerCliente = new javax.swing.JLabel();
+        jTxtAltSenhaGerClientes = new javax.swing.JTextField();
+        jTxtAltDataNascGerClientes = new javax.swing.JFormattedTextField();
+        jBtAlterarGerCliente = new javax.swing.JButton();
+        jBtExcluirGerCliente = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel41 = new javax.swing.JLabel();
         jRbIdGerCliente = new javax.swing.JRadioButton();
@@ -361,16 +447,6 @@ public class AreaUsuario extends javax.swing.JFrame {
         jTxtPesqIdGerCliente = new javax.swing.JTextField();
         jTxtPesqLoginGerCliente = new javax.swing.JTextField();
         jBtPesquisarGerCliente = new javax.swing.JButton();
-        jBtAlterarGerCliente = new javax.swing.JButton();
-        jBtExcluirGerCliente = new javax.swing.JButton();
-        jLabelCPFGerCliente1 = new javax.swing.JLabel();
-        jTxtAltEnderecoGerClientes = new javax.swing.JTextField();
-        jLabelAltEnderecoGerCliente = new javax.swing.JLabel();
-        jTxtEnderecoGerCliente = new javax.swing.JTextField();
-        jLabelEnderecoGerCliente1 = new javax.swing.JLabel();
-        jTxtDataNascGerCliente = new javax.swing.JFormattedTextField();
-        jLabelEnderecoGerCliente2 = new javax.swing.JLabel();
-        jTxtAltDataNascGerClientes = new javax.swing.JFormattedTextField();
         jPanelGerLivros = new javax.swing.JPanel();
         jLabel18 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -426,6 +502,34 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanelGerAlugueis = new javax.swing.JPanel();
+        jLabel34 = new javax.swing.JLabel();
+        jSeparator13 = new javax.swing.JSeparator();
+        jLabel35 = new javax.swing.JLabel();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTableAlugLivros = new javax.swing.JTable();
+        jLabel40 = new javax.swing.JLabel();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        jTableAlugClt = new javax.swing.JTable();
+        jBtReprovar = new javax.swing.JButton();
+        jBtAprovar = new javax.swing.JButton();
+        jSeparator14 = new javax.swing.JSeparator();
+        jLabel42 = new javax.swing.JLabel();
+        jPanel15 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTxtAlugCliente = new javax.swing.JTextField();
+        jTxtAlugCpf = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jTxtAlugLivro = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jTxtAlugQntd = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jTxtAlugData = new javax.swing.JTextField();
+        jBtAlugar = new javax.swing.JButton();
+        jBtLimpDadosAlug = new javax.swing.JButton();
+        jLabel43 = new javax.swing.JLabel();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        jTablePedidos = new javax.swing.JTable();
         jPanelAnuncios = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabelGerenciarCategorias3 = new javax.swing.JLabel();
@@ -681,88 +785,11 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelFather.add(jPanelHome, "TelaInicial");
 
         jPanelGerUsuarios.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelGerUsuarios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
         jLabel8.setText("Alterar / Deletar Usuários:");
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel9.setText("Nome:");
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel10.setText("CPF: ");
-
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel12.setText("E-mail:");
-
-        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
-
-        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel20.setText("Login:");
-
-        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel21.setText("Senha:");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel20)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTxtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel21)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPassSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(jTxtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel21)
-                    .addComponent(jPassSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
-
-        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel19.setText("Cargo:");
-
-        jBtCadastrar.setText("Cadastrar");
-        jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCadastrarActionPerformed(evt);
-            }
-        });
-
-        jBtLimpar.setText("Limpar Campos");
-        jBtLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtLimparActionPerformed(evt);
-            }
-        });
-
-        try {
-            jTxtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTxtCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtCpfActionPerformed(evt);
-            }
-        });
-
-        jCbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanelGerUsuarios.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, -1, -1));
 
         jTableUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -779,97 +806,131 @@ public class AreaUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableUsuarios);
 
+        jPanelGerUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 290, 690, 118));
+
         jLabel13.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
         jLabel13.setText("Cadastro de Usuários:");
+        jPanelGerUsuarios.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jPanelGerUsuarios.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 230, 10));
+        jPanelGerUsuarios.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 230, 10));
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel14.setText("Nome:");
+        jPanel17.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel15.setText("CPF: ");
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel9.setText("Nome:");
+        jPanel17.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
+        jPanel17.add(jTxtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 340, -1));
 
-        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel16.setText("E-mail:");
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel10.setText("CPF: ");
+        jPanel17.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
 
-        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel24.setText("Login:");
+        try {
+            jTxtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTxtCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtCpfActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jTxtCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 149, -1));
 
-        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel25.setText("Senha:");
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel12.setText("E-mail:");
+        jPanel17.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+        jPanel17.add(jTxtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 180, -1));
 
-        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel26.setText("Cargo:");
+        jLabel19.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel19.setText("Cargo:");
+        jPanel17.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, -1, -1));
+
+        jCbCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel17.add(jCbCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 70, 120, -1));
+
+        jPanel3.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel20.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel20.setText("Login:");
+        jPanel3.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, -1, -1));
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel21.setText("Senha:");
+        jPanel3.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, -1, -1));
+        jPanel3.add(jTxtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(67, 28, 150, -1));
+        jPanel3.add(jPassSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 66, 148, -1));
+
+        jPanel17.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 110));
+
+        jBtCadastrar.setText("Cadastrar");
+        jBtCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadastrarActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jBtCadastrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, -1, -1));
+
+        jBtLimpar.setText("Limpar Campos");
+        jBtLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLimparActionPerformed(evt);
+            }
+        });
+        jPanel17.add(jBtLimpar, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, -1, -1));
+
+        jPanelGerUsuarios.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 690, 180));
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setText("Id:");
+        jPanel18.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
+
+        jLabel14.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel14.setText("Nome:");
+        jPanel18.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
         jTxtAltDelId.setEditable(false);
+        jPanel18.add(jTxtAltDelId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 73, -1));
+        jPanel18.add(jTxtAltDelNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, 187, -1));
+
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel15.setText("CPF: ");
+        jPanel18.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
 
         try {
             jTxtAltDelCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        jPanel18.add(jTxtAltDelCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 123, -1));
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel16.setText("E-mail:");
+        jPanel18.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
+        jPanel18.add(jTxtAltDelEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 188, -1));
+
+        jLabel24.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel24.setText("Login:");
+        jPanel18.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, -1, -1));
+        jPanel18.add(jTxtAltDelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 30, 112, -1));
+
+        jLabel25.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel25.setText("Senha:");
+        jPanel18.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, -1, -1));
+        jPanel18.add(jTxtAltDelSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, 112, -1));
+
+        jLabel26.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel26.setText("Cargo:");
+        jPanel18.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 90, -1, -1));
 
         jCbAltDelCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel27.setText("Realizar pesquisa por:");
-
-        bGPesquisa.add(jRbId);
-        jRbId.setText("CPF");
-
-        bGPesquisa.add(jRbLogin);
-        jRbLogin.setText("Login");
-
-        jBtPesquisar.setText("Pesquisar");
-        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRbLogin)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTxtPesqLogin))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jRbId)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel27)
-                            .addComponent(jTxtPesqId, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(27, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtPesquisar)
-                .addGap(82, 82, 82))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel27)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRbId)
-                    .addComponent(jTxtPesqId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRbLogin)
-                    .addComponent(jTxtPesqLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jBtPesquisar)
-                .addContainerGap(21, Short.MAX_VALUE))
-        );
+        jPanel18.add(jCbAltDelCargo, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 110, -1));
 
         jBtAlterar.setText("Alterar");
         jBtAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -877,6 +938,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtAlterarActionPerformed(evt);
             }
         });
+        jPanel18.add(jBtAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 160, -1, -1));
 
         jBtExcluir.setText("Excluir");
         jBtExcluir.addActionListener(new java.awt.event.ActionListener() {
@@ -884,6 +946,34 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtExcluirActionPerformed(evt);
             }
         });
+        jPanel18.add(jBtExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 160, -1, -1));
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel27.setText("Realizar pesquisa por:");
+        jPanel1.add(jLabel27, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        bGPesquisa.add(jRbId);
+        jRbId.setText("CPF");
+        jPanel1.add(jRbId, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, -1));
+
+        bGPesquisa.add(jRbLogin);
+        jRbLogin.setText("Login");
+        jPanel1.add(jRbLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, -1, -1));
+        jPanel1.add(jTxtPesqId, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 147, -1));
+        jPanel1.add(jTxtPesqLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 90, 141, -1));
+
+        jBtPesquisar.setText("Pesquisar");
+        jBtPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jBtPesquisar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, -1, -1));
+
+        jPanel18.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 230, 170));
 
         javax.swing.GroupLayout jPanelGerUsuariosLayout = new javax.swing.GroupLayout(jPanelGerUsuarios);
         jPanelGerUsuarios.setLayout(jPanelGerUsuariosLayout);
@@ -1053,96 +1143,16 @@ public class AreaUsuario extends javax.swing.JFrame {
                 .addContainerGap(208, Short.MAX_VALUE))
         );
 
+        jPanelGerUsuarios.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 690, 200));
+
         jPanelFather.add(jPanelGerUsuarios, "TelaUsuarios");
 
-        jPanelGerCliente.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelGerCliente.setBackground(new java.awt.Color(204, 204, 204));
         jPanelGerCliente.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel22.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
         jLabel22.setText("Alterar / Deletar Clientes:");
-        jPanelGerCliente.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
-
-        jLabelNomeGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelNomeGerCliente.setText("Nome:");
-        jPanelGerCliente.add(jLabelNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-
-        jLabelEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelEnderecoGerCliente.setText("Data de Nascimento:");
-        jPanelGerCliente.add(jLabelEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 480, 120, -1));
-
-        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel29.setText("E-mail:");
-        jPanelGerCliente.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 40, -1));
-
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Login", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Rockwell", 1, 12))); // NOI18N
-
-        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel30.setText("Login:");
-
-        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel31.setText("Senha:");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel31)
-                    .addComponent(jLabel30, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTxtLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPassSenhaGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel30)
-                    .addComponent(jTxtLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel31)
-                    .addComponent(jPassSenhaGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelGerCliente.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 60, 260, 130));
-
-        jBtCadastrar1.setText("Cadastrar");
-        jBtCadastrar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtCadastrar1ActionPerformed(evt);
-            }
-        });
-        jPanelGerCliente.add(jBtCadastrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 200, -1, -1));
-
-        jBtLimpar1.setText("Limpar Campos");
-        jBtLimpar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtLimpar1ActionPerformed(evt);
-            }
-        });
-        jPanelGerCliente.add(jBtLimpar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, -1, -1));
-        jPanelGerCliente.add(jTxtNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 383, -1));
-        jPanelGerCliente.add(jTxtEmailGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 190, -1));
-
-        try {
-            jTxtCpfGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jTxtCpfGerCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtCpfGerClienteActionPerformed(evt);
-            }
-        });
-        jPanelGerCliente.add(jTxtCpfGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 80, -1));
+        jPanelGerCliente.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 250, -1, -1));
 
         jTableClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -1167,126 +1177,155 @@ public class AreaUsuario extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTableClientes);
 
-        jPanelGerCliente.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 725, 118));
+        jPanelGerCliente.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 690, 118));
 
         jLabel33.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
         jLabel33.setText("Cadastro de Clientes:");
-        jPanelGerCliente.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(259, 22, -1, -1));
+        jPanelGerCliente.add(jLabel33, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanelGerCliente.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 230, 10));
+        jPanelGerCliente.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 220, 10));
 
-        jLabelNomeAlterarGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelNomeAlterarGerClientes.setText("Nome:");
-        jPanelGerCliente.add(jLabelNomeAlterarGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, -1, -1));
+        jPanel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelAltCPFGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelAltCPFGerClientes.setText("CPF: ");
-        jPanelGerCliente.add(jLabelAltCPFGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 483, -1, -1));
+        jLabelNomeGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelNomeGerCliente.setText("Nome:");
+        jPanel19.add(jLabelNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, -1, -1));
+        jPanel19.add(jTxtNomeGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 350, -1));
 
-        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel36.setText("E-mail:");
-        jPanelGerCliente.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, -1, -1));
+        jLabelCPFGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelCPFGerCliente1.setText("CPF: ");
+        jPanel19.add(jLabelCPFGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
 
-        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel37.setText("Login:");
-        jPanelGerCliente.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 420, -1, -1));
+        try {
+            jTxtCpfGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jTxtCpfGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtCpfGerClienteActionPerformed(evt);
+            }
+        });
+        jPanel19.add(jTxtCpfGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 110, -1));
 
-        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel38.setText("Senha:");
-        jPanelGerCliente.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 450, -1, -1));
+        jLabelEnderecoGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente1.setText("Endereço:");
+        jPanel19.add(jLabelEnderecoGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 60, -1));
+        jPanel19.add(jTxtEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 350, -1));
+
+        try {
+            jTxtDataNascGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel19.add(jTxtDataNascGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 100, -1));
+
+        jLabelEnderecoGerCliente2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente2.setText("Data de Nascimento:");
+        jPanel19.add(jLabelEnderecoGerCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 120, -1));
+        jPanel19.add(jTxtEmailGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 190, -1));
+
+        jLabel29.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel29.setText("E-mail:");
+        jPanel19.add(jLabel29, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 40, -1));
+
+        jBtCadastrar1.setText("Cadastrar");
+        jBtCadastrar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtCadastrar1ActionPerformed(evt);
+            }
+        });
+        jPanel19.add(jBtCadastrar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 150, -1, -1));
+
+        jBtLimpar1.setText("Limpar Campos");
+        jBtLimpar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLimpar1ActionPerformed(evt);
+            }
+        });
+        jPanel19.add(jBtLimpar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, -1, -1));
+
+        jPanel4.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel30.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel30.setText("Login:");
+        jPanel4.add(jLabel30, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
+
+        jLabel31.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel31.setText("Senha:");
+        jPanel4.add(jLabel31, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel4.add(jTxtLoginGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 20, 145, -1));
+        jPanel4.add(jPassSenhaGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 148, -1));
+
+        jPanel19.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 20, 240, 100));
+
+        jPanelGerCliente.add(jPanel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 690, 180));
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel20.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelIdGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabelIdGerClientes.setText("Id:");
-        jPanelGerCliente.add(jLabelIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 420, -1, -1));
+        jPanel20.add(jLabelIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jLabelNomeAlterarGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelNomeAlterarGerClientes.setText("Nome:");
+        jPanel20.add(jLabelNomeAlterarGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         jTxtAltIdGerClientes.setEditable(false);
-        jPanelGerCliente.add(jTxtAltIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 73, -1));
-        jPanelGerCliente.add(jTxtAltNomeGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 450, 187, -1));
+        jPanel20.add(jTxtAltIdGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, 73, -1));
+        jPanel20.add(jTxtAltNomeGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 170, -1));
+
+        jLabelAltCPFGerClientes.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAltCPFGerClientes.setText("CPF: ");
+        jPanel20.add(jLabelAltCPFGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
         try {
             jTxtAltCpfGerClientes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        jPanelGerCliente.add(jTxtAltCpfGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 480, 100, -1));
-        jPanelGerCliente.add(jTxtAltLoginGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 420, 120, -1));
+        jPanel20.add(jTxtAltCpfGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 110, -1));
+
+        jLabelAltEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelAltEnderecoGerCliente.setText("Endereço:");
+        jPanel20.add(jLabelAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 70, -1));
+        jPanel20.add(jTxtAltEnderecoGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 360, -1));
+
+        jLabel36.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel36.setText("E-mail:");
+        jPanel20.add(jLabel36, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
+        jPanel20.add(jTxtAltEmailGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 240, -1));
+        jPanel20.add(jTxtAltLoginGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 120, -1));
+
+        jLabel37.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel37.setText("Login:");
+        jPanel20.add(jLabel37, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, -1, -1));
+
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel38.setText("Senha:");
+        jPanel20.add(jLabel38, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
+
+        jLabelEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabelEnderecoGerCliente.setText("Data de Nascimento:");
+        jPanel20.add(jLabelEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 120, -1));
 
         jTxtAltSenhaGerClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTxtAltSenhaGerClientesActionPerformed(evt);
             }
         });
-        jPanelGerCliente.add(jTxtAltSenhaGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 120, -1));
-        jPanelGerCliente.add(jTxtAltEmailGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 540, 260, -1));
+        jPanel20.add(jTxtAltSenhaGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 120, -1));
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
-
-        jLabel41.setText("Realizar pesquisa por:");
-
-        bGPesquisa.add(jRbIdGerCliente);
-        jRbIdGerCliente.setText("CPF");
-
-        bGPesquisa.add(jRbLoginGerCliente);
-        jRbLoginGerCliente.setText("Login");
-
-        jTxtPesqLoginGerCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtPesqLoginGerClienteActionPerformed(evt);
-            }
-        });
-
-        jBtPesquisarGerCliente.setText("Pesquisar");
-        jBtPesquisarGerCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtPesquisarGerClienteActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRbLoginGerCliente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTxtPesqLoginGerCliente)
-                        .addGap(42, 42, 42))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jRbIdGerCliente)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel41)
-                                .addGap(41, 75, Short.MAX_VALUE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(jTxtPesqIdGerCliente)
-                                .addGap(42, 42, 42))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtPesquisarGerCliente)
-                .addGap(82, 82, 82))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel41)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRbIdGerCliente)
-                    .addComponent(jTxtPesqIdGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jRbLoginGerCliente)
-                    .addComponent(jTxtPesqLoginGerCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jBtPesquisarGerCliente)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanelGerCliente.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 410, 260, 180));
+        try {
+            jTxtAltDataNascGerClientes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        jPanel20.add(jTxtAltDataNascGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, 120, -1));
 
         jBtAlterarGerCliente.setText("Alterar");
         jBtAlterarGerCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -1294,7 +1333,7 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtAlterarGerClienteActionPerformed(evt);
             }
         });
-        jPanelGerCliente.add(jBtAlterarGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 580, -1, -1));
+        jPanel20.add(jBtAlterarGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 190, -1, -1));
 
         jBtExcluirGerCliente.setText("Excluir");
         jBtExcluirGerCliente.addActionListener(new java.awt.event.ActionListener() {
@@ -1302,39 +1341,44 @@ public class AreaUsuario extends javax.swing.JFrame {
                 jBtExcluirGerClienteActionPerformed(evt);
             }
         });
-        jPanelGerCliente.add(jBtExcluirGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 580, -1, -1));
+        jPanel20.add(jBtExcluirGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 190, -1, -1));
 
-        jLabelCPFGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelCPFGerCliente1.setText("CPF: ");
-        jPanelGerCliente.add(jLabelCPFGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 113, -1, -1));
-        jPanelGerCliente.add(jTxtAltEnderecoGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 510, 380, -1));
+        jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelAltEnderecoGerCliente.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelAltEnderecoGerCliente.setText("Endereço:");
-        jPanelGerCliente.add(jLabelAltEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 510, 70, -1));
-        jPanelGerCliente.add(jTxtEnderecoGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 383, -1));
+        jLabel41.setText("Realizar pesquisa por:");
+        jPanel2.add(jLabel41, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
-        jLabelEnderecoGerCliente1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelEnderecoGerCliente1.setText("Endereço:");
-        jPanelGerCliente.add(jLabelEnderecoGerCliente1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 70, -1));
+        jRbIdGerCliente.setBackground(new java.awt.Color(204, 204, 204));
+        bGPesquisa.add(jRbIdGerCliente);
+        jRbIdGerCliente.setText("CPF");
+        jPanel2.add(jRbIdGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
 
-        try {
-            jTxtDataNascGerCliente.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanelGerCliente.add(jTxtDataNascGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 150, -1));
+        jRbLoginGerCliente.setBackground(new java.awt.Color(204, 204, 204));
+        bGPesquisa.add(jRbLoginGerCliente);
+        jRbLoginGerCliente.setText("Login");
+        jPanel2.add(jRbLoginGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
+        jPanel2.add(jTxtPesqIdGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 133, -1));
 
-        jLabelEnderecoGerCliente2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabelEnderecoGerCliente2.setText("Data de Nascimento:");
-        jPanelGerCliente.add(jLabelEnderecoGerCliente2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 120, -1));
+        jTxtPesqLoginGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtPesqLoginGerClienteActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTxtPesqLoginGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, 133, -1));
 
-        try {
-            jTxtAltDataNascGerClientes.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        jPanelGerCliente.add(jTxtAltDataNascGerClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 480, 130, -1));
+        jBtPesquisarGerCliente.setText("Pesquisar");
+        jBtPesquisarGerCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesquisarGerClienteActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jBtPesquisarGerCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
+
+        jPanel20.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 220, 150));
+
+        jPanelGerCliente.add(jPanel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 690, 220));
 
         jPanelFather.add(jPanelGerCliente, "TelaClientes");
 
@@ -1478,6 +1522,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerLivros.add(jLabelGerenciarCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
         jPanelGerLivros.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 330, -1));
 
+        jPaneCadastrarCat.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPaneCadastrarCat.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNomeAutLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1543,6 +1588,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         jPanelGerLivros.add(jLabelCadastrarAutoresLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, -1, -1));
         jPanelGerLivros.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 370, 330, -1));
 
+        jPanelCadastrarAut.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanelCadastrarAut.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNomeCatLivro.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -1623,6 +1669,8 @@ public class AreaUsuario extends javax.swing.JFrame {
         jLabel3.setText("Os livros, acesse o Menu de livros ");
         jPanel15.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 22, 200, 20));
 
+        jPanel16.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
@@ -1644,7 +1692,9 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelFather.add(jPanelGerLivros, "TelaLivros");
 
-        jPanelGerAlugueis.setBackground(new java.awt.Color(255, 204, 204));
+        jPanelGerAlugueis.setBackground(new java.awt.Color(204, 204, 204));
+        jPanelGerAlugueis.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
 
         javax.swing.GroupLayout jPanelGerAlugueisLayout = new javax.swing.GroupLayout(jPanelGerAlugueis);
         jPanelGerAlugueis.setLayout(jPanelGerAlugueisLayout);
@@ -1657,13 +1707,185 @@ public class AreaUsuario extends javax.swing.JFrame {
             .addGap(0, 760, Short.MAX_VALUE)
         );
 
+        jLabel34.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N
+        jLabel34.setText("Selecionar Livro:");
+        jPanelGerAlugueis.add(jLabel34, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 60, -1, -1));
+        jPanelGerAlugueis.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 200, 10));
+
+        jLabel35.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel35.setText("Novo Aluguel:");
+        jPanelGerAlugueis.add(jLabel35, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+
+        jTableAlugLivros.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Nome Livro", "Quantidade"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableAlugLivros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAlugLivrosMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTableAlugLivros);
+
+        jPanelGerAlugueis.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 80, 330, 100));
+
+        jLabel40.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N
+        jLabel40.setText("Selecionar Cliente:");
+        jPanelGerAlugueis.add(jLabel40, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
+
+        jTableAlugClt.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "ID", "Clientes", "Nº Aluguéis"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableAlugClt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAlugCltMouseClicked(evt);
+            }
+        });
+        jScrollPane8.setViewportView(jTableAlugClt);
+
+        jPanelGerAlugueis.add(jScrollPane8, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 300, 100));
+
+        jBtReprovar.setText("Reprovar");
+        jBtReprovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtReprovarActionPerformed(evt);
+            }
+        });
+        jPanelGerAlugueis.add(jBtReprovar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 580, 100, -1));
+
+        jBtAprovar.setText("Aprovar");
+        jBtAprovar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAprovarActionPerformed(evt);
+            }
+        });
+        jPanelGerAlugueis.add(jBtAprovar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 580, 100, -1));
+        jPanelGerAlugueis.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 380, 260, 10));
+
+        jLabel42.setFont(new java.awt.Font("Rockwell", 1, 18)); // NOI18N
+        jLabel42.setText("Pedidos Pendentes:");
+        jPanelGerAlugueis.add(jLabel42, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, -1, -1));
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel15.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setText("Cliente:");
+        jPanel15.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        jLabel1.setText("CPF:");
+        jPanel15.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, -1, -1));
+
+        jTxtAlugCliente.setEditable(false);
+        jPanel15.add(jTxtAlugCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, 170, -1));
+
+        jTxtAlugCpf.setEditable(false);
+        jPanel15.add(jTxtAlugCpf, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 170, -1));
+
+        jLabel6.setText("Livro:");
+        jPanel15.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 40, -1, -1));
+
+        jTxtAlugLivro.setEditable(false);
+        jPanel15.add(jTxtAlugLivro, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 200, -1));
+
+        jLabel5.setText("Disponíveis:");
+        jPanel15.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
+
+        jTxtAlugQntd.setEditable(false);
+        jPanel15.add(jTxtAlugQntd, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 170, -1));
+
+        jLabel4.setText("Data Aluguel:");
+        jPanel15.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
+
+        jTxtAlugData.setEditable(false);
+        jPanel15.add(jTxtAlugData, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 170, -1));
+
+        jBtAlugar.setText("Alugar");
+        jBtAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtAlugarActionPerformed(evt);
+            }
+        });
+        jPanel15.add(jBtAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 80, -1));
+
+        jBtLimpDadosAlug.setText("Limpar");
+        jBtLimpDadosAlug.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtLimpDadosAlugActionPerformed(evt);
+            }
+        });
+        jPanel15.add(jBtLimpDadosAlug, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 70, 80, -1));
+
+        jLabel43.setFont(new java.awt.Font("Rockwell", 1, 14)); // NOI18N
+        jLabel43.setText("Dados do Pedido:");
+        jPanel15.add(jLabel43, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
+
+        jPanelGerAlugueis.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 660, 140));
+
+        jTablePedidos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "ID Pedido", "Cliente", "CPF", "Qntd Alugados", "Livro", "Qntd Disponível", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTablePedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTablePedidosMouseClicked(evt);
+            }
+        });
+        jScrollPane9.setViewportView(jTablePedidos);
+
+        jPanelGerAlugueis.add(jScrollPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 400, 660, 160));
+
         jPanelFather.add(jPanelGerAlugueis, "TelaAlugueis");
 
-        jPanelAnuncios.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelAnuncios.setBackground(new java.awt.Color(204, 204, 204));
         jPanelAnuncios.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanelAnuncios.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel9.setBackground(new java.awt.Color(204, 204, 204));
         jPanel9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -1766,7 +1988,6 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelAnuncios.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 350, 680, 200));
 
-        jPanel10.setBackground(new java.awt.Color(204, 204, 204));
         jPanel10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jPanel10.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -2242,6 +2463,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         limparCamposCadCliente();
         listarTabelaCliente();
+        listarTabelaAlugClt();
     }//GEN-LAST:event_jBtCadastrar1ActionPerformed
 
     private void jBtLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimpar1ActionPerformed
@@ -2301,6 +2523,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         limparCamposAltClientes();
         listarTabelaCliente();
+        listarTabelaAlugClt();
         
     }//GEN-LAST:event_jBtAlterarGerClienteActionPerformed
 
@@ -2313,6 +2536,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         limparCamposAltClientes();
         listarTabelaCliente();
+        listarTabelaAlugClt();
     }//GEN-LAST:event_jBtExcluirGerClienteActionPerformed
 
     private void jTxtAltSenhaGerClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAltSenhaGerClientesActionPerformed
@@ -2387,7 +2611,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Livro "+livro.getNome()+" Cadastrado!");
         
-        
+        listarTabelaAlugLivro();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e+"AreaUsuario");
@@ -2437,6 +2661,109 @@ public class AreaUsuario extends javax.swing.JFrame {
     private void jTextFieldSelAutNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSelAutNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldSelAutNomeActionPerformed
+
+    private void jTableAlugCltMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlugCltMouseClicked
+        Cliente clt = new Cliente();
+        ClienteDAO cltDAO= new ClienteDAO();
+        
+        clt.setId_cliente(Integer.parseInt((String) jTableAlugClt.getModel().getValueAt(jTableAlugClt.getSelectedRow(), 0)));
+        cltDAO.dadosClientesId(clt);
+        Cliente cltSelecionado = clt;
+        
+        jTxtAlugCliente.setText(cltSelecionado.getNome());
+        jTxtAlugCpf.setText(cltSelecionado.getCpf());
+    }//GEN-LAST:event_jTableAlugCltMouseClicked
+
+    private void jTableAlugLivrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlugLivrosMouseClicked
+        jTxtAlugLivro.setText((String) jTableAlugLivros.getModel().getValueAt(jTableAlugLivros.getSelectedRow(), 1));
+        jTxtAlugQntd.setText((String) jTableAlugLivros.getModel().getValueAt(jTableAlugLivros.getSelectedRow(), 2));
+        jTxtAlugData.setText(String.valueOf(getDataAtual()));
+    }//GEN-LAST:event_jTableAlugLivrosMouseClicked
+
+    private void jBtLimpDadosAlugActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimpDadosAlugActionPerformed
+        jTxtAlugCliente.setText("");
+        jTxtAlugCpf.setText("");
+        jTxtAlugLivro.setText("");
+        jTxtAlugQntd.setText("");
+        jTxtAlugData.setText("");
+    }//GEN-LAST:event_jBtLimpDadosAlugActionPerformed
+
+    private void jBtAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAlugarActionPerformed
+        Aluguel alg = new Aluguel();
+        Cliente clt = new Cliente();
+        Livro liv = new Livro();
+        
+        alg.setData(jTxtAlugData.getText());
+        alg.setStatus("Alugado");
+        clt.setNome(jTxtAlugCliente.getText());
+        clt.setCpf(jTxtAlugCpf.getText());
+        liv.setNome(jTxtAlugLivro.getText());
+        
+        AluguelDAO algDAO = new AluguelDAO();
+        ClienteDAO cltDAO = new ClienteDAO();
+        LivroDAO livDAO = new LivroDAO();
+        
+        livDAO.dadosLivroAlug(liv); //Pega todos os dados do livro (utilizando o Nome do Livro)
+        cltDAO.dadosClientesCpf(clt); //Pega todos os dados do cliente (utilizando CPF)
+        
+        livSessao = liv;
+        cltSessao = clt;
+        
+        algDAO.alugar(alg, cltSessao, livSessao, sessao);
+        livDAO.alugaLivro(livSessao);
+        cltDAO.alugaLivroClt(cltSessao);
+        
+        JOptionPane.showMessageDialog(null, "Aluguel realizado com sucesso");
+        
+        listarTabelaCliente();
+        listarTabelaAlugClt();
+        listarTabelaAlugLivro();
+    }//GEN-LAST:event_jBtAlugarActionPerformed
+
+    private void jTablePedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTablePedidosMouseClicked
+        id_selec = Integer.parseInt((String) jTablePedidos.getModel().getValueAt(jTablePedidos.getSelectedRow(), 0));
+        clt_selec = (String) jTablePedidos.getModel().getValueAt(jTablePedidos.getSelectedRow(), 2);
+        liv_selec = (String) jTablePedidos.getModel().getValueAt(jTablePedidos.getSelectedRow(), 4);
+    }//GEN-LAST:event_jTablePedidosMouseClicked
+
+    private void jBtAprovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtAprovarActionPerformed
+        Aluguel apAluguel = new Aluguel();
+        Cliente apClt = new Cliente();
+        Livro apLiv = new Livro();
+        
+        apAluguel.setStatus("Alugado");
+        apClt.setCpf(clt_selec);
+        apLiv.setNome(liv_selec);
+                
+        AluguelDAO apAlgDAO = new AluguelDAO();
+        ClienteDAO apCltDAO = new ClienteDAO();
+        LivroDAO apLivDAO = new LivroDAO();
+        
+        apCltDAO.dadosClientesCpf(apClt);
+        apLivDAO.dadosLivroAlug(apLiv);
+        apCltDAO.alugaLivroClt(apClt);
+        apAlgDAO.aprovacaoAluguel(apAluguel, id_selec, sessao, getDataAtual());
+        
+        apLivDAO.alugaLivro(apLiv);
+        
+        listarTabelaPedidos();
+        listarTabelaAlugClt();
+        listarTabelaAlugLivro();
+        
+        CardLayout cl = (CardLayout) jPanelFather.getLayout();
+        cl.show(jPanelFather, "TelaLivros");
+        
+        CardLayout cl2 = (CardLayout) jPanelFather.getLayout();
+        cl.show(jPanelFather, "TelaAlugueis");
+    }//GEN-LAST:event_jBtAprovarActionPerformed
+
+    private void jBtReprovarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtReprovarActionPerformed
+        Aluguel apAluguel = new Aluguel();
+        apAluguel.setStatus("Reprovado");
+        
+        AluguelDAO apAlgDAO = new AluguelDAO();
+        apAlgDAO.aprovacaoAluguel(apAluguel, id_selec, sessao, getDataAtual());
+    }//GEN-LAST:event_jBtReprovarActionPerformed
 
 
     private void jComboBoxCategoriaLivroComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jComboBoxCategoriaLivroComponentAdded
@@ -2620,6 +2947,8 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.ButtonGroup bGPesquisa;
     private javax.swing.JButton jBtAlterar;
     private javax.swing.JButton jBtAlterarGerCliente;
+    private javax.swing.JButton jBtAlugar;
+    private javax.swing.JButton jBtAprovar;
     private javax.swing.JButton jBtCadastrar;
     private javax.swing.JButton jBtCadastrar1;
     private javax.swing.JButton jBtExcluir;
@@ -2630,12 +2959,14 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jBtGerLivros;
     private javax.swing.JButton jBtGerUsuarios1;
     private javax.swing.JButton jBtHome;
+    private javax.swing.JButton jBtLimpDadosAlug;
     private javax.swing.JButton jBtLimpar;
     private javax.swing.JButton jBtLimpar1;
     private javax.swing.JButton jBtLogOut;
     private javax.swing.JButton jBtPesquisar;
     private javax.swing.JButton jBtPesquisarGerCliente;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jBtReprovar;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
@@ -2683,12 +3014,19 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel33;
+    private javax.swing.JLabel jLabel34;
+    private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
+    private javax.swing.JLabel jLabel42;
+    private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel48;
     private javax.swing.JLabel jLabel49;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel50;
     private javax.swing.JLabel jLabel51;
     private javax.swing.JLabel jLabel52;
@@ -2699,6 +3037,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel57;
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAltCPFGerClientes;
@@ -2738,7 +3077,11 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -2770,15 +3113,26 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator10;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
+    private javax.swing.JSeparator jSeparator7;
+    private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JSeparator jSeparatorCat;
+    private javax.swing.JTable jTableAlugClt;
+    private javax.swing.JTable jTableAlugLivros;
     private javax.swing.JTable jTableAutoresLivros;
     private javax.swing.JTable jTableCategoriasLivro;
     private javax.swing.JTable jTableClientes;
@@ -2786,6 +3140,7 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JTable jTablePesquisaLanca;
     private javax.swing.JTable jTablePesquisaReco;
     private javax.swing.JTable jTableRecomendados;
+    private javax.swing.JTable jTablePedidos;
     private javax.swing.JTable jTableUsuarios;
     private javax.swing.JTextArea jTextAreaResumoLivro;
     private javax.swing.JTextField jTextFieldNomeAutLivro;
@@ -2813,6 +3168,11 @@ public class AreaUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField jTxtAltLoginGerClientes;
     private javax.swing.JTextField jTxtAltNomeGerClientes;
     private javax.swing.JTextField jTxtAltSenhaGerClientes;
+    private javax.swing.JTextField jTxtAlugCliente;
+    private javax.swing.JTextField jTxtAlugCpf;
+    private javax.swing.JTextField jTxtAlugData;
+    private javax.swing.JTextField jTxtAlugLivro;
+    private javax.swing.JTextField jTxtAlugQntd;
     private javax.swing.JFormattedTextField jTxtCpf;
     private javax.swing.JFormattedTextField jTxtCpfGerCliente;
     private javax.swing.JFormattedTextField jTxtDataNascGerCliente;

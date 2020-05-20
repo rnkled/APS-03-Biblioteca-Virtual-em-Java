@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DAO;
 
 import biblioteca.Cliente;
@@ -138,7 +133,7 @@ public class ClienteDAO {
 }
      
     //Faz a busca dos Dados do Usuário no BD
-    public void dadosUsuario(Cliente cliente){
+    public void dadosCliente(Cliente cliente){
     String sql = "SELECT * FROM tb_clientes WHERE login = ?";
     
     try{
@@ -149,6 +144,7 @@ public class ClienteDAO {
         rs = stmt.executeQuery();
         
         if (rs.next()){
+            cliente.setId_cliente(rs.getInt("id_cliente"));
             cliente.setNome(rs.getString("nome"));
             cliente.setCpf(rs.getString("cpf"));
             cliente.setEndereco(rs.getString("endereco"));
@@ -156,6 +152,7 @@ public class ClienteDAO {
             cliente.setEmail(rs.getString("email"));
             cliente.setLogin(rs.getString("login"));
             cliente.setSenha(rs.getString("senha"));
+            cliente.setQntd_livros_alugados(rs.getInt("qntd_liv_alug"));
         } else {
             stmt.close();
         }
@@ -164,6 +161,66 @@ public class ClienteDAO {
         JOptionPane.showMessageDialog(null, e);
     }
 }
+    
+    public void dadosClientesId(Cliente cliente){
+        String sql = "SELECT * FROM tb_clientes WHERE id_cliente = ?";
+    
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setInt(1, cliente.getId_cliente());
+        
+            ResultSet rs;
+            rs = stmt.executeQuery();
+        
+            while (rs.next()){
+                cliente.setId_cliente(rs.getInt("id_cliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setData_nasc(rs.getString("data_nasc"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setQntd_livros_alugados(rs.getInt("qntd_liv_alug"));
+            }
+            
+            rs.close();
+            stmt.close();
+        
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void dadosClientesCpf(Cliente cliente){
+        String sql = "SELECT * FROM tb_clientes WHERE cpf = ?";
+    
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setString(1, cliente.getCpf());
+        
+            ResultSet rs;
+            rs = stmt.executeQuery();
+        
+            while (rs.next()){
+                cliente.setId_cliente(rs.getInt("id_cliente"));
+                cliente.setNome(rs.getString("nome"));
+                cliente.setCpf(rs.getString("cpf"));
+                cliente.setEndereco(rs.getString("endereco"));
+                cliente.setData_nasc(rs.getString("data_nasc"));
+                cliente.setEmail(rs.getString("email"));
+                cliente.setLogin(rs.getString("login"));
+                cliente.setSenha(rs.getString("senha"));
+                cliente.setQntd_livros_alugados(rs.getInt("qntd_liv_alug"));
+                   
+            }
+            rs.close();
+            stmt.close();
+        
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
     
     public List<Cliente> listarTodos(){
         String sql = "SELECT * FROM tb_clientes ORDER BY id_cliente";
@@ -250,6 +307,55 @@ public class ClienteDAO {
         }
         
         return clientes;
+    }
+    
+    public List<Cliente> listarCltAluguel(){
+        String sql = "SELECT id_cliente, nome, qntd_liv_alug FROM tb_clientes ORDER BY id_cliente";
+        ResultSet rs;
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+            
+                Cliente clt = new Cliente();
+                clt.setId_cliente(rs.getInt("id_cliente"));
+                clt.setNome(rs.getString("nome"));
+                clt.setQntd_livros_alugados(rs.getInt("qntd_liv_alug"));
+                
+                clientes.add(clt);
+            }
+            rs.close();
+            stmt.close();
+            return clientes;
+        
+            
+        } catch(SQLException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return clientes;
+    }
+    
+    public void alugaLivroClt(Cliente clt){
+        String sql = "UPDATE tb_clientes SET qntd_liv_alug=? WHERE id_cliente= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setInt(1, clt.getQntd_livros_alugados() + 1);
+            stmt.setInt(2, clt.getId_cliente());
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }
     
 }

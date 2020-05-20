@@ -159,7 +159,7 @@ public class AreaCliente extends javax.swing.JFrame {
     
     public void setCltLogin(Cliente cliente){
         ClienteDAO clt = new ClienteDAO();
-        clt.dadosUsuario(cliente);
+        clt.dadosCliente(cliente);
         /*
         jLabelLogin.setText(cliente.getLogin());
         jLabelNome.setText(cliente.getNome());

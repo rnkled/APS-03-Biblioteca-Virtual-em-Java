@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 package DAO;
+
+import biblioteca.Cliente;
 import biblioteca.Livro;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,6 +82,120 @@ public class LivroDAO {
             
             throw new RuntimeException(e);
             
+        }
+        
+    }
+    
+    public List<Cliente> listarTodos(){
+        String sql = "SELECT * FROM tb_clientes ORDER BY id_cliente";
+        ResultSet rs;
+        List<Cliente> clientes = new ArrayList<Cliente>();
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+            
+                Cliente clt = new Cliente();
+                clt.setId_cliente(rs.getInt("id_cliente"));
+                clt.setNome(rs.getString("nome"));
+                clt.setCpf(rs.getString("cpf"));
+                clt.setEndereco(rs.getString("endereco"));
+                clt.setData_nasc(rs.getString("data_nasc"));
+                clt.setEmail(rs.getString("email"));
+                clt.setLogin(rs.getString("login"));
+                clt.setSenha(rs.getString("senha"));
+                
+                clientes.add(clt);
+            }
+            rs.close();
+            stmt.close();
+            return clientes;
+        
+            
+        } catch(SQLException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return clientes;
+    }
+    
+    public List<Livro> listarLivrosAlug(){
+        
+        String sql = "SELECT id_livro, nm_livro, quantidade FROM tb_livros ORDER BY id_livro";
+        ResultSet rs;
+        List<Livro> livros = new ArrayList<Livro>();
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            
+            while (rs.next()){
+                Livro livro = new Livro();
+                livro.setId_Livro(rs.getInt("id_livro"));
+                livro.setNome(rs.getString("nm_livro"));
+                livro.setQuantidade(rs.getInt("quantidade"));
+                
+                livros.add(livro);
+            }
+            
+            rs.close();
+            stmt.close();
+            return livros;
+            
+        } catch(SQLException e){
+            
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+        return livros;
+    }
+        
+    public void dadosLivroAlug(Livro livro){
+        String sql = "SELECT l.id_livro, l.nm_livro, l.quantidade, l.qntd_alugado " +
+                     "FROM tb_livros l " +
+                     "WHERE nm_livro= ?";
+            
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setString(1, livro.getNome());
+            
+            ResultSet rs;
+            rs = stmt.executeQuery();
+            
+            if(rs.next()){
+                livro.setId_Livro(rs.getInt("id_livro"));
+                livro.setNome(rs.getString("nm_livro"));
+                livro.setQuantidade(rs.getInt("quantidade"));
+                livro.setAlugados(rs.getInt("qntd_alugado"));
+            } else{
+                stmt.close();
+            }
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void alugaLivro(Livro livro){
+        String sql = "UPDATE tb_livros SET quantidade= ?, qntd_alugado= ? WHERE id_livro= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setInt(1, livro.getQuantidade() - 1);
+            stmt.setInt(2, livro.getAlugados() + 1);
+            stmt.setInt(3, livro.getId_Livro());
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
         }
     }
     
