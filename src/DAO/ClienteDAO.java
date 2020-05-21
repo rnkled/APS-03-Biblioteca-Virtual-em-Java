@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DAO;
 
 import biblioteca.Cliente;
@@ -313,9 +318,9 @@ public class ClienteDAO {
         String sql = "SELECT id_cliente, nome, qntd_liv_alug FROM tb_clientes ORDER BY id_cliente";
         ResultSet rs;
         List<Cliente> clientes = new ArrayList<Cliente>();
-        
+    
         try{
-            
+    
             PreparedStatement stmt = conecta.prepareStatement(sql);
             rs = stmt.executeQuery();
             

@@ -7,8 +7,10 @@ package view;
 
 import CustomClass.ManipularImagem;
 import CustomClass.ManipularLabels;
+import DAO.AluguelDAO;
 import DAO.ClienteDAO;
 import DAO.LivroDAO;
+import biblioteca.Aluguel;
 import biblioteca.Cliente;
 import biblioteca.Livro;
 import java.awt.CardLayout;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 
 public class AreaCliente extends javax.swing.JFrame {
@@ -25,6 +28,7 @@ public class AreaCliente extends javax.swing.JFrame {
     String SelCat = null;
     String PesquisaTexto = null;
     int currentPage = 0;
+    private Cliente clt_sessao;
 
     /**
      * Creates new form AreaCliente
@@ -34,6 +38,7 @@ public class AreaCliente extends javax.swing.JFrame {
         setListas();
         setLancamentos();
         setRecomendados();
+        
     }
     
     LivroDAO livro = new LivroDAO();
@@ -160,19 +165,44 @@ public class AreaCliente extends javax.swing.JFrame {
     public void setCltLogin(Cliente cliente){
         ClienteDAO clt = new ClienteDAO();
         clt.dadosCliente(cliente);
-        /*
-        jLabelLogin.setText(cliente.getLogin());
-        jLabelNome.setText(cliente.getNome());
-        jLabelCpf.setText(cliente.getCpf());
-        jLabelEmail.setText(cliente.getEmail());
-        jLabelDataNasc.setText(cliente.getData_nasc());
-        jLabelContato.setText(cliente.getData_nasc());
-        */
+        clt_sessao = cliente;
         }
     
     public void bemVindo(){
-        JOptionPane.showMessageDialog(null, "Seja bem-vindo "/*+jLabelNome.getText()*/);
+        JOptionPane.showMessageDialog(null, "Seja bem-vindo "+clt_sessao.getNome());
     }
+    
+    public void listarTabelaHistorico(){
+	jCbStatus.removeAllItems();
+	jCbStatus.addItem("Todos");
+	DefaultTableModel valor = (DefaultTableModel) jTableHistorico.getModel();
+	valor.getDataVector().removeAllElements();
+	
+	AluguelDAO algDAO = new AluguelDAO();
+	List<Aluguel> alugueis = algDAO.listarAlugueis(clt_sessao);
+	int i = 0;
+	while(alugueis.size() > 0){
+		valor.addRow(new Object[] {alugueis.get(i).getNmLivroAlugado(), alugueis.get(i).getData(), alugueis.get(i).getDataDevolucao(), alugueis.get(i).getStatus()});
+		jCbStatus.addItem(alugueis.get(i).getStatus());
+		i++;
+        }
+    }
+
+
+    public void listarTabelaHistoricoStatus(){
+
+	DefaultTableModel valor = (DefaultTableModel) jTableHistorico.getModel();
+	valor.getDataVector().removeAllElements();
+	
+	AluguelDAO algDAO = new AluguelDAO();
+	List<Aluguel> alugueis = algDAO.listarAlugueisStatus(clt_sessao, String.valueOf(jCbStatus.getSelectedItem())); 
+	int i = 0;
+	while(alugueis.size() > 0){
+		valor.addRow(new Object[] {alugueis.get(i).getLivroAlugou().getNome(), alugueis.get(i).getData(), /*alugueis.get(i).getDataDevolucao(),*/ alugueis.get(i).getStatus()});
+		i++;
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -299,9 +329,10 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelHistórico = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
-        jPanel8 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jComboFiltroPedidos = new javax.swing.JComboBox<>();
+        jCbStatus = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableHistorico = new javax.swing.JTable();
         jPanelTelaPesquisa = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabelLivro17 = new javax.swing.JLabel();
@@ -1241,64 +1272,44 @@ public class AreaCliente extends javax.swing.JFrame {
         Screen.add(jPanelTelaCarrinho, "TelaCarrinho");
 
         jPanelHistórico.setBackground(new java.awt.Color(204, 204, 255));
+        jPanelHistórico.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel8.setText("Meus Pedidos");
+        jPanelHistórico.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 400, -1));
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 183, Short.MAX_VALUE)
-        );
+        jPanelHistórico.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 49, 360, 10));
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel9.setText("Filtrar por:");
+        jPanelHistórico.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 93, -1, -1));
 
-        jComboFiltroPedidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aprovados", "Em Análise", "Recusados" }));
+        jCbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aprovados", "Em Análise", "Recusados" }));
+        jPanelHistórico.add(jCbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 96, 111, -1));
 
-        javax.swing.GroupLayout jPanelHistóricoLayout = new javax.swing.GroupLayout(jPanelHistórico);
-        jPanelHistórico.setLayout(jPanelHistóricoLayout);
-        jPanelHistóricoLayout.setHorizontalGroup(
-            jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanelHistóricoLayout.createSequentialGroup()
-                        .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 99, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jLabel9)
-                .addGap(18, 18, 18)
-                .addComponent(jComboFiltroPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanelHistóricoLayout.setVerticalGroup(
-            jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelHistóricoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(jPanelHistóricoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jComboFiltroPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(38, 38, 38)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
-        );
+        jTableHistorico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Nome Livro", "Data Aluguel", "Data Devolucao", "Status"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(jTableHistorico);
+
+        jPanelHistórico.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 480, 250));
 
         Screen.add(jPanelHistórico, "TelaHistorico");
 
@@ -1736,13 +1747,14 @@ public class AreaCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRetornar3ActionPerformed
 
     private void jButtonHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHistoricoActionPerformed
-        // TODO add your handling code here:
+        
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaHistorico");
+        listarTabelaHistorico();
     }//GEN-LAST:event_jButtonHistoricoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        listarTabelaHistorico();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabelLivro9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro9MouseClicked
@@ -1974,7 +1986,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JButton jButtonRomance;
     private javax.swing.JButton jButtonSuspense;
     private javax.swing.JButton jButtonTerror;
-    private javax.swing.JComboBox<String> jComboFiltroPedidos;
+    private javax.swing.JComboBox<String> jCbStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel14;
@@ -2070,7 +2082,6 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelHistórico;
     private javax.swing.JPanel jPanelTelaCarrinho;
@@ -2080,6 +2091,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTelaPerfil;
     private javax.swing.JPanel jPanelTelaPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -2092,6 +2104,7 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
     private javax.swing.JSeparator jSeparatorPes;
+    private javax.swing.JTable jTableHistorico;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldPesquisa;
     // End of variables declaration//GEN-END:variables
