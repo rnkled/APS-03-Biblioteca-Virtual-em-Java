@@ -116,7 +116,7 @@ private Connection conecta;
             
         } catch(SQLException e){
             
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Erro! Você não pode deletar uma Categoria que Possua Livros Cadastrados Nela");
             
         }
     

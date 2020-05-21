@@ -49,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPassSenha = new javax.swing.JPasswordField();
         jButtonEntrar = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -78,22 +79,24 @@ public class Login extends javax.swing.JFrame {
         jPanelLogin.setBackground(new java.awt.Color(37, 37, 37));
         jPanelLogin.setForeground(new java.awt.Color(255, 255, 255));
         jPanelLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanelLogin.add(jTxtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 206, -1));
+        jPanelLogin.add(jTxtLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 206, -1));
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Login:  ");
-        jPanelLogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 20, -1, -1));
+        jPanelLogin.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Senha:");
-        jPanelLogin.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, -1, -1));
+        jPanelLogin.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 60, -1, -1));
 
         jPassSenha.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jPassSenhaKeyPressed(evt);
             }
         });
-        jPanelLogin.add(jPassSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 207, -1));
+        jPanelLogin.add(jPassSenha, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 207, -1));
 
         jButtonEntrar.setBackground(new java.awt.Color(67, 67, 67));
         jButtonEntrar.setFont(new java.awt.Font("Verdana", 0, 14)); // NOI18N
@@ -107,9 +110,12 @@ public class Login extends javax.swing.JFrame {
                 jButtonEntrarActionPerformed(evt);
             }
         });
-        jPanelLogin.add(jButtonEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 92, 80, 30));
+        jPanelLogin.add(jButtonEntrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 100, 80, 30));
 
-        jPanel2.add(jPanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 24, 360, 130));
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/books_library_1768.png"))); // NOI18N
+        jPanelLogin.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 70, 80));
+
+        jPanel2.add(jPanelLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 24, 360, 140));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -140,7 +146,9 @@ public class Login extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -169,9 +177,9 @@ public class Login extends javax.swing.JFrame {
             } else if(clt.validarLoginCliente(jTxtLogin.getText(), jPassSenha.getText()) == true){
                 cliente.setLogin(jTxtLogin.getText());
                 AreaCliente ac = new AreaCliente();
+                ac.setCltLogin(cliente);
                 ac.show();
                 ac.setLocationRelativeTo(null);
-                ac.setCltLogin(cliente);
                 ac.bemVindo();
                 
             } else{
@@ -266,6 +274,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelLogin;

@@ -18,7 +18,7 @@ public class UsuarioDAO {
     //Salva dados de Usuário no BD
     public void salvar (Usuario usuario){
         
-        String sql = "INSERT INTO tb_usuarios(nome, cpf, email, login, senha, cargo) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_usuarios(nome, cpf, email, login, senha, cargo, status) VALUES(?,?,?,?,?,?,'Ativo')";
         
         try{
             
@@ -73,7 +73,7 @@ public class UsuarioDAO {
     
     //Deleta Usuário do BD
     public void deletar(Usuario usuario){
-        String sql = "DELETE FROM tb_usuarios"
+        String sql = "UPDATE tb_usuarios SET status='Desabilitado'"
                 +" WHERE id_usuario=?";
         
         try{
@@ -91,39 +91,12 @@ public class UsuarioDAO {
             
         }
     }
-    
-    public void salvarLivro (Livro livro){
-        
-        String sql = "INSERT INTO tb_livros(nm_livro, data_publi, quantidade, qualidade, resumo, qntd_alugado, id_categoria, id_autor) VALUES(?,?,?,?,?,?,?,?)";
-        
-        try{
-            
-            PreparedStatement stn = conecta.prepareStatement(sql);
-            
-            stn.setString(1, livro.getNome());
-            stn.setString(2, livro.getData().toString());
-            stn.setInt(3, livro.getQuantidade());
-            stn.setString(4, livro.getQualidade());
-            stn.setString(5, livro.getResumo());
-            stn.setInt(6, livro.getAlugados());
-            stn.setInt(7, livro.getCategoriaID());
-            stn.setInt(8, livro.getAutorID());
-            
-            stn.execute();
-            stn.close();
-            
-        } catch(SQLException e){
-            
-            throw new RuntimeException(e);
-            
-        }
-    }
-
+   
     //Executa a Validação de Login do Usuário no JFrame Login
     public boolean validarLoginUsuario(String login, String senha){
     boolean autenticado = false;
     
-    String sql = "SELECT * FROM tb_usuarios WHERE login =? AND senha=?";
+    String sql = "SELECT * FROM tb_usuarios WHERE login =? AND senha=? AND status='Ativo'";
     
     try{
         PreparedStatement stmt = conecta.prepareStatement(sql);
@@ -142,7 +115,7 @@ public class UsuarioDAO {
             return autenticado;
         }
     } catch(SQLException e){
-        JOptionPane.showMessageDialog(null, e);
+        System.out.println(e);
     }
     
     return autenticado;
@@ -206,7 +179,7 @@ public class UsuarioDAO {
 
     //Gera um ArrayList com Todos Usuário do BD
     public List<Usuario> listarTodos(){
-        String sql = "SELECT * FROM tb_usuarios ORDER BY id_usuario";
+        String sql = "SELECT * FROM tb_usuarios  WHERE status = 'Ativo' ORDER BY id_usuario";
         ResultSet rs;
         List<Usuario> usuarios = new ArrayList<Usuario>();
         
@@ -247,9 +220,9 @@ public class UsuarioDAO {
         String where;
         
         if(tipo == 1){
-            where = "WHERE cpf ilike ? ORDER BY id_usuario";
+            where = "WHERE cpf ilike ? AND status = 'Ativo' ORDER BY id_usuario";
         } else{
-            where = "WHERE login ilike ? ORDER BY id_usuario";
+            where = "WHERE login ilike ? AND status = 'Ativo' ORDER BY id_usuario";
         }
         
         String sql = "SELECT * FROM tb_usuarios "+where;

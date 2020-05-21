@@ -489,6 +489,24 @@ public class LivroDAO {
         }
     }
     
+    public void devolveLivro(Livro livro){
+        String sql = "UPDATE tb_livros SET quantidade= ?, qntd_alugado= ? WHERE id_livro= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setInt(1, livro.getQuantidade() + 1);
+            stmt.setInt(2, livro.getAlugados() - 1);
+            stmt.setInt(3, livro.getId_Livro());
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     public List<Livro> getRecomendados(){
         String sql = "SELECT tb_recomendados.*, tb_livros.* FROM tb_recomendados INNER JOIN tb_livros ON tb_recomendados.id_livro = tb_livros.id_livro";
         ResultSet rs;

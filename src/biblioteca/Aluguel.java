@@ -9,6 +9,7 @@ public class Aluguel {
     private String dataDevolucao;
     private int idCarrinho;
     private String nmLivroAlugado;
+    private int idLivroAlugado;
 
     public int getId() {
         return Id;
@@ -73,7 +74,13 @@ public class Aluguel {
     public void setNmLivroAlugado(String nmLivroAlugado) {
         this.nmLivroAlugado = nmLivroAlugado;
     }
-    
-    
+
+    public int getIdLivroAlugado() {
+        return idLivroAlugado;
+    }
+
+    public void setIdLivroAlugado(int idLivroAlugado) {
+        this.idLivroAlugado = idLivroAlugado;
+    }
     
 }

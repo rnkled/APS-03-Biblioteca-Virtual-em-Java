@@ -31,8 +31,8 @@ public class ClienteDAO {
         
         Usuario us = new Usuario();
         
-        String sql = "INSERT INTO tb_clientes(nome, cpf, endereco, data_nasc, email, login, senha, qntd_liv_alug, cad_por) "
-                + "VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO tb_clientes(nome, cpf, endereco, data_nasc, email, login, senha, qntd_liv_alug, cad_por, status) "
+                + "VALUES(?,?,?,?,?,?,?,?,?,'Ativo')";
         
         try{
             
@@ -89,7 +89,7 @@ public class ClienteDAO {
     }
     
     public void deletar(Cliente cliente){
-        String sql = "DELETE FROM tb_clientes"
+        String sql = "UPDATE tb_clientes SET status='Desabilitado'"
                 +" WHERE id_cliente=?";
         
         try{
@@ -112,7 +112,7 @@ public class ClienteDAO {
     public boolean validarLoginCliente(String login, String senha){
     boolean autenticado = false;
     
-    String sql = "SELECT * FROM tb_clientes WHERE login =? AND senha=?";
+    String sql = "SELECT * FROM tb_clientes WHERE login =? AND senha=? AND status = 'Ativo'";
     
     try{
         PreparedStatement stmt = conecta.prepareStatement(sql);
@@ -228,7 +228,7 @@ public class ClienteDAO {
     }
     
     public List<Cliente> listarTodos(){
-        String sql = "SELECT * FROM tb_clientes ORDER BY id_cliente";
+        String sql = "SELECT * FROM tb_clientes WHERE status='Ativo' ORDER BY id_cliente";
         ResultSet rs;
         List<Cliente> clientes = new ArrayList<Cliente>();
         
@@ -269,9 +269,9 @@ public class ClienteDAO {
         String where;
         
         if(tipo == 1){
-            where = "WHERE cpf ilike ? ORDER BY id_cliente";
+            where = "WHERE cpf ilike ? WHERE status = 'Ativo' ORDER BY id_cliente";
         } else{
-            where = "WHERE login ilike ? ORDER BY id_cliente";
+            where = "WHERE login ilike ? WHERE status = 'Ativo' ORDER BY id_cliente";
         }
         
         String sql = "SELECT * FROM tb_clientes "+where;
@@ -315,7 +315,7 @@ public class ClienteDAO {
     }
     
     public List<Cliente> listarCltAluguel(){
-        String sql = "SELECT id_cliente, nome, qntd_liv_alug FROM tb_clientes ORDER BY id_cliente";
+        String sql = "SELECT id_cliente, nome, qntd_liv_alug FROM tb_clientes WHERE status='Ativo' ORDER BY id_cliente";
         ResultSet rs;
         List<Cliente> clientes = new ArrayList<Cliente>();
     
@@ -353,6 +353,23 @@ public class ClienteDAO {
             PreparedStatement stmt = conecta.prepareStatement(sql);
             
             stmt.setInt(1, clt.getQntd_livros_alugados() + 1);
+            stmt.setInt(2, clt.getId_cliente());
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void devolveLivroClt(Cliente clt){
+        String sql = "UPDATE tb_clientes SET qntd_liv_alug=? WHERE id_cliente= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setInt(1, clt.getQntd_livros_alugados() - 1);
             stmt.setInt(2, clt.getId_cliente());
             
             stmt.execute();

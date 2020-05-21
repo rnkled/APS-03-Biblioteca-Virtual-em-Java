@@ -16,7 +16,9 @@ import biblioteca.Livro;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
@@ -24,22 +26,11 @@ import javax.swing.table.DefaultTableModel;
 
 
 public class AreaCliente extends javax.swing.JFrame {
-    
-    String SelCat = null;
-    String PesquisaTexto = null;
-    int currentPage = 0;
-    private Cliente clt_sessao;
-
-    /**
-     * Creates new form AreaCliente
-     */
-    public AreaCliente() {
-        initComponents();
-        setListas();
-        setLancamentos();
-        setRecomendados();
         
-    }
+    private String SelCat = null;
+    private String PesquisaTexto = null;
+    private int currentPage = 0;
+    private Cliente clt_sessao;
     
     LivroDAO livro = new LivroDAO();
     List<JLabel> recomendados = new ArrayList<JLabel>();
@@ -53,6 +44,49 @@ public class AreaCliente extends javax.swing.JFrame {
     
     List<JLabel> pesquisa = new ArrayList<JLabel>();
     List<JLabel> titpesquisa = new ArrayList<JLabel>();
+    
+    public AreaCliente() {
+        initComponents();
+        setListas();
+        setLancamentos();
+        setRecomendados();
+        setComboBoxHist();
+    }
+    
+    private void setComboBoxHist(){
+        jCbStatus.removeAllItems();
+	jCbStatus.addItem("Todos");
+        jCbStatus.addItem("Alugado");
+        jCbStatus.addItem("Em Análise");
+        jCbStatus.addItem("Reprovado");
+        jCbStatus.addItem("Devolvido");
+    }
+    
+    private void setCliente(){
+        jLabelcltNome.setText(this.clt_sessao.getNome());
+        jLabelcltEnd.setText(this.clt_sessao.getEndereco());
+        jLabelcltData.setText(this.clt_sessao.getData_nasc());
+        jLabelcltEmail.setText(this.clt_sessao.getEmail());
+        jLabelTituloCategoria3.setText(this.clt_sessao.getNome());
+        setAlugados();
+    }
+    
+    private void setAlugados(){
+        List<Aluguel> alugueis = new ArrayList<Aluguel>();
+        AluguelDAO aluguelDAO = new AluguelDAO();
+        alugueis = aluguelDAO.listarAlugueisStatus(clt_sessao, "Alugado");
+        
+        DefaultTableModel valor = (DefaultTableModel) jTableAlugados.getModel();
+        valor.getDataVector().removeAllElements();
+        
+        int i = 0;
+        while (alugueis.size() > i){
+            
+            valor.addRow(new Object[]{String.valueOf(alugueis.get(i).getId()),alugueis.get(i).getLivroAlugou().getNome(), alugueis.get(i).getData(), alugueis.get(i).getDataDevolucao()});
+            i++;
+        }
+    
+    }
     
     private void setRecomendados(){
         List<Livro> livros = new ArrayList<Livro>();
@@ -166,6 +200,7 @@ public class AreaCliente extends javax.swing.JFrame {
         ClienteDAO clt = new ClienteDAO();
         clt.dadosCliente(cliente);
         clt_sessao = cliente;
+        setCliente();
         }
     
     public void bemVindo(){
@@ -173,17 +208,14 @@ public class AreaCliente extends javax.swing.JFrame {
     }
     
     public void listarTabelaHistorico(){
-	jCbStatus.removeAllItems();
-	jCbStatus.addItem("Todos");
 	DefaultTableModel valor = (DefaultTableModel) jTableHistorico.getModel();
 	valor.getDataVector().removeAllElements();
 	
 	AluguelDAO algDAO = new AluguelDAO();
 	List<Aluguel> alugueis = algDAO.listarAlugueis(clt_sessao);
 	int i = 0;
-	while(alugueis.size() > 0){
+	while(i < alugueis.size()){
 		valor.addRow(new Object[] {alugueis.get(i).getNmLivroAlugado(), alugueis.get(i).getData(), alugueis.get(i).getDataDevolucao(), alugueis.get(i).getStatus()});
-		jCbStatus.addItem(alugueis.get(i).getStatus());
 		i++;
         }
     }
@@ -197,12 +229,31 @@ public class AreaCliente extends javax.swing.JFrame {
 	AluguelDAO algDAO = new AluguelDAO();
 	List<Aluguel> alugueis = algDAO.listarAlugueisStatus(clt_sessao, String.valueOf(jCbStatus.getSelectedItem())); 
 	int i = 0;
-	while(alugueis.size() > 0){
-		valor.addRow(new Object[] {alugueis.get(i).getLivroAlugou().getNome(), alugueis.get(i).getData(), /*alugueis.get(i).getDataDevolucao(),*/ alugueis.get(i).getStatus()});
+	while(i < alugueis.size()){
+		valor.addRow(new Object[] {alugueis.get(i).getLivroAlugou().getNome(), alugueis.get(i).getData(), alugueis.get(i).getDataDevolucao(), alugueis.get(i).getStatus()});
 		i++;
         }
     }
-
+    
+    public void listarTabelaCarrinho(){
+       DefaultTableModel valor = (DefaultTableModel) jTableCarrinho.getModel();
+	valor.getDataVector().removeAllElements();
+	
+	AluguelDAO algDAO = new AluguelDAO();
+	List<Aluguel> alugueis = algDAO.listarCarrinho(clt_sessao); 
+	int i = 0;
+	while(i < alugueis.size()){
+		valor.addRow(new Object[] {String.valueOf(alugueis.get(i).getIdCarrinho()), String.valueOf(alugueis.get(i).getIdLivroAlugado()), alugueis.get(i).getNmLivroAlugado(), alugueis.get(i).getData()});
+		i++;
+        } 
+    }
+    
+    public String getDataAtual(){
+        Date data = new Date(System.currentTimeMillis());
+        SimpleDateFormat formData = new SimpleDateFormat("dd/MM/yyyy");
+        return String.valueOf(formData.format(data));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -213,6 +264,10 @@ public class AreaCliente extends javax.swing.JFrame {
     private void initComponents() {
 
         jSeparator4 = new javax.swing.JSeparator();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         SideMenu = new javax.swing.JPanel();
         jLabelGerenciamento = new javax.swing.JLabel();
         jSeparatorGer = new javax.swing.JSeparator();
@@ -305,27 +360,31 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jPanelTelaPerfil = new javax.swing.JPanel();
-        jLabelTituloCategoria4 = new javax.swing.JLabel();
         jSeparator8 = new javax.swing.JSeparator();
         jLabelTituloCategoriaTexto4 = new javax.swing.JLabel();
-        jPanel9 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jPanel10 = new javax.swing.JPanel();
         jButtonRetornar3 = new javax.swing.JButton();
+        jLabelcltEmail = new javax.swing.JLabel();
+        jLabelcltNome = new javax.swing.JLabel();
+        jLabelcltEnd = new javax.swing.JLabel();
+        jLabelcltData = new javax.swing.JLabel();
+        jBtDevolver = new javax.swing.JButton();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTableAlugados = new javax.swing.JTable();
         jPanelTelaCarrinho = new javax.swing.JPanel();
         jLabelTituloCategoria3 = new javax.swing.JLabel();
         jSeparator7 = new javax.swing.JSeparator();
         jLabelTituloCategoriaTexto3 = new javax.swing.JLabel();
         jButtonRetornar2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
+        jButtonAlugar = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jTableCarrinho = new javax.swing.JTable();
         jPanelHistórico = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
@@ -333,6 +392,7 @@ public class AreaCliente extends javax.swing.JFrame {
         jCbStatus = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableHistorico = new javax.swing.JTable();
+        jBtPesqHistorico = new javax.swing.JButton();
         jPanelTelaPesquisa = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabelLivro17 = new javax.swing.JLabel();
@@ -357,6 +417,32 @@ public class AreaCliente extends javax.swing.JFrame {
         jButtonProximaPagina1 = new javax.swing.JButton();
         jButtonPaginaAnterior1 = new javax.swing.JButton();
         jLabelTituloCategoriaTexto1 = new javax.swing.JLabel();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane4.setViewportView(jTable2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(57, 57, 57));
@@ -515,6 +601,8 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaInicial.setBackground(new java.awt.Color(204, 204, 255));
         jPanelTelaInicial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabelLivro1.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro1.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -525,6 +613,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro1MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelLivro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 0, 105, 150));
 
         jLabelTitLivro1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -532,6 +621,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro1MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelTitLivro1, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 150, 105, 16));
 
         jLabelLivro2.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro2.setForeground(new java.awt.Color(255, 255, 255));
@@ -543,6 +633,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro2MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelLivro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 0, 105, 150));
 
         jLabelTitLivro2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -550,6 +641,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro2MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelTitLivro2, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 150, 105, 16));
 
         jLabelLivro3.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro3.setForeground(new java.awt.Color(255, 255, 255));
@@ -561,6 +653,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro3MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelLivro3, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 0, 105, 150));
 
         jLabelTitLivro3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -568,6 +661,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro3MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelTitLivro3, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 150, 105, 16));
 
         jLabelLivro4.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro4.setForeground(new java.awt.Color(255, 255, 255));
@@ -579,6 +673,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro4MouseClicked(evt);
             }
         });
+        jPanel3.add(jLabelLivro4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 0, 105, 150));
 
         jLabelTitLivro4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -586,53 +681,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro4MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro1, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro4, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro4, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        jPanel3.add(jLabelTitLivro4, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 150, 105, 16));
 
         jPanelTelaInicial.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 500, 170));
 
@@ -650,6 +699,8 @@ public class AreaCliente extends javax.swing.JFrame {
         jLabel3.setText("Lançamentos");
         jPanelTelaInicial.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 320, 30));
 
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         jLabelLivro5.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro5.setForeground(new java.awt.Color(255, 255, 255));
         jLabelLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -660,6 +711,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro5MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelLivro5, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 0, 105, 150));
 
         jLabelTitLivro5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro5.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -667,6 +719,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro5MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelTitLivro5, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 150, 105, 16));
 
         jLabelLivro6.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro6.setForeground(new java.awt.Color(255, 255, 255));
@@ -678,6 +731,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro6MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelLivro6, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 0, 105, 150));
 
         jLabelTitLivro6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -685,6 +739,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro6MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelTitLivro6, new org.netbeans.lib.awtextra.AbsoluteConstraints(141, 150, 105, 16));
 
         jLabelLivro7.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro7.setForeground(new java.awt.Color(255, 255, 255));
@@ -696,6 +751,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro7MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelLivro7, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 0, 105, 150));
 
         jLabelTitLivro7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro7.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -703,6 +759,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro7MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelTitLivro7, new org.netbeans.lib.awtextra.AbsoluteConstraints(264, 150, 105, 16));
 
         jLabelLivro8.setBackground(new java.awt.Color(255, 255, 255));
         jLabelLivro8.setForeground(new java.awt.Color(255, 255, 255));
@@ -714,6 +771,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro8MouseClicked(evt);
             }
         });
+        jPanel4.add(jLabelLivro8, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 0, 105, 150));
 
         jLabelTitLivro8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelTitLivro8.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -721,53 +779,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jLabelLivro8MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelTitLivro5, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE)
-                    .addComponent(jLabelLivro5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro6, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro7, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelLivro8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabelTitLivro8, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro8, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro8, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro7, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro7, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro6, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro6, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabelLivro5, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabelTitLivro5, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
+        jPanel4.add(jLabelTitLivro8, new org.netbeans.lib.awtextra.AbsoluteConstraints(387, 150, 105, 16));
 
         jPanelTelaInicial.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 500, 170));
 
@@ -1091,6 +1103,11 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaLivro.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 170, -1, -1));
 
         jButtonAdcCarrinho.setText("Adicionar ao Carrinho");
+        jButtonAdcCarrinho.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAdcCarrinhoActionPerformed(evt);
+            }
+        });
         jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 140, 40));
 
         jLabelLAutor.setText("jLabel10");
@@ -1149,65 +1166,32 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelTelaPerfil.setBackground(new java.awt.Color(204, 204, 255));
         jPanelTelaPerfil.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabelTituloCategoria4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabelTituloCategoria4.setText("Undefined");
-        jPanelTelaPerfil.add(jLabelTituloCategoria4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 380, 30));
-
         jSeparator8.setForeground(new java.awt.Color(255, 255, 255));
         jPanelTelaPerfil.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 360, 10));
 
         jLabelTituloCategoriaTexto4.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
-        jLabelTituloCategoriaTexto4.setText("Perfil de");
-        jPanelTelaPerfil.add(jLabelTituloCategoriaTexto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
+        jLabelTituloCategoriaTexto4.setText("Seu Perfil");
+        jPanelTelaPerfil.add(jLabelTituloCategoriaTexto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 240, 30));
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
-        );
-
-        jPanelTelaPerfil.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 100, 120));
-
-        jLabel17.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel17.setText("Nome:");
-        jPanelTelaPerfil.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 60, -1, -1));
+        jPanelTelaPerfil.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
-        jLabel18.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel18.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel18.setText("Endereço:");
-        jPanelTelaPerfil.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+        jPanelTelaPerfil.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
 
-        jLabel19.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel19.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel19.setText("Data de Nascimento:");
-        jPanelTelaPerfil.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, -1, -1));
+        jPanelTelaPerfil.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        jLabel20.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         jLabel20.setText("Email:");
-        jPanelTelaPerfil.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 150, -1, -1));
+        jPanelTelaPerfil.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         jLabel21.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel21.setText("Alugados rescentemente:");
+        jLabel21.setText("Alugados Recentemente:");
         jPanelTelaPerfil.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, -1, -1));
-
-        jLabel22.setText("Lugar do icone");
-        jPanelTelaPerfil.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, -1));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 520, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 110, Short.MAX_VALUE)
-        );
-
-        jPanelTelaPerfil.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 520, 110));
 
         jButtonRetornar3.setText("Voltar");
         jButtonRetornar3.addActionListener(new java.awt.event.ActionListener() {
@@ -1215,7 +1199,53 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonRetornar3ActionPerformed(evt);
             }
         });
-        jPanelTelaPerfil.add(jButtonRetornar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 380, 90, 40));
+        jPanelTelaPerfil.add(jButtonRetornar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 90, 40));
+
+        jLabelcltEmail.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanelTelaPerfil.add(jLabelcltEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, 420, 40));
+
+        jLabelcltNome.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanelTelaPerfil.add(jLabelcltNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 50, 420, 40));
+
+        jLabelcltEnd.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanelTelaPerfil.add(jLabelcltEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 400, 40));
+
+        jLabelcltData.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jPanelTelaPerfil.add(jLabelcltData, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 290, 40));
+
+        jBtDevolver.setText("Devolver");
+        jBtDevolver.setEnabled(false);
+        jBtDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtDevolverActionPerformed(evt);
+            }
+        });
+        jPanelTelaPerfil.add(jBtDevolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 390, 90, 40));
+
+        jTableAlugados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID Aluguel", "Nome", "Data do Aluguel"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableAlugados.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAlugadosMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(jTableAlugados);
+
+        jPanelTelaPerfil.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 480, 110));
 
         Screen.add(jPanelTelaPerfil, "TelaPerfil");
 
@@ -1239,35 +1269,57 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonRetornar2ActionPerformed(evt);
             }
         });
-        jPanelTelaCarrinho.add(jButtonRetornar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 360, 90, 40));
+        jPanelTelaCarrinho.add(jButtonRetornar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 90, 40));
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
         jLabel7.setText("Livros no carrinho");
         jPanelTelaCarrinho.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, -1, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 500, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 190, Short.MAX_VALUE)
-        );
-
-        jPanelTelaCarrinho.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 500, 190));
-
-        jButton3.setText("Excluir Item");
-        jPanelTelaCarrinho.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 360, -1, 40));
-
-        jButton1.setText("Alugar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonExcluir.setText("Excluir Item");
+        jButtonExcluir.setEnabled(false);
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonExcluirActionPerformed(evt);
             }
         });
-        jPanelTelaCarrinho.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 360, 90, 40));
+        jPanelTelaCarrinho.add(jButtonExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 360, -1, 40));
+
+        jButtonAlugar.setText("Solicitar Aluguel");
+        jButtonAlugar.setEnabled(false);
+        jButtonAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlugarActionPerformed(evt);
+            }
+        });
+        jPanelTelaCarrinho.add(jButtonAlugar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 360, 130, 40));
+
+        jTableCarrinho.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "ID Pedido", "ID Livro", "Nome Livro", "Data"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableCarrinho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableCarrinhoMouseClicked(evt);
+            }
+        });
+        jScrollPane6.setViewportView(jTableCarrinho);
+
+        jPanelTelaCarrinho.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 480, 210));
 
         Screen.add(jPanelTelaCarrinho, "TelaCarrinho");
 
@@ -1286,6 +1338,19 @@ public class AreaCliente extends javax.swing.JFrame {
         jPanelHistórico.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 93, -1, -1));
 
         jCbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Selecione", "Aprovados", "Em Análise", "Recusados" }));
+        jCbStatus.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCbStatusItemStateChanged(evt);
+            }
+        });
+        jCbStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCbStatusMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jCbStatusMousePressed(evt);
+            }
+        });
         jPanelHistórico.add(jCbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(164, 96, 111, -1));
 
         jTableHistorico.setModel(new javax.swing.table.DefaultTableModel(
@@ -1310,6 +1375,14 @@ public class AreaCliente extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTableHistorico);
 
         jPanelHistórico.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 480, 250));
+
+        jBtPesqHistorico.setText("Pesquisar");
+        jBtPesqHistorico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtPesqHistoricoActionPerformed(evt);
+            }
+        });
+        jPanelHistórico.add(jBtPesqHistorico, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 90, -1, 30));
 
         Screen.add(jPanelHistórico, "TelaHistorico");
 
@@ -1609,6 +1682,7 @@ public class AreaCliente extends javax.swing.JFrame {
 
     private void jButtonCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCarrinhoActionPerformed
         {
+        listarTabelaCarrinho();
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaCarrinho");
         }
@@ -1753,9 +1827,27 @@ public class AreaCliente extends javax.swing.JFrame {
         listarTabelaHistorico();
     }//GEN-LAST:event_jButtonHistoricoActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
+
+        Aluguel alg = new Aluguel();
+        alg.setData(getDataAtual());
+        alg.setStatus("Em Análise");
+        alg.setIdCarrinho(Integer.parseInt((String) jTableCarrinho.getValueAt(jTableCarrinho.getSelectedRow(), 0)));
+        Livro liv = new Livro();
+        liv.setId_Livro(Integer.parseInt((String)jTableCarrinho.getValueAt(jTableCarrinho.getSelectedRow(), 1)));
+            
+        AluguelDAO algDAO= new AluguelDAO();
+        algDAO.solicitaAluguel(alg, clt_sessao, liv);
+        algDAO.solicitaAluguelCarrinho(alg);
+        
+        
         listarTabelaHistorico();
-    }//GEN-LAST:event_jButton1ActionPerformed
+        listarTabelaCarrinho();
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaHistorico");
+        cl.show(Screen, "TelaCarrinho");
+        
+    }//GEN-LAST:event_jButtonAlugarActionPerformed
 
     private void jLabelLivro9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelLivro9MouseClicked
         String nome = jLabelTitLivro9.getText();
@@ -1902,6 +1994,7 @@ public class AreaCliente extends javax.swing.JFrame {
             this.SelCat = null;
             this.currentPage = 0;
             this.popularPesquisa();
+            jLabelTituloCategoria1.setText(jTextFieldPesquisa.getText());
         
         }
     }//GEN-LAST:event_jTextFieldPesquisaKeyPressed
@@ -1909,6 +2002,89 @@ public class AreaCliente extends javax.swing.JFrame {
     private void jLabelTitLivro18MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelTitLivro18MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jLabelTitLivro18MouseClicked
+
+    private void jCbStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCbStatusMouseClicked
+        
+    }//GEN-LAST:event_jCbStatusMouseClicked
+
+    private void jCbStatusItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCbStatusItemStateChanged
+
+    }//GEN-LAST:event_jCbStatusItemStateChanged
+
+    private void jCbStatusMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCbStatusMousePressed
+       
+    }//GEN-LAST:event_jCbStatusMousePressed
+
+    private void jBtPesqHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtPesqHistoricoActionPerformed
+         if(jCbStatus.getSelectedItem().equals("Todos")){
+            listarTabelaHistorico();
+        } else{
+            listarTabelaHistoricoStatus();
+        }    
+    }//GEN-LAST:event_jBtPesqHistoricoActionPerformed
+
+    private void jButtonAdcCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdcCarrinhoActionPerformed
+        Livro liv = new Livro();
+        liv.setNome(jLabellNome.getText());
+        
+        LivroDAO livDAO = new LivroDAO();
+        livDAO.dadosLivroAlug(liv);
+        
+        AluguelDAO algDAO = new AluguelDAO();
+        algDAO.adcCarrinho(getDataAtual(), liv, clt_sessao);
+        
+        JOptionPane.showMessageDialog(null, "Livro adicionado ao seu Carrinho");
+        
+        listarTabelaCarrinho();
+    }//GEN-LAST:event_jButtonAdcCarrinhoActionPerformed
+
+    private void jBtDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtDevolverActionPerformed
+        int id_aluguel = Integer.parseInt((String) jTableAlugados.getModel().getValueAt(jTableAlugados.getSelectedRow(), 0));
+        Aluguel alg = new Aluguel();
+        alg.setId(id_aluguel);
+        
+        AluguelDAO algDAO = new AluguelDAO();
+        algDAO.devolverLivro(alg, getDataAtual());
+        
+        ClienteDAO cltDAO = new ClienteDAO();
+        cltDAO.devolveLivroClt(clt_sessao);
+        
+        String liv_alugado = (String) jTableAlugados.getModel().getValueAt(jTableAlugados.getSelectedRow(), 1);
+        Livro liv = new Livro();
+        liv.setNome(liv_alugado);
+        LivroDAO livDAO = new LivroDAO();
+        livDAO.dadosLivroAlug(liv);
+        livDAO.devolveLivro(liv);
+        
+        JOptionPane.showMessageDialog(null, "Livro "+liv.getNome()+" devolvido");
+        
+        setAlugados();
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaHistorico");
+        cl.show(Screen, "TelaPerfil");
+        listarTabelaHistorico();
+    }//GEN-LAST:event_jBtDevolverActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        int id_carrinho = Integer.parseInt((String)jTableCarrinho.getModel().getValueAt(jTableCarrinho.getSelectedRow(), 0));
+        Aluguel alg = new Aluguel();
+        alg.setIdCarrinho(id_carrinho);
+        AluguelDAO algDAO = new AluguelDAO();
+        algDAO.delCarrinho(alg);
+        listarTabelaCarrinho();
+        CardLayout cl = (CardLayout) Screen.getLayout();
+        cl.show(Screen, "TelaHistorico");
+        cl.show(Screen, "TelaCarrinho");
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
+
+    private void jTableAlugadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlugadosMouseClicked
+        jBtDevolver.setEnabled(true);
+    }//GEN-LAST:event_jTableAlugadosMouseClicked
+
+    private void jTableCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCarrinhoMouseClicked
+        jButtonExcluir.setEnabled(true);
+        jButtonAlugar.setEnabled(true);
+    }//GEN-LAST:event_jTableCarrinhoMouseClicked
 
     private void setLivro(String nome){
         Livro livro = this.livro.pesquisaPorNome(nome).get(0);
@@ -1964,14 +2140,16 @@ public class AreaCliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Screen;
     private javax.swing.JPanel SideMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jBtDevolver;
+    private javax.swing.JButton jBtPesqHistorico;
     private javax.swing.JButton jButtonAdcCarrinho;
+    private javax.swing.JButton jButtonAlugar;
     private javax.swing.JButton jButtonAventura;
     private javax.swing.JButton jButtonCarrinho;
     private javax.swing.JButton jButtonComedia;
     private javax.swing.JButton jButtonConteudoHistorico;
     private javax.swing.JButton jButtonEducacional;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JButton jButtonHistorico;
     private javax.swing.JButton jButtonHome;
     private javax.swing.JButton jButtonLogout;
@@ -1997,7 +2175,6 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -2064,25 +2241,25 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTituloCategoria;
     private javax.swing.JLabel jLabelTituloCategoria1;
     private javax.swing.JLabel jLabelTituloCategoria3;
-    private javax.swing.JLabel jLabelTituloCategoria4;
     private javax.swing.JLabel jLabelTituloCategoriaTexto;
     private javax.swing.JLabel jLabelTituloCategoriaTexto1;
     private javax.swing.JLabel jLabelTituloCategoriaTexto2;
     private javax.swing.JLabel jLabelTituloCategoriaTexto3;
     private javax.swing.JLabel jLabelTituloCategoriaTexto4;
     private javax.swing.JLabel jLabelTituloLivro;
+    private javax.swing.JLabel jLabelcltData;
+    private javax.swing.JLabel jLabelcltEmail;
+    private javax.swing.JLabel jLabelcltEnd;
+    private javax.swing.JLabel jLabelcltNome;
     private javax.swing.JLabel jLabellNome;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanelHistórico;
     private javax.swing.JPanel jPanelTelaCarrinho;
     private javax.swing.JPanel jPanelTelaCategoria;
@@ -2092,6 +2269,10 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanelTelaPesquisa;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
@@ -2104,6 +2285,10 @@ public class AreaCliente extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparatorCat;
     private javax.swing.JSeparator jSeparatorGer;
     private javax.swing.JSeparator jSeparatorPes;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableAlugados;
+    private javax.swing.JTable jTableCarrinho;
     private javax.swing.JTable jTableHistorico;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextFieldPesquisa;

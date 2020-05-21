@@ -49,6 +49,44 @@ public class AluguelDAO {
         }
     }
     
+    public void solicitaAluguel(Aluguel alg, Cliente clt, Livro liv){
+        
+        String sql = "INSERT INTO tb_aluguel(dt_aluguel, status, id_cliente, id_livro)"
+                + "VALUES (?,?,?,?)";
+        
+        try{
+            
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            
+            stmt.setString(1, alg.getData());
+            stmt.setString(2, alg.getStatus());
+            stmt.setInt(3, clt.getId_cliente());
+            stmt.setInt(4, liv.getId_Livro());
+            
+            stmt.execute();
+            stmt.close();
+        
+        } catch(SQLException e){
+            
+            throw new RuntimeException(e);
+        }
+    }
+    
+    public void solicitaAluguelCarrinho(Aluguel alg){
+        String sql = "UPDATE tb_carrinho SET status='Pedido Encaminhado' WHERE id_carrinho= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setInt(1, alg.getIdCarrinho());
+            
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
     
     public void aprovacaoAluguel(Aluguel alg, int id_aluguel, Usuario us, String data){
         
@@ -114,7 +152,7 @@ public class AluguelDAO {
     
     public List<Aluguel> listarAlugueis(Cliente clt){
 
-        String sql = "SELECT alg.dt_aluguel, alg.status, alg.dt_devolucao, liv.nm_livro FROM tb_aluguel alg , tb_livros liv WHERE alg.id_livro = liv.id_livro AND id_cliente = ? ORDER BY liv.nm_livro";
+        String sql = "SELECT alg.dt_aluguel, alg.status, liv.nm_livro, alg.dt_devolucao FROM tb_aluguel alg , tb_livros liv WHERE alg.id_livro = liv.id_livro AND id_cliente = ? ORDER BY liv.nm_livro";
 	
         ResultSet rs;
         List <Aluguel> alugueis = new ArrayList<Aluguel>();
@@ -145,7 +183,7 @@ public class AluguelDAO {
 
     public List<Aluguel> listarAlugueisStatus(Cliente clt, String status){
 
-        String sql = "SELECT alg.dt_aluguel, alg.status, alg.dt_devolucao, liv.nm_livro FROM tb_aluguel alg , tb_livros liv WHERE alg.id_livro = liv.id_livro AND alg.id_cliente = ? AND alg.status = ? ORDER BY liv.nm_livro";
+        String sql = "SELECT alg.id_aluguel, alg.dt_aluguel, alg.status, alg.dt_devolucao, liv.nm_livro FROM tb_aluguel alg , tb_livros liv WHERE alg.id_livro = liv.id_livro AND alg.id_cliente = ? AND alg.status = ? ORDER BY liv.nm_livro";
 	
         ResultSet rs;
         List <Aluguel> alugueis = new ArrayList<Aluguel>();
@@ -158,9 +196,11 @@ public class AluguelDAO {
 	
 		while(rs.next()){
 			Aluguel alg = new Aluguel();
+                        alg.setId(rs.getInt("id_aluguel"));
 			alg.setData(rs.getString("dt_aluguel"));
 			alg.setStatus(rs.getString("status"));
 			alg.setDataDevolucao(rs.getString("dt_devolucao"));
+                        alg.setLivroAlugou(new Livro());
 			alg.getLivroAlugou().setNome(rs.getString("nm_livro"));
 
 			alugueis.add(alg);		
@@ -195,7 +235,7 @@ public class AluguelDAO {
     }
 
     public List<Aluguel> listarCarrinho(Cliente clt){
-	String sql = "SELECT car.id_carrinho, car.id_livro, liv.nm_livro, car.dt_inclusao FROM tb_aluguel car, tb_livros liv WHERE car.id_livro = liv.id_livro AND car.id_cliente = ? ORDER BY id_carrinho";
+	String sql = "SELECT car.id_carrinho, car.id_livro, liv.nm_livro, car.dt_inclusao FROM tb_carrinho car, tb_livros liv WHERE car.id_livro = liv.id_livro AND car.id_cliente = ? AND status = 'No Carrinho' ORDER BY id_carrinho";
 	
 	ResultSet rs;
 	List<Aluguel> carrinho = new ArrayList<Aluguel>();
@@ -209,8 +249,8 @@ public class AluguelDAO {
             while(rs.next()){
                     Aluguel alg = new Aluguel();
                     alg.setIdCarrinho(rs.getInt("id_carrinho"));
-                    alg.getLivroAlugou().setId_Livro(rs.getInt("id_livro"));
-                    alg.getLivroAlugou().setNome(rs.getString("nm_livro"));
+                    alg.setIdLivroAlugado(rs.getInt("id_livro"));
+                    alg.setNmLivroAlugado(rs.getString("nm_livro"));
                     alg.setData(rs.getString("dt_inclusao"));
 		
                     carrinho.add(alg);
@@ -237,6 +277,22 @@ public class AluguelDAO {
 		stmt.execute();
 		stmt.close();
         }  catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }
+    
+    public void devolverLivro(Aluguel alg, String data){
+        String sql = "UPDATE tb_aluguel SET status= ?, dt_devolucao= ? WHERE id_aluguel= ?";
+        
+        try{
+            PreparedStatement stmt = conecta.prepareStatement(sql);
+            stmt.setInt(3, alg.getId());
+            stmt.setString(1, "Devolvido");
+            stmt.setString(2, data);
+            stmt.execute();
+            stmt.close();
+            
+        } catch(SQLException e){
             JOptionPane.showMessageDialog(null, e);
         }
     }
