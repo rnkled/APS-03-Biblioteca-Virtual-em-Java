@@ -111,6 +111,7 @@ public class AutorDAO {
             
             stmt.execute();
             stmt.close();
+            JOptionPane.showMessageDialog(null, "Autor "+autor.getNome()+" Deletado!");
             
         } catch(SQLException e){
             

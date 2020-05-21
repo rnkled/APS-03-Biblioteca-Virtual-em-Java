@@ -815,13 +815,13 @@ public class AreaUsuario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jTableUsuarios);
 
-        jPanelGerUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 690, 118));
+        jPanelGerUsuarios.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 270, 690, 110));
 
         jLabel13.setFont(new java.awt.Font("Rockwell", 1, 16)); // NOI18N
         jLabel13.setText("Cadastro de Usuários:");
         jPanelGerUsuarios.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 30, -1, -1));
 
-        jPanel18.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel18.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel18.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jBtExcluir.setText("Excluir");
@@ -914,7 +914,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         jPanelGerUsuarios.add(jPanel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 690, 210));
 
-        jPanel19.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        jPanel19.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jPanel19.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -2223,7 +2223,7 @@ public class AreaUsuario extends javax.swing.JFrame {
          CategoriaDAO categoriaDAO = new CategoriaDAO();
          categoriaDAO.deletar(categoria);
 
-         JOptionPane.showMessageDialog(null, "Categoria "+categoria.getNome()+" Deletada!");
+         
          jTextFieldSelCatNome.setText("");
          jTextFieldSelCatID.setText("");
          listarTabelaCategorias();
@@ -2284,7 +2284,7 @@ public class AreaUsuario extends javax.swing.JFrame {
          AutorDAO autorDAO = new AutorDAO();
          autorDAO.deletar(autor);
 
-         JOptionPane.showMessageDialog(null, "Autor "+autor.getNome()+" Deletado!");
+         
          jTextFieldSelAutNome.setText("");
          jTextFieldSelAutID.setText("");
          listarTabelaAutores();

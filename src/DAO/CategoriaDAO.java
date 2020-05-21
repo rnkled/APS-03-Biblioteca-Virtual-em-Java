@@ -113,6 +113,7 @@ private Connection conecta;
             
             stmt.execute();
             stmt.close();
+            JOptionPane.showMessageDialog(null, "Categoria "+categoria.getNome()+" Deletada!");
             
         } catch(SQLException e){
             

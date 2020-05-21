@@ -80,7 +80,7 @@ public class AreaCliente extends javax.swing.JFrame {
         valor.getDataVector().removeAllElements();
         
         int i = 0;
-        while (alugueis.size() > i){
+        while (i < alugueis.size()){
             
             valor.addRow(new Object[]{String.valueOf(alugueis.get(i).getId()),alugueis.get(i).getLivroAlugou().getNome(), alugueis.get(i).getData(), alugueis.get(i).getDataDevolucao()});
             i++;
@@ -1108,7 +1108,7 @@ public class AreaCliente extends javax.swing.JFrame {
                 jButtonAdcCarrinhoActionPerformed(evt);
             }
         });
-        jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 140, 40));
+        jPanelTelaLivro.add(jButtonAdcCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 160, 40));
 
         jLabelLAutor.setText("jLabel10");
         jPanelTelaLivro.add(jLabelLAutor, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 120, -1));
