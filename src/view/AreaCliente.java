@@ -1840,6 +1840,7 @@ public class AreaCliente extends javax.swing.JFrame {
         algDAO.solicitaAluguel(alg, clt_sessao, liv);
         algDAO.solicitaAluguelCarrinho(alg);
         
+        JOptionPane.showMessageDialog(null, "Solicitação de aluguel encaminhada para análise");
         
         listarTabelaHistorico();
         listarTabelaCarrinho();
@@ -2071,6 +2072,7 @@ public class AreaCliente extends javax.swing.JFrame {
         alg.setIdCarrinho(id_carrinho);
         AluguelDAO algDAO = new AluguelDAO();
         algDAO.delCarrinho(alg);
+        JOptionPane.showMessageDialog(null, "Item excluido do Carrinho");
         listarTabelaCarrinho();
         CardLayout cl = (CardLayout) Screen.getLayout();
         cl.show(Screen, "TelaHistorico");

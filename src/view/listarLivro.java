@@ -450,6 +450,12 @@ public class listarLivro extends javax.swing.JFrame {
 
             JOptionPane.showMessageDialog(null, "O Livro "+selbook.getNome()+" foi Atualizado!");
             iniciarTabela();
+            
+            AreaUsuario au = new AreaUsuario();
+            au.listarTabelaRecomendados();
+            au.listarTabelaLancamentos();
+            au.listarTabelaAlugLivro();
+            
             CardLayout cl = (CardLayout) jPanelfather.getLayout();
             cl.show(jPanelfather, "pesquisar");                         
 
@@ -476,6 +482,10 @@ public class listarLivro extends javax.swing.JFrame {
             livroDAO.remover(selbook);
             selbook = null;
             iniciarTabela();
+            AreaUsuario au = new AreaUsuario();
+            au.listarTabelaRecomendados();
+            au.listarTabelaLancamentos();
+            au.listarTabelaAlugLivro();
                        
             }
     }//GEN-LAST:event_jButton3ActionPerformed

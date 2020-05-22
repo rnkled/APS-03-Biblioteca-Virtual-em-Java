@@ -103,7 +103,8 @@ public class ClienteDAO {
             
         } catch(SQLException e){
             
-            throw new RuntimeException(e);
+            JOptionPane.showMessageDialog(null, "Erro! Você não pode deletar um Cliente ativo!");
+
             
         }
     }
@@ -269,9 +270,9 @@ public class ClienteDAO {
         String where;
         
         if(tipo == 1){
-            where = "WHERE cpf ilike ? WHERE status = 'Ativo' ORDER BY id_cliente";
+            where = "WHERE cpf ilike ? AND status = 'Ativo' ORDER BY id_cliente";
         } else{
-            where = "WHERE login ilike ? WHERE status = 'Ativo' ORDER BY id_cliente";
+            where = "WHERE login ilike ? AND status = 'Ativo' ORDER BY id_cliente";
         }
         
         String sql = "SELECT * FROM tb_clientes "+where;

@@ -2318,7 +2318,12 @@ public class AreaUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtCadastrar1ActionPerformed
 
     private void jBtLimpar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtLimpar1ActionPerformed
-        // TODO add your handling code here:
+        jTxtNomeGerCliente.setText("");
+        jTxtCpfGerCliente.setText("");
+        jTxtEnderecoGerCliente.setText("");
+        jTxtEmailGerCliente.setText("");
+        jTxtLoginGerCliente.setText("");
+        jPassSenhaGerCliente.setText("");
     }//GEN-LAST:event_jBtLimpar1ActionPerformed
 
     private void jTxtCpfGerClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtCpfGerClienteActionPerformed
@@ -2383,6 +2388,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         ClienteDAO cltDAO = new ClienteDAO();
         cltDAO.deletar(clt);
+        JOptionPane.showMessageDialog(null, "Cliente excluído");
         
         limparCamposAltClientes();
         listarTabelaCliente();
@@ -2460,7 +2466,9 @@ public class AreaUsuario extends javax.swing.JFrame {
         
         JOptionPane.showMessageDialog(null, "Livro "+livro.getNome()+" Cadastrado!");
         
-        
+        listarTabelaRecomendados();
+        listarTabelaLancamentos();
+        listarTabelaAlugLivro();
         
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e+"AreaUsuario");
@@ -2679,6 +2687,7 @@ public class AreaUsuario extends javax.swing.JFrame {
 
         AluguelDAO apAlgDAO = new AluguelDAO();
         apAlgDAO.aprovacaoAluguel(apAluguel, id_selec, sessao, getDataAtual());
+        JOptionPane.showMessageDialog(null, "Aluguel Reprovado");
         
         listarTabelaPedidos();
         listarTabelaAlugClt();
@@ -2708,6 +2717,7 @@ public class AreaUsuario extends javax.swing.JFrame {
         apAlgDAO.aprovacaoAluguel(apAluguel, id_selec, sessao, getDataAtual());
 
         apLivDAO.alugaLivro(apLiv);
+        JOptionPane.showMessageDialog(null, "Cliente: "+apClt.getNome()+" Livro: "+apLiv.getNome()+". Aluguel Aprovado!");
 
         listarTabelaPedidos();
         listarTabelaAlugClt();
