@@ -1,0 +1,94 @@
+CREATE TABLE tb_usuarios(
+	id_usuario		SERIAL,
+	nome			VARCHAR(60),
+	cpf			VARCHAR(20),
+	email			VARCHAR(30),
+	login			VARCHAR(20),
+	senha			VARCHAR(20),
+	cargo			VARCHAR(20),
+	status			VARCHAR(20),
+	CONSTRAINT pk_tb_usuario_id_usuario PRIMARY KEY(id_usuario)
+);
+
+CREATE TABLE tb_clientes(
+	id_cliente		SERIAL,
+	nome			VARCHAR(60),
+	cpf			VARCHAR(20),
+	endereco		VARCHAR(100),
+	data_nasc		VARCHAR(20),
+	email			VARCHAR(30),
+	login			VARCHAR(20),
+	senha			VARCHAR(20),
+	qntd_liv_alug		INTEGER,
+	status			VARCHAR(20),
+	cad_por			INTEGER,
+	CONSTRAINT pk_tb_cliente_id_cliente PRIMARY KEY(id_cliente), 
+	CONSTRAINT fk_tb_cliente_cad_por FOREIGN KEY(cad_por) REFERENCES tb_usuarios(id_usuario)
+);
+
+CREATE TABLE tb_categorias(
+	id_categoria	SERIAL,
+	nm_categoria	VARCHAR(30),
+	CONSTRAINT pk_tb_ctg_id_categ PRIMARY KEY(id_categoria)
+);
+
+CREATE TABLE tb_autores(
+	id_autor		SERIAL,
+	nm_autor		VARCHAR(20),
+	CONSTRAINT pk_tb_autores_id_autor PRIMARY KEY(id_autor)
+);
+
+CREATE TABLE tb_livros(
+	id_livro		SERIAL,
+	nm_livro		VARCHAR(30),
+	data_publi		VARCHAR(20),
+	quantidade		INTEGER,
+	qualidade		VARCHAR(30),
+	resumo			VARCHAR(1000),
+	qntd_alugado	INTEGER,
+	capa		BYTEA,
+	id_categoria	INTEGER,
+	id_autor		INTEGER,
+	CONSTRAINT pk_tb_livro_id_livro PRIMARY KEY(id_livro),
+	CONSTRAINT fk_tb_livro_id_categ FOREIGN KEY(id_categoria) REFERENCES tb_categorias(id_categoria),
+	CONSTRAINT fk_tb_livro_id_autor FOREIGN KEY(id_autor) REFERENCES tb_autores(id_autor) 
+);
+
+CREATE TABLE tb_aluguel(
+	id_aluguel		SERIAL,
+	dt_aluguel		VARCHAR(20),
+	status			VARCHAR(20),
+	dt_devolucao		VARCHAR(20),
+	id_cliente		INTEGER,
+	id_livro		INTEGER,
+	id_usuario		INTEGER,
+	CONSTRAINT pk_tb_aluguel_id_aluguel PRIMARY KEY(id_aluguel),
+	CONSTRAINT fk_tb_aluguel_id_clt FOREIGN KEY(id_cliente) REFERENCES tb_clientes(id_cliente),
+	CONSTRAINT fk_tb_aluguel_id_livro FOREIGN KEY(id_livro) REFERENCES tb_livros(id_livro),
+	CONSTRAINT fk_tb_aluguel_id_us FOREIGN KEY(id_usuario) REFERENCES tb_usuarios(id_usuario)
+);
+
+
+CREATE TABLE tb_recomendados(
+    id_livro integer,
+    CONSTRAINT pk_tb_recomendados_id_livro PRIMARY KEY (id_livro),
+    CONSTRAINT pk_tb_recomendados_tb_livros FOREIGN KEY (id_livro) REFERENCES public.tb_livros (id_livro)
+);
+
+
+CREATE TABLE tb_lancamentos(
+    id_livro integer,
+    CONSTRAINT pk_tb_lancamentos_id_livro PRIMARY KEY (id_livro),
+    CONSTRAINT pk_tb_lancamentos_tb_livros FOREIGN KEY (id_livro) REFERENCES public.tb_livros (id_livro)
+);
+
+CREATE TABLE tb_carrinho(
+	id_carrinho	SERIAL,
+	dt_inclusao	VARCHAR(20),
+	status		VARCHAR(30),
+	id_livro	INTEGER,
+	id_cliente	INTEGER,
+	CONSTRAINT pk_tb_car_status PRIMARY KEY (id_carrinho),
+	CONSTRAINT fk_tb_car_id_livro FOREIGN KEY (id_livro) REFERENCES tb_livros(id_livro),
+	CONSTRAINT fk_tb_car_id_cliente FOREIGN KEY (id_cliente) REFERENCES tb_clientes(id_cliente)
+)
