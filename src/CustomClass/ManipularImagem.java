@@ -18,10 +18,6 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author marcelosiedler
- */
 public class ManipularImagem {
 
     /*
